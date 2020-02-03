@@ -39,32 +39,41 @@ App::App()
 
 void App::OnActivated(IActivatedEventArgs const& e)
 {
-	XboxGameBarUIExtensionActivatedEventArgs uiExtArgs{ nullptr };
-	if (e.Kind() == ActivationKind::Protocol)
-	{
-		auto protocolArgs = e.try_as<IProtocolActivatedEventArgs>();
-		if (protocolArgs)
-		{
-			const wchar_t* scheme = protocolArgs.Uri().SchemeName().c_str();
-			if (0 != wcsstr(scheme, L"ms-gamebaruiextension"))
-			{
-				uiExtArgs = e.try_as<XboxGameBarUIExtensionActivatedEventArgs>();
-			}
-		}
-	}
-	if (uiExtArgs)
-	{
-		auto rootFrame = Frame();
-		rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
+    XboxGameBarUIExtensionActivatedEventArgs uiExtArgs{ nullptr };
+    if (e.Kind() == ActivationKind::Protocol)
+    {
+        auto protocolArgs = e.try_as<IProtocolActivatedEventArgs>();
+        if (protocolArgs)
+        {
+            const wchar_t* scheme = protocolArgs.Uri().SchemeName().c_str();
+            if (0 != wcsstr(scheme, L"ms-gamebaruiextension"))
+            {
+                uiExtArgs = e.try_as<XboxGameBarUIExtensionActivatedEventArgs>();
+            }
+        }
+    }
+    if (uiExtArgs)
+    {
+        auto rootFrame = Frame();
+        rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
+        Window::Current().Content(rootFrame);
 
         // Navigate to correct view
         std::wstring appExtId{ uiExtArgs.AppExtensionId() };
         if (0 == appExtId.compare(L"Extension1"))
         {
+            m_uiExtension1 = XboxGameBarUIExtension(
+                uiExtArgs,
+                Window::Current().CoreWindow(),
+                rootFrame);
             rootFrame.Navigate(xaml_typename<UIExtSample::Extension1>());
         }
         else if (0 == appExtId.compare(L"Extension2"))
         {
+            m_uiExtension2 = XboxGameBarUIExtension(
+                uiExtArgs,
+                Window::Current().CoreWindow(),
+                rootFrame);
             rootFrame.Navigate(xaml_typename<UIExtSample::Extension2>());
         }
         else
@@ -73,14 +82,8 @@ void App::OnActivated(IActivatedEventArgs const& e)
             return;
         }
 
-		Window::Current().Content(rootFrame);
-		Window::Current().Activate();
-
-		m_uiExtension = XboxGameBarUIExtension(
-			uiExtArgs,
-			Window::Current().CoreWindow(),
-			rootFrame);
-	}
+        Window::Current().Activate();
+    }
 }
 
 /// <summary>

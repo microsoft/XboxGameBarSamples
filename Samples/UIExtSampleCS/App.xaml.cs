@@ -23,7 +23,8 @@ namespace UIExtSampleCS
     /// </summary>
     sealed partial class App : Application
     {
-        private XboxGameBarUIExtension xboxGameBarUIExtension = null;
+        private XboxGameBarUIExtension uiExtension1 = null;
+        private XboxGameBarUIExtension uiExtension2 = null;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -51,14 +52,23 @@ namespace UIExtSampleCS
             {
                 Frame rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                Window.Current.Content = rootFrame;
 
                 // Navigate to correct view
                 if (uiExtArgs.AppExtensionId == "Extension1")
                 {
+                    uiExtension1 = new XboxGameBarUIExtension(
+                        uiExtArgs,
+                        Window.Current.CoreWindow,
+                        rootFrame);
                     rootFrame.Navigate(typeof(Extension1));
                 }
                 else if (uiExtArgs.AppExtensionId == "Extension2")
                 {
+                    uiExtension2 = new XboxGameBarUIExtension(
+                        uiExtArgs,
+                        Window.Current.CoreWindow,
+                        rootFrame);
                     rootFrame.Navigate(typeof(Extension2));
                 }
                 else
@@ -67,13 +77,8 @@ namespace UIExtSampleCS
                     return;
                 }
 
-                Window.Current.Content = rootFrame;
                 Window.Current.Activate();
 
-                xboxGameBarUIExtension = new XboxGameBarUIExtension(
-                    uiExtArgs,
-                    Window.Current.CoreWindow,
-                    rootFrame);
             }
         }
 
