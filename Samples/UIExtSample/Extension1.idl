@@ -1,0 +1,9 @@
+namespace UIExtSample
+{
+    [default_interface]
+    runtimeclass Extension1 : Windows.UI.Xaml.Controls.Page
+    {
+        Extension1();
+        Int32 MyProperty;
+    }
+}
