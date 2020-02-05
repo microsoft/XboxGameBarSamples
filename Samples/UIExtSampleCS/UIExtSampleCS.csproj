@@ -171,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Gaming.XboxGameBar">
-      <Version>1.0.200122001-prerelease</Version>
+      <Version>1.0.200205001-prerelease</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
