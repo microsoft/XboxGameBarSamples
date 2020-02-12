@@ -23,10 +23,10 @@ using namespace Windows::UI::Xaml::Navigation;
 
 Extension1::Extension1()
 {
-	InitializeComponent();
+    InitializeComponent();
 }
 
 void UIExtSampleCX::Extension1::MyButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	myButton->Content = "Clicked";
+    myButton->Content = "Clicked";
 }
