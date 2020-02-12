@@ -38,22 +38,22 @@ App::App()
 
 void App::OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs^ e)
 {
-	XboxGameBarUIExtensionActivatedEventArgs^ uiExtArgs = nullptr;
-	if (e->Kind == ActivationKind::Protocol)
-	{
-		auto protocolArgs = dynamic_cast<IProtocolActivatedEventArgs^>(e);
-		if (protocolArgs)
-		{
-			if (0 != wcsstr(protocolArgs->Uri->AbsoluteUri->Data(), L"ms-gamebaruiextension:"))
-			{
-				uiExtArgs = dynamic_cast<XboxGameBarUIExtensionActivatedEventArgs^>(e);
-			}
-		}
-	}
-	if (uiExtArgs)
-	{
-		auto rootFrame = ref new Frame();
-		rootFrame->NavigationFailed += ref new Windows::UI::Xaml::Navigation::NavigationFailedEventHandler(this, &App::OnNavigationFailed);
+    XboxGameBarUIExtensionActivatedEventArgs^ uiExtArgs = nullptr;
+    if (e->Kind == ActivationKind::Protocol)
+    {
+        auto protocolArgs = dynamic_cast<IProtocolActivatedEventArgs^>(e);
+        if (protocolArgs)
+        {
+            if (0 != wcsstr(protocolArgs->Uri->AbsoluteUri->Data(), L"ms-gamebaruiextension:"))
+            {
+                uiExtArgs = dynamic_cast<XboxGameBarUIExtensionActivatedEventArgs^>(e);
+            }
+        }
+    }
+    if (uiExtArgs)
+    {
+        auto rootFrame = ref new Frame();
+        rootFrame->NavigationFailed += ref new Windows::UI::Xaml::Navigation::NavigationFailedEventHandler(this, &App::OnNavigationFailed);
         Window::Current->Content = rootFrame;
         
         if (uiExtArgs->AppExtensionId == "Extension1")

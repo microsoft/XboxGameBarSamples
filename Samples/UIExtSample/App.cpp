@@ -39,23 +39,23 @@ App::App()
 
 void App::OnActivated(IActivatedEventArgs const& e)
 {
-	XboxGameBarUIExtensionActivatedEventArgs uiExtArgs{ nullptr };
-	if (e.Kind() == ActivationKind::Protocol)
-	{
-		auto protocolArgs = e.try_as<IProtocolActivatedEventArgs>();
-		if (protocolArgs)
-		{
-			const wchar_t* scheme = protocolArgs.Uri().SchemeName().c_str();
-			if (0 != wcsstr(scheme, L"ms-gamebaruiextension"))
-			{
-				uiExtArgs = e.try_as<XboxGameBarUIExtensionActivatedEventArgs>();
-			}
-		}
-	}
-	if (uiExtArgs)
-	{
-		auto rootFrame = Frame();
-		rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
+    XboxGameBarUIExtensionActivatedEventArgs uiExtArgs{ nullptr };
+    if (e.Kind() == ActivationKind::Protocol)
+    {
+        auto protocolArgs = e.try_as<IProtocolActivatedEventArgs>();
+        if (protocolArgs)
+        {
+            const wchar_t* scheme = protocolArgs.Uri().SchemeName().c_str();
+            if (0 != wcsstr(scheme, L"ms-gamebaruiextension"))
+            {
+                uiExtArgs = e.try_as<XboxGameBarUIExtensionActivatedEventArgs>();
+            }
+        }
+    }
+    if (uiExtArgs)
+    {
+        auto rootFrame = Frame();
+        rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
         Window::Current().Content(rootFrame);
 
         // Navigate to correct view
