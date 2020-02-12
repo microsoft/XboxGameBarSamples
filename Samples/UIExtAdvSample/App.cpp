@@ -39,22 +39,22 @@ App::App()
 
 void App::OnActivated(IActivatedEventArgs const& e)
 {
-	XboxGameBarUIExtensionActivatedEventArgs uiExtArgs{ nullptr };
-	if (e.Kind() == ActivationKind::Protocol)
-	{
-		auto protocolArgs = e.try_as<IProtocolActivatedEventArgs>();
-		if (protocolArgs)
-		{
+    XboxGameBarUIExtensionActivatedEventArgs uiExtArgs{ nullptr };
+    if (e.Kind() == ActivationKind::Protocol)
+    {
+        auto protocolArgs = e.try_as<IProtocolActivatedEventArgs>();
+        if (protocolArgs)
+        {
             // If scheme name is ms-gamebaruiextension, Xbox Game Bar is activating us.
-			const wchar_t* scheme = protocolArgs.Uri().SchemeName().c_str();
-			if (0 != wcsstr(scheme, L"ms-gamebaruiextension"))
-			{
-				uiExtArgs = e.try_as<XboxGameBarUIExtensionActivatedEventArgs>();
-			}
-		}
-	}
-	if (uiExtArgs)
-	{
+            const wchar_t* scheme = protocolArgs.Uri().SchemeName().c_str();
+            if (0 != wcsstr(scheme, L"ms-gamebaruiextension"))
+            {
+                uiExtArgs = e.try_as<XboxGameBarUIExtensionActivatedEventArgs>();
+            }
+        }
+    }
+    if (uiExtArgs)
+    {
         //
         // If IsLaunchActivation is true, this is Game Bar's initial activation of us 
         // and we MUST create and hold onto XboxGameBarUIExtension.
@@ -117,7 +117,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
             }
             rootFrame.Navigate(xaml_typename<UIExtAdvSample::Extension2>(), uiExtArgs.Uri());
         }
-	}
+    }
 }
 
 /// <summary>
