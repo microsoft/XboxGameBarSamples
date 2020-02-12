@@ -19,9 +19,12 @@ namespace winrt::UIExtAdvSample::implementation
     {
         m_uiExtension = e.Parameter().as<XboxGameBarUIExtension>();
         m_extensionControl = XboxGameBarExtensionControl(m_uiExtension);
+
+        // Hook up event that's fired when our settings button is clicked
+        m_settingsToken = m_uiExtension.SettingsClicked({ this, &Extension1::SettingsButton_Click });
     }
 
-    IAsyncAction Extension1::ActivateAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction Extension1::ActivateAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
         hstring text = this->ActivateAsyncAppExtId().Text();
         return m_extensionControl.ActivateAsync(text);
@@ -57,15 +60,15 @@ namespace winrt::UIExtAdvSample::implementation
     }
 
 
-    IAsyncAction Extension1::MaximizeAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Extension1::RestoreAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
-        co_return co_await m_extensionControl.MaximizeAsync(this->ActivateAsyncAppExtId().Text());
+        co_return co_await m_extensionControl.RestoreAsync(this->ActivateAsyncAppExtId().Text());
     }
 
 
-    IAsyncAction Extension1::MaximizeAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Extension1::RestoreAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
-        co_return co_await m_extensionControl.MaximizeAsync(
+        co_return co_await m_extensionControl.RestoreAsync(
             this->ActivateAsyncAppId().Text(),
             this->ActivateAsyncAppExtId().Text());
     }
@@ -82,6 +85,23 @@ namespace winrt::UIExtAdvSample::implementation
         co_return co_await m_extensionControl.CloseAsync(
             this->ActivateAsyncAppId().Text(),
             this->ActivateAsyncAppExtId().Text());
+    }
+
+    IAsyncAction Extension1::TryResizeWindowAsync_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    {
+        Windows::Foundation::Size size;
+        size.Height = _wtof(this->WindowHeightBox().Text().c_str());
+        size.Width = _wtof(this->WindowWidthBox().Text().c_str());
+        auto result = co_await m_uiExtension.TryResizeWindowAsync(size);
+        co_return;
+    }
+
+    Windows::Foundation::IAsyncAction Extension1::SettingsButton_Click(
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e)
+    {
+        get_strong();
+        co_await m_uiExtension.ActivateSettingsAsync();
     }
 }
 
