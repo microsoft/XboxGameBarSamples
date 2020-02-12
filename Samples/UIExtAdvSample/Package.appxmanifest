@@ -5,28 +5,28 @@
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
          xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
          IgnorableNamespaces="uap uap3 mp">
-  
+
   <Identity
     Name="UIExtAdvSample"
     Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
     Version="1.0.0.0" />
-  
+
   <mp:PhoneIdentity PhoneProductId="c7568c8f-e7bf-4f5e-af4c-ba76d1ca5987" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-  
+
   <Properties>
     <DisplayName>UIExtAdvSample</DisplayName>
     <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-  
+
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
-  
+
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
-  
+
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UIExtAdvSample.App">
       <uap:VisualElements DisplayName="UIExtAdvSample" Description="Sample project demonstrating basic Xbox Game Bar UI Extensions"
@@ -39,59 +39,89 @@
         <!-- Two extensions are defined here.  Each extension is a separate "overlay" recognized by Game Bar.
              When your app is activated, you will be given the AppExtensionId (ID you specify below).  This allows
              you at runtime to create the desired UI view for that extension.-->
-        
+
         <!-- 1st extension -->
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="Extension1"
                              DisplayName="UI Extension Adv Sample 1"
                              Description="UI Extension Adv Sample 1 Description"
-                             PublicFolder="GameBar">
+                             PublicFolder="Extension1">
             <uap3:Properties>
-              <HomeMenuVisible>true</HomeMenuVisible>
-              <PinningSupported>true</PinningSupported>
-              <Window>
-                <Size>
-                  <Height>300</Height>
-                  <Width>400</Width>
-                  <MinHeight>150</MinHeight>
-                  <MinWidth>200</MinWidth>
-                  <MaxHeight>1000</MaxHeight>
-                  <MaxWidth>1000</MaxWidth>
-                </Size>
-                <ResizeSupported>
-                  <Horizontal>true</Horizontal>
-                  <Vertical>true</Vertical>
-                </ResizeSupported>
-              </Window>
+              <GameBarUIExtension Type="Standard">
+                <HomeMenuVisible>true</HomeMenuVisible>
+                <PinningSupported>true</PinningSupported>
+                <SettingsSupported AppExtensionId="Extension1Settings" />
+                <ActivateAfterInstall>true</ActivateAfterInstall>
+                <Window>
+                  <Size>
+                    <Height>550</Height>
+                    <Width>600</Width>
+                    <MinHeight>550</MinHeight>
+                    <MinWidth>600</MinWidth>
+                    <MaxHeight>1000</MaxHeight>
+                    <MaxWidth>1000</MaxWidth>
+                  </Size>
+                  <ResizeSupported>
+                    <Horizontal>true</Horizontal>
+                    <Vertical>true</Vertical>
+                  </ResizeSupported>
+                </Window>
+              </GameBarUIExtension>
             </uap3:Properties>
           </uap3:AppExtension>
         </uap3:Extension>
-        
+
+        <!-- Extension 1 Settings (Also an extension of separate type) -->
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension Name="microsoft.gameBarUIExtension"
+                             Id="Extension1Settings"
+                             DisplayName="UI Extension Adv Sample 1 Settings"
+                             Description="UI Extension Adv Sample 2 Settings Description"
+                             PublicFolder="Extension1">
+            <uap3:Properties>
+              <GameBarUIExtension Type="Settings">
+                <Window>
+                  <Size>
+                    <Height>300</Height>
+                    <Width>200</Width>
+                  </Size>
+                  <ResizeSupported>
+                    <Horizontal>false</Horizontal>
+                    <Vertical>false</Vertical>
+                  </ResizeSupported>
+                </Window>
+              </GameBarUIExtension>
+            </uap3:Properties>
+          </uap3:AppExtension>
+        </uap3:Extension>
+
         <!-- 2nd extension -->
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="Extension2"
                              DisplayName="UI Extension Adv Sample 2"
                              Description="UI Extension Adv Sample 2 Description"
-                             PublicFolder="GameBar">
+                             PublicFolder="Extension2">
             <uap3:Properties>
-              <HomeMenuVisible>true</HomeMenuVisible>
-              <PinningSupported>false</PinningSupported>
-              <Window>
-                <Size>
-                  <Height>200</Height>
-                  <Width>400</Width>
-                  <MinHeight>100</MinHeight>
-                  <MinWidth>175</MinWidth>
-                  <MaxHeight>200</MaxHeight>
-                  <MaxWidth>400</MaxWidth>
-                </Size>
-                <ResizeSupported>
-                  <Horizontal>false</Horizontal>
-                  <Vertical>false</Vertical>
-                </ResizeSupported>
-              </Window>
+              <GameBarUIExtension Type="Standard">
+                <HomeMenuVisible>true</HomeMenuVisible>
+                <PinningSupported>false</PinningSupported>
+                <Window>
+                  <Size>
+                    <Height>200</Height>
+                    <Width>400</Width>
+                    <MinHeight>100</MinHeight>
+                    <MinWidth>175</MinWidth>
+                    <MaxHeight>200</MaxHeight>
+                    <MaxWidth>400</MaxWidth>
+                  </Size>
+                  <ResizeSupported>
+                    <Horizontal>false</Horizontal>
+                    <Vertical>false</Vertical>
+                  </ResizeSupported>
+                </Window>
+              </GameBarUIExtension>
             </uap3:Properties>
           </uap3:AppExtension>
         </uap3:Extension>
@@ -114,7 +144,7 @@
       </ProxyStub>
     </Extension>
   </Extensions>
-  
+
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
