@@ -24,7 +24,7 @@ namespace winrt::UIExtAdvSample::implementation
         m_settingsToken = m_uiExtension.SettingsClicked({ this, &Extension1::SettingsButton_Click });
     }
 
-    IAsyncAction Extension1::ActivateAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Extension1::ActivateAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         hstring text = this->ActivateAsyncAppExtId().Text();
         return m_extensionControl.ActivateAsync(text);
@@ -90,9 +90,9 @@ namespace winrt::UIExtAdvSample::implementation
     IAsyncAction Extension1::TryResizeWindowAsync_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
         Windows::Foundation::Size size;
-        size.Height = _wtof(this->WindowHeightBox().Text().c_str());
-        size.Width = _wtof(this->WindowWidthBox().Text().c_str());
-        auto result = co_await m_uiExtension.TryResizeWindowAsync(size);
+        size.Height = (float)_wtof(this->WindowHeightBox().Text().c_str());
+        size.Width = (float)_wtof(this->WindowWidthBox().Text().c_str());
+        /*auto result =*/ co_await m_uiExtension.TryResizeWindowAsync(size);
         co_return;
     }
 

@@ -32,8 +32,8 @@
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="Extension"
-                             DisplayName="Display name for your UIExtension"
-                             Description="Description for your UI extension"
+                             DisplayName="UI Extension Settings Sample"
+                             Description="UI Extension Settings Sample Description"
                              PublicFolder="GameBar">
             <uap3:Properties>
               <GameBarUIExtension Type="Standard">
@@ -64,8 +64,8 @@
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="ExtensionSettings"
-                             DisplayName="UI Extension Settings  Sample"
-                             Description="UI Extension Settings  Sample Description"
+                             DisplayName="Settings Sample"
+                             Description="Settings Sample Description"
                              PublicFolder="SettingsSampleExtension">
             <uap3:Properties>
               <GameBarUIExtension Type="Settings">
