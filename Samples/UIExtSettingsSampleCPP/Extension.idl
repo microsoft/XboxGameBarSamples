@@ -1,0 +1,8 @@
+namespace UIExtSettingsSampleCPP
+{
+    [default_interface]
+    runtimeclass Extension : Windows.UI.Xaml.Controls.Page
+    {
+        Extension();
+    }
+}
