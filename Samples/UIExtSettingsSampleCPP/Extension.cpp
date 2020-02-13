@@ -30,9 +30,5 @@ namespace winrt::UIExtSettingsSampleCPP::implementation
     {
         auto strong_this{ get_strong() };
         co_await m_uiExtension.ActivateSettingsAsync();
-
-        /// URI Format: ms-gamebar:activate/PackageFamilyName_AppId_AppExtensionId/[uriSubpath][?uriQuery][#uriFragment]
-        //Uri uri = m_extensionControl.CreateActivationUri(m_uiExtension.)
-        //co_await m_uiExtension.ActivateSettingsWithUriAsync();
     }
 }

@@ -145,12 +145,9 @@ void App::OnActivated(IActivatedEventArgs const& e)
         }
         else
         {
-            //uri work todo
         }
         
 
-        //m_uiExtension1 = XboxGameBarUIExtension(uiExtArgs, Window::Current().CoreWindow(), rootFrame);
-        //rootFrame.Navigate(xaml_typename<UIExtSettingsSampleCPP::Extension>(), m_uiExtension1);
         Window::Current().Activate();
     }
 }
