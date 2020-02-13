@@ -30,9 +30,18 @@ namespace winrt::UIExtSettingsSampleCPP::implementation
     {
         auto strong_this{ get_strong() };
         co_await m_uiExtension.ActivateSettingsAsync();
+        
 
-        /// URI Format: ms-gamebar:activate/PackageFamilyName_AppId_AppExtensionId/[uriSubpath][?uriQuery][#uriFragment]
-        //Uri uri = m_extensionControl.CreateActivationUri(m_uiExtension.)
-        //co_await m_uiExtension.ActivateSettingsWithUriAsync();
+		//Comment out code below to  demonstrate how to activate settings with a Uri string
+		//
+		//hstring appExtID = L"ExtensionSettings"; //ID of Settings Extension 
+		//hstring appID = L"App";
+		//hstring uriSubPath = L"[uriSubPath]";
+		//hstring uriQuery = L"[?uriQuery]";
+		//hstring uriFragment = L"[#uriFragment]";
+
+		//Uri uri = m_extensionControl.CreateActivationUri(appID, appExtID, uriSubPath, uriQuery, uriFragment);
+
+		//co_await m_uiExtension.ActivateSettingsWithUriAsync(uri);
     }
 }
