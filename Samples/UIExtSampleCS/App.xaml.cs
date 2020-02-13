@@ -24,7 +24,6 @@ namespace UIExtSampleCS
     sealed partial class App : Application
     {
         private XboxGameBarUIExtension uiExtension1 = null;
-        private XboxGameBarUIExtension uiExtension2 = null;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -50,35 +49,20 @@ namespace UIExtSampleCS
             }
             if (uiExtArgs != null)
             {
+                // Create root frame and set it as the window content
                 Frame rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 Window.Current.Content = rootFrame;
 
-                // Navigate to correct view
-                if (uiExtArgs.AppExtensionId == "Extension1")
-                {
-                    uiExtension1 = new XboxGameBarUIExtension(
-                        uiExtArgs,
-                        Window.Current.CoreWindow,
-                        rootFrame);
-                    rootFrame.Navigate(typeof(Extension1));
-                }
-                else if (uiExtArgs.AppExtensionId == "Extension2")
-                {
-                    uiExtension2 = new XboxGameBarUIExtension(
-                        uiExtArgs,
-                        Window.Current.CoreWindow,
-                        rootFrame);
-                    rootFrame.Navigate(typeof(Extension2));
-                }
-                else
-                {
-                    // Unknown - Game Bar should never send you an unknown App Extension Id
-                    return;
-                }
+                // Create Game Bar extension object which bootstraps the connection with Game Bar
+                uiExtension1 = new XboxGameBarUIExtension(
+                    uiExtArgs,
+                    Window.Current.CoreWindow,
+                    rootFrame);
+                rootFrame.Navigate(typeof(Extension1));
 
+                // Activate our window
                 Window.Current.Activate();
-
             }
         }
 

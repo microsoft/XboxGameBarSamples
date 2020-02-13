@@ -131,9 +131,6 @@
     <Compile Include="Extension1.xaml.cs">
       <DependentUpon>Extension1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Extension2.xaml.cs">
-      <DependentUpon>Extension2.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,10 +158,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Extension1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Extension2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

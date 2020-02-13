@@ -118,9 +118,6 @@
     <ClInclude Include="Extension1.h">
       <DependentUpon>Extension1.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="Extension2.h">
-      <DependentUpon>Extension2.xaml</DependentUpon>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -130,9 +127,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Extension1.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Extension2.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -163,9 +157,6 @@
     <ClCompile Include="Extension1.cpp">
       <DependentUpon>Extension1.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="Extension2.cpp">
-      <DependentUpon>Extension2.xaml</DependentUpon>
-    </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +168,6 @@
     </Midl>
     <Midl Include="Extension1.idl">
       <DependentUpon>Extension1.xaml</DependentUpon>
-    </Midl>
-    <Midl Include="Extension2.idl">
-      <DependentUpon>Extension2.xaml</DependentUpon>
     </Midl>
   </ItemGroup>
   <ItemGroup>
