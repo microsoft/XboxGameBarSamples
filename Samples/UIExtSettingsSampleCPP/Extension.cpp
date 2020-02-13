@@ -32,16 +32,16 @@ namespace winrt::UIExtSettingsSampleCPP::implementation
         co_await m_uiExtension.ActivateSettingsAsync();
         
 
-		//Comment out code below to  demonstrate how to activate settings with a Uri string
-		//
-		//hstring appExtID = L"ExtensionSettings"; //ID of Settings Extension 
-		//hstring appID = L"App";
-		//hstring uriSubPath = L"[uriSubPath]";
-		//hstring uriQuery = L"[?uriQuery]";
-		//hstring uriFragment = L"[#uriFragment]";
+        //Comment out code below to  demonstrate how to activate settings with a Uri string
+        //
+        //hstring appExtID = L"ExtensionSettings"; //ID of Settings Extension 
+        //hstring appID = L"App";
+        //hstring uriSubPath = L"[uriSubPath]";
+        //hstring uriQuery = L"[?uriQuery]";
+        //hstring uriFragment = L"[#uriFragment]";
 
-		//Uri uri = m_extensionControl.CreateActivationUri(appID, appExtID, uriSubPath, uriQuery, uriFragment);
+        //Uri uri = m_extensionControl.CreateActivationUri(appID, appExtID, uriSubPath, uriQuery, uriFragment);
 
-		//co_await m_uiExtension.ActivateSettingsWithUriAsync(uri);
+        //co_await m_uiExtension.ActivateSettingsWithUriAsync(uri);
     }
 }
