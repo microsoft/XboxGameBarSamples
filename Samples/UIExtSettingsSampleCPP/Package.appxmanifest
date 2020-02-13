@@ -6,12 +6,12 @@
          IgnorableNamespaces="uap mp">
   <Identity
     Name="32d58257-7bf8-4002-814a-66c8f415f564"
-    Publisher="CN=alburt"
+    Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
     Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="32d58257-7bf8-4002-814a-66c8f415f564" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
   <Properties>
     <DisplayName>UIExtSettingsSampleCPP</DisplayName>
-    <PublisherDisplayName>alburt</PublisherDisplayName>
+    <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
