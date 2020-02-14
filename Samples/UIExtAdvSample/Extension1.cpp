@@ -31,14 +31,16 @@ namespace winrt::UIExtAdvSample::implementation
         m_visibleChangedToken = m_uiExtension.VisibleChanged({ this, &Extension1::VisibleChanged });
         m_windowStateChangedToken = m_uiExtension.WindowStateChanged({ this, &Extension1::WindowStateChanged });
 
+        //Favorited Changed
+        hstring favorited = m_uiExtension.Favorited() ? L"true" : L"false";
+        FavoritedTextBlock().Text(favorited);
+
+        //PinnedState intialization
         hstring pinned = m_uiExtension.Pinned() ? L"true" : L"false";
-        ElementTheme requestedTheme = m_uiExtension.RequestedTheme();
         PinnedStateTextBlock().Text(pinned);
 
-      
-
-        hstring val = L"";
-
+        //Requested theme intialization
+        hstring val{ L"" };
         switch (m_uiExtension.RequestedTheme())
         {
         case ElementTheme::Light:
@@ -134,12 +136,18 @@ namespace winrt::UIExtAdvSample::implementation
         co_await m_uiExtension.ActivateSettingsAsync();
     }
 
-    void Extension1::FavoritedChanged(
+    winrt::fire_and_forget Extension1::FavoritedChanged(
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
         auto value = m_uiExtension.Favorited();
+
+        hstring favorited = m_uiExtension.Favorited() ? L"true" : L"false";
+
+        co_await winrt::resume_foreground(FavoritedTextBlock().Dispatcher());
+
+        FavoritedTextBlock().Text(favorited);
     }
 
     void Extension1::GameBarDisplayModeChanged(

@@ -68,6 +68,10 @@
             <TextBlock Text="Requested Theme:  " VerticalAlignment="Center"/>
             <TextBlock  VerticalAlignment="Center" x:Name="RequestedThemeTextBlock" />
           </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Is Favorited:  " VerticalAlignment="Center"/>
+            <TextBlock  VerticalAlignment="Center" x:Name="FavoritedTextBlock" />
+          </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>
