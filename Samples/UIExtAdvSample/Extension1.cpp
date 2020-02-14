@@ -31,8 +31,27 @@ namespace winrt::UIExtAdvSample::implementation
         m_visibleChangedToken = m_uiExtension.VisibleChanged({ this, &Extension1::VisibleChanged });
         m_windowStateChangedToken = m_uiExtension.WindowStateChanged({ this, &Extension1::WindowStateChanged });
 
-        hstring result = m_uiExtension.Pinned() ? L"true" : L"false";
-        this->PinnedStateTextBlock().Text(result);
+        hstring pinned = m_uiExtension.Pinned() ? L"true" : L"false";
+        ElementTheme requestedTheme = m_uiExtension.RequestedTheme();
+        PinnedStateTextBlock().Text(pinned);
+
+      
+
+        hstring val = L"";
+
+        switch (m_uiExtension.RequestedTheme())
+        {
+        case ElementTheme::Light:
+            val = L"Light";
+            break;
+        case ElementTheme::Dark:
+            val = L"Dark";
+            break;
+        default:
+            val = L"Default";
+        }
+
+        RequestedThemeTextBlock().Text(val);
     }
 
     IAsyncAction Extension1::ActivateAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -148,12 +167,31 @@ namespace winrt::UIExtAdvSample::implementation
 
     }
 
-    void Extension1::RequestedThemeChanged(
+    winrt::fire_and_forget  Extension1::RequestedThemeChanged(
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
         auto value = m_uiExtension.RequestedTheme();
+
+        hstring val = L"";
+       
+        switch (value)
+        {
+        case ElementTheme::Light:
+            val = L"Light";
+            break;
+        case ElementTheme::Dark:
+            val = L"Dark";
+            break;
+        default:
+            val = L"Default";
+        }
+
+
+        co_await winrt::resume_foreground(RequestedThemeTextBlock().Dispatcher());
+
+        RequestedThemeTextBlock().Text(val);
     }
 
     void Extension1::VisibleChanged(

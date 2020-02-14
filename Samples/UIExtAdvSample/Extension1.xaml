@@ -64,6 +64,10 @@
             <TextBlock Text="Pinned State: " VerticalAlignment="Center"/>
             <TextBlock  VerticalAlignment="Center" x:Name="PinnedStateTextBlock" />
           </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Requested Theme:  " VerticalAlignment="Center"/>
+            <TextBlock  VerticalAlignment="Center" x:Name="RequestedThemeTextBlock" />
+          </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>
