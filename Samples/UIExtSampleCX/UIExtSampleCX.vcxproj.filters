@@ -47,7 +47,6 @@
   <ItemGroup>
     <Page Include="MainPage.xaml" />
     <Page Include="Extension1.xaml" />
-    <Page Include="Extension2.xaml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

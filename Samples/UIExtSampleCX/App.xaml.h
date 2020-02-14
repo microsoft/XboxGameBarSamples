@@ -26,6 +26,5 @@ namespace UIExtSampleCX
         void OnNavigationFailed(Platform::Object ^sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs ^e);
 
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension^ m_uiExtension1{ nullptr };
-        Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension^ m_uiExtension2{ nullptr };
     };
 }

@@ -6,7 +6,6 @@
   <ItemGroup>
     <Page Include="MainPage.xaml" />
     <Page Include="Extension1.xaml" />
-    <Page Include="Extension2.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
