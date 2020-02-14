@@ -60,6 +60,10 @@
                 <TextBox Grid.Column="1" Grid.Row="1" x:Name="WindowHeightBox" VerticalAlignment="Center" Text="800"/>
             </Grid>
             <Button x:Name="TryResizeWindowAsync" Click="TryResizeWindowAsync_Click" Margin="0,2">TryResizeWindowAsync</Button>
+          <StackPanel>
+            <TextBlock Text="Pinned State: " VerticalAlignment="Center"/>
+            <TextBlock  VerticalAlignment="Center" x:Name="PinnedStateTextBlock" />
+          </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>

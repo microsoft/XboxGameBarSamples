@@ -3,6 +3,7 @@
 #include "Extension1.g.cpp"
 
 using namespace winrt;
+using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::Foundation;
 using namespace winrt::Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Navigation;
@@ -19,9 +20,19 @@ namespace winrt::UIExtAdvSample::implementation
     {
         m_uiExtension = e.Parameter().as<XboxGameBarUIExtension>();
         m_extensionControl = XboxGameBarExtensionControl(m_uiExtension);
+        m_uiExtensionCoreWindow = Window::Current().CoreWindow();
 
         // Hook up event that's fired when our settings button is clicked
         m_settingsToken = m_uiExtension.SettingsClicked({ this, &Extension1::SettingsButton_Click });
+        m_favoritedChangedToken = m_uiExtension.FavoritedChanged({ this, &Extension1::FavoritedChanged });
+        m_displayModeChangedToken = m_uiExtension.GameBarDisplayModeChanged({ this, &Extension1::GameBarDisplayModeChanged });
+        m_pinnedChangedToken = m_uiExtension.PinnedChanged({ this, &Extension1::PinnedChanged });
+        m_themeChangedToken = m_uiExtension.RequestedThemeChanged({ this, &Extension1::RequestedThemeChanged });
+        m_visibleChangedToken = m_uiExtension.VisibleChanged({ this, &Extension1::VisibleChanged });
+        m_windowStateChangedToken = m_uiExtension.WindowStateChanged({ this, &Extension1::WindowStateChanged });
+
+        hstring result = m_uiExtension.Pinned() ? L"true" : L"false";
+        this->PinnedStateTextBlock().Text(result);
     }
 
     IAsyncAction Extension1::ActivateAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -100,8 +111,65 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
-        get_strong();
+        auto strongThis{ get_strong() };
         co_await m_uiExtension.ActivateSettingsAsync();
+    }
+
+    void Extension1::FavoritedChanged(
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e)
+    {
+        auto strongThis{ get_strong() };
+        auto value = m_uiExtension.Favorited();
+    }
+
+    void Extension1::GameBarDisplayModeChanged(
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e)
+    {
+        auto strongThis{ get_strong() };
+        auto value = m_uiExtension.GameBarDisplayMode();
+    }
+
+    winrt::fire_and_forget Extension1::PinnedChanged(
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e) try
+    {
+        auto strongThis{ get_strong() };
+        hstring result = m_uiExtension.Pinned() ? L"true" : L"false";
+
+        //co_await winrt::resume_foreground(m_uiExtensionCoreWindow.Dispatcher());
+        co_await winrt::resume_foreground(PinnedStateTextBlock().Dispatcher());
+
+        PinnedStateTextBlock().Text(result);
+    }
+    catch(...)
+    {
+
+    }
+
+    void Extension1::RequestedThemeChanged(
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e)
+    {
+        auto strongThis{ get_strong() };
+        auto value = m_uiExtension.RequestedTheme();
+    }
+
+    void Extension1::VisibleChanged(
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e)
+    {
+        auto strongThis{ get_strong() };
+        auto value = m_uiExtension.Visible();
+    }
+
+    void Extension1::WindowStateChanged(
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e)
+    {
+        auto strongThis{ get_strong() };
+        auto value = m_uiExtension.WindowState();
     }
 }
 
