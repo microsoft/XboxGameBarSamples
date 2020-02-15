@@ -2,6 +2,7 @@
 
 #include "Extension1.g.h"
 #include <winrt/Windows.UI.Xaml.Navigation.h>
+#include <winrt/Windows.UI.Core.h>
 #include <winrt/Microsoft.Gaming.XboxGameBar.h>
 
 namespace winrt::UIExtAdvSample::implementation
@@ -26,12 +27,27 @@ namespace winrt::UIExtAdvSample::implementation
 
         // Settings click handler for ui extension settings click event
         Windows::Foundation::IAsyncAction SettingsButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget FavoritedChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        void GameBarDisplayModeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget PinnedChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget  RequestedThemeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget VisibleChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget WindowStateChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
 
     private:
         winrt::event_token m_settingsToken{};
 
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarExtensionControl m_extensionControl{ nullptr };
+        Windows::UI::Core::CoreWindow m_uiExtensionCoreWindow{ nullptr };
+
+        winrt::event_token m_settingsClickedToken{};
+        winrt::event_token m_favoritedChangedToken{};
+        winrt::event_token m_displayModeChangedToken{};
+        winrt::event_token m_pinnedChangedToken{};
+        winrt::event_token m_themeChangedToken{};
+        winrt::event_token m_visibleChangedToken{};
+        winrt::event_token m_windowStateChangedToken{};
     };
 }
 
