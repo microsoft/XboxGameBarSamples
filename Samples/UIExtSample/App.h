@@ -16,6 +16,5 @@ namespace winrt::UIExtSample::implementation
     private:
 
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension1{ nullptr };
-        Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension2{ nullptr };
     };
 }

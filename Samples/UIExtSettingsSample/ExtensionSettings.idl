@@ -1,0 +1,8 @@
+namespace UIExtSettingsSample
+{
+    [default_interface]
+    runtimeclass ExtensionSettings : Windows.UI.Xaml.Controls.Page
+    {
+        ExtensionSettings();
+    }
+}

@@ -3,7 +3,6 @@
 #include "App.h"
 #include "MainPage.h"
 #include "Extension1.h"
-#include "Extension2.h"
 
 using namespace winrt;
 using namespace Windows::ApplicationModel;
@@ -54,34 +53,21 @@ void App::OnActivated(IActivatedEventArgs const& e)
     }
     if (uiExtArgs)
     {
+        // Create root frame and set it as the window content
         auto rootFrame = Frame();
         rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
         Window::Current().Content(rootFrame);
 
-        // Navigate to correct view
-        std::wstring appExtId{ uiExtArgs.AppExtensionId() };
-        if (0 == appExtId.compare(L"Extension1"))
-        {
-            m_uiExtension1 = XboxGameBarUIExtension(
-                uiExtArgs,
-                Window::Current().CoreWindow(),
-                rootFrame);
-            rootFrame.Navigate(xaml_typename<UIExtSample::Extension1>());
-        }
-        else if (0 == appExtId.compare(L"Extension2"))
-        {
-            m_uiExtension2 = XboxGameBarUIExtension(
-                uiExtArgs,
-                Window::Current().CoreWindow(),
-                rootFrame);
-            rootFrame.Navigate(xaml_typename<UIExtSample::Extension2>());
-        }
-        else
-        {
-            // Unknown - Game Bar should never send you an unknown App Extension Id
-            return;
-        }
+        // Create Game Bar extension object which bootstraps the connection with Game Bar
+        m_uiExtension1 = XboxGameBarUIExtension(
+            uiExtArgs,
+            Window::Current().CoreWindow(),
+            rootFrame);
 
+        // Navigate to our desired view: Extension1 page. 
+        rootFrame.Navigate(xaml_typename<UIExtSample::Extension1>());
+
+        // Activate our window
         Window::Current().Activate();
     }
 }
