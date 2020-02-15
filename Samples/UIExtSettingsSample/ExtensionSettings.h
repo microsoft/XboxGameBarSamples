@@ -7,7 +7,7 @@ namespace winrt::UIExtSettingsSample::implementation
     struct ExtensionSettings : ExtensionSettingsT<ExtensionSettings>
     {
         ExtensionSettings();
-        void ClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void MyButton_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
     };
 }
 
