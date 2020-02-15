@@ -62,14 +62,15 @@ namespace winrt::UIExtAdvSample::implementation
         RequestedThemeTextBlock().Text(requestedTheme);
 
         //visible
-        hstring result = m_uiExtension.Visible() ? L"true" : L"false";
-        VisibleChangedTextBlock().Text(result);
+        hstring isVisible = m_uiExtension.Visible() ? L"\ttrue\n" : L"\tfalse\n";
+        hstring visibleState = L"Visible: " + isVisible;
+        VisibleChangedTextBlock().Text(visibleState);
 
         //Window State
         XboxGameBarUIExtensionWindowState windowState = m_uiExtension.WindowState();
-        hstring window = windowState == XboxGameBarUIExtensionWindowState::Minimized ? L"WINDOW IS MINIMIZED" : L"WINDOW IS RESTORED"; 
-        WindowStateChangedTextBlock().Text(window.c_str());
-
+        hstring window = windowState == XboxGameBarUIExtensionWindowState::Minimized ? L"\tMinimized\n" : L"\tRestored\n";
+        hstring windowOutput = L"Window State: " + window;
+        WindowStateChangedTextBlock().Text(windowOutput.c_str());
         //
     }
 
@@ -227,16 +228,15 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
-        hstring result = m_uiExtension.Visible() ? L"true" : L"false";
 
+        hstring isVisible = m_uiExtension.Visible() ? L"\ttrue\n" : L"\tfalse\n";
+        hstring visibleState = L"Visible: " + isVisible;
+       
         co_await winrt::resume_foreground(VisibleChangedTextBlock().Dispatcher());
 
-        VisibleChangedTextBlock().Text(result);
+        VisibleChangedTextBlock().Text(visibleState);
 
-        //investigate visibility
-        hstring test = L"########################################################################\n";
-        OutputDebugString(test.c_str());
-        OutputDebugString(result.c_str());
+        OutputDebugString(visibleState.c_str());
     }
 
     winrt::fire_and_forget Extension1::WindowStateChanged(
@@ -246,17 +246,19 @@ namespace winrt::UIExtAdvSample::implementation
         auto strongThis{ get_strong() };
         auto value = m_uiExtension.WindowState();
 
-        XboxGameBarUIExtensionWindowState windowState = m_uiExtension.WindowState();
-        hstring window = windowState == XboxGameBarUIExtensionWindowState::Minimized ? L"WINDOW IS MINIMIZED\n" : L"WINDOW IS RESTORED\n";
 
+        
+        XboxGameBarUIExtensionWindowState windowState = m_uiExtension.WindowState();
+        hstring window = windowState == XboxGameBarUIExtensionWindowState::Minimized ? L"\tMinimized\n" : L"\tRestored\n";
+        hstring windowOutput = L"Window State: " + window;
         co_await winrt::resume_foreground(WindowStateChangedTextBlock().Dispatcher());
 
         //TODO: investigate bug of WindowState always being XboxGameBarUIExtensionWindowState::Restored
 
         //hstring test = L"########################################################################\n";
         //OutputDebugString(test.c_str());
-        //OutputDebugString(window.c_str());
-        WindowStateChangedTextBlock().Text(window.c_str());
+        OutputDebugString(windowOutput.c_str());
+        WindowStateChangedTextBlock().Text(windowOutput.c_str());
     }
 }
 

@@ -73,11 +73,11 @@
             <TextBlock  VerticalAlignment="Center" x:Name="FavoritedTextBlock" />
           </StackPanel>
           <StackPanel>
-            <TextBlock Text="Visible:  " VerticalAlignment="Center"/>
+            <!--<TextBlock Text="Visible:  " VerticalAlignment="Center"/>-->
             <TextBlock  VerticalAlignment="Center" x:Name="VisibleChangedTextBlock" />
           </StackPanel>
           <StackPanel>
-            <TextBlock Text="Window State:  " VerticalAlignment="Center"/>
+            <!--<TextBlock Text="Window State:  " VerticalAlignment="Center"/>-->
             <TextBlock  VerticalAlignment="Center" x:Name="WindowStateChangedTextBlock" />
           </StackPanel>
         </StackPanel>
