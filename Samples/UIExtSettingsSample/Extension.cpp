@@ -24,6 +24,11 @@ namespace winrt::UIExtSettingsSample::implementation
         m_settingsToken = m_uiExtension.SettingsClicked({ this, &Extension::SettingsButton_Click });
     }
 
+    void Extension::MyButton_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        myButton().Content(box_value(L"Clicked"));
+    }
+
     Windows::Foundation::IAsyncAction Extension::SettingsButton_Click(
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
