@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
          xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
@@ -24,7 +24,7 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UIExtSettingsSample.App">
       <uap:VisualElements DisplayName="UIExtSettingsSample" Description="Sample of settings extension activation"
         Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
@@ -32,8 +32,8 @@
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="Extension"
-                             DisplayName="Display name for your UIExtension"
-                             Description="Description for your UI extension"
+                             DisplayName="UI Extension Settings Sample"
+                             Description="UI Extension Settings Sample Description"
                              PublicFolder="GameBar">
             <uap3:Properties>
               <GameBarUIExtension Type="Standard">
@@ -64,8 +64,8 @@
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="ExtensionSettings"
-                             DisplayName="UI Extension Settings  Sample"
-                             Description="UI Extension Settings  Sample Description"
+                             DisplayName="Settings Sample"
+                             Description="Settings Sample Description"
                              PublicFolder="SettingsSampleExtension">
             <uap3:Properties>
               <GameBarUIExtension Type="Settings">

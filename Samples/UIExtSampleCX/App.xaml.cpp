@@ -6,7 +6,6 @@
 #include "pch.h"
 #include "MainPage.xaml.h"
 #include "Extension1.xaml.h"
-#include "Extension2.xaml.h"
 
 using namespace UIExtSampleCX;
 
@@ -52,32 +51,19 @@ void App::OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs
     }
     if (uiExtArgs)
     {
+        // Create root frame and set it as the window content
         auto rootFrame = ref new Frame();
         rootFrame->NavigationFailed += ref new Windows::UI::Xaml::Navigation::NavigationFailedEventHandler(this, &App::OnNavigationFailed);
         Window::Current->Content = rootFrame;
-        
-        if (uiExtArgs->AppExtensionId == "Extension1")
-        {
-            m_uiExtension1 = ref new XboxGameBarUIExtension(
-                uiExtArgs,
-                Window::Current->CoreWindow,
-                rootFrame);
-            rootFrame->Navigate(TypeName(Extension1::typeid), nullptr);
-        }
-        else if(uiExtArgs->AppExtensionId == "Extension2")
-        {
-            m_uiExtension2 = ref new XboxGameBarUIExtension(
-                uiExtArgs,
-                Window::Current->CoreWindow,
-                rootFrame);
-            rootFrame->Navigate(TypeName(Extension2::typeid), nullptr);
-        }
-        else
-        {
-            // Unknown - Game Bar should never send you an unknown App Extension Id
-            return;
-        }
 
+        // Create Game Bar extension object which bootstraps the connection with Game Bar
+        m_uiExtension1 = ref new XboxGameBarUIExtension(
+            uiExtArgs,
+            Window::Current->CoreWindow,
+            rootFrame);
+        rootFrame->Navigate(TypeName(Extension1::typeid), nullptr);
+
+        // Activate our window
         Window::Current->Activate();
     }
 }

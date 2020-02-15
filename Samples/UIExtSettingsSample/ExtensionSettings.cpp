@@ -14,6 +14,5 @@ namespace winrt::UIExtSettingsSample::implementation
 
     void ExtensionSettings::ClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
-        //myButton().Content(box_value(L"Clicked"));
     }
 }

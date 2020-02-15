@@ -29,8 +29,7 @@ namespace winrt::UIExtSettingsSample::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strong_this{ get_strong() };
-        co_await m_uiExtension.ActivateSettingsAsync();
-        
+        co_await m_uiExtension.ActivateSettingsAsync();        
 
         //Comment out code below to  demonstrate how to activate settings with a Uri string
         //
