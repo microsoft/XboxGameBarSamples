@@ -61,16 +61,24 @@
             </Grid>
             <Button x:Name="TryResizeWindowAsync" Click="TryResizeWindowAsync_Click" Margin="0,2">TryResizeWindowAsync</Button>
           <StackPanel>
-            <TextBlock Text="Pinned State: " VerticalAlignment="Center"/>
+            <!--<TextBlock Text="Pinned State: " VerticalAlignment="Center" />-->
             <TextBlock  VerticalAlignment="Center" x:Name="PinnedStateTextBlock" />
           </StackPanel>
           <StackPanel>
-            <TextBlock Text="Requested Theme:  " VerticalAlignment="Center"/>
+            <!--<TextBlock Text="Requested Theme:  " VerticalAlignment="Center"/>-->
             <TextBlock  VerticalAlignment="Center" x:Name="RequestedThemeTextBlock" />
           </StackPanel>
           <StackPanel>
-            <TextBlock Text="Is Favorited:  " VerticalAlignment="Center"/>
+            <!--<TextBlock Text="Is Favorited:  " VerticalAlignment="Center"/>-->
             <TextBlock  VerticalAlignment="Center" x:Name="FavoritedTextBlock" />
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Visible:  " VerticalAlignment="Center"/>
+            <TextBlock  VerticalAlignment="Center" x:Name="VisibleChangedTextBlock" />
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Window State:  " VerticalAlignment="Center"/>
+            <TextBlock  VerticalAlignment="Center" x:Name="WindowStateChangedTextBlock" />
           </StackPanel>
         </StackPanel>
     </ScrollViewer>
