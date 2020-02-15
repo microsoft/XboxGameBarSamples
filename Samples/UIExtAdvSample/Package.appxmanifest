@@ -84,7 +84,7 @@
                 <Window>
                   <Size>
                     <Height>300</Height>
-                    <Width>200</Width>
+                    <Width>300</Width>
                   </Size>
                   <ResizeSupported>
                     <Horizontal>false</Horizontal>
