@@ -20,7 +20,6 @@ namespace winrt::UIExtAdvSample::implementation
     {
         m_uiExtension = e.Parameter().as<XboxGameBarUIExtension>();
         m_extensionControl = XboxGameBarExtensionControl(m_uiExtension);
-        //m_uiExtensionCoreWindow = Window::Current().CoreWindow();
 
         // Hook up event that's fired when our settings button is clicked
         m_settingsToken = m_uiExtension.SettingsClicked({ this, &Extension1::SettingsButton_Click });
@@ -31,25 +30,15 @@ namespace winrt::UIExtAdvSample::implementation
         m_visibleChangedToken = m_uiExtension.VisibleChanged({ this, &Extension1::VisibleChanged });
         m_windowStateChangedToken = m_uiExtension.WindowStateChanged({ this, &Extension1::WindowStateChanged });
 
-        //NOTE: 
-        // Ideally all of these initializations should be moved to seperate methods for modularity
-        //      Ex. SetPinnedState 
-        //      SetPinnedStateAsync
-        //
-
-
-        //PinnedState intialization
         hstring isPinned = m_uiExtension.Pinned() ? L"true" : L"false";
         hstring pinnedOutput = L"Pinned: \t\t" + isPinned;
         PinnedStateTextBlock().Text(pinnedOutput);
 
-        //Favorited Changed
         hstring favoriteState{};
         hstring isFavorited = m_uiExtension.Favorited() ? L"true" : L"false";
         favoriteState = L"Favorited: \t" + isFavorited;
         FavoritedTextBlock().Text(favoriteState);
 
-        //Requested theme
         hstring theme{};
         switch (m_uiExtension.RequestedTheme())
         {
@@ -66,13 +55,10 @@ namespace winrt::UIExtAdvSample::implementation
         hstring requestedTheme = L"Theme: \t\t" + theme;
         RequestedThemeTextBlock().Text(requestedTheme);
 
-        //visible
         hstring isVisible = m_uiExtension.Visible() ? L"true" : L"false";
         hstring visibleState = L"Visible: \t\t" + isVisible;
 
-        //Window State
-        XboxGameBarUIExtensionWindowState windowState = m_uiExtension.WindowState();
-        hstring window = windowState == XboxGameBarUIExtensionWindowState::Minimized ? L"Minimized\n" : L"Restored\n";
+        hstring window = (m_uiExtension.WindowState() == XboxGameBarUIExtensionWindowState::Minimized) ? L"Minimized\n" : L"Restored\n";
         hstring windowOutput = L"Window State: \t" + window;
         OutputDebugString(windowOutput.c_str());
     }
@@ -83,7 +69,6 @@ namespace winrt::UIExtAdvSample::implementation
         return m_extensionControl.ActivateAsync(text);
     }
 
-
     IAsyncAction Extension1::ActivateAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
         co_return co_await m_extensionControl.ActivateAsync(
@@ -91,19 +76,16 @@ namespace winrt::UIExtAdvSample::implementation
             this->ActivateAsyncAppExtId().Text());
     }
 
-
     IAsyncAction Extension1::ActivateWithUriAsyncButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
         Uri uri{ this->ActivateAsyncUri().Text() };
         co_return co_await m_extensionControl.ActivateWithUriAsync(uri);
     }
 
-
     IAsyncAction Extension1::MinimizeAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
         co_return co_await m_extensionControl.MinimizeAsync(this->ActivateAsyncAppExtId().Text());
     }
-
 
     IAsyncAction Extension1::MinimizeAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
@@ -112,12 +94,10 @@ namespace winrt::UIExtAdvSample::implementation
             this->ActivateAsyncAppExtId().Text());
     }
 
-
     IAsyncAction Extension1::RestoreAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
         co_return co_await m_extensionControl.RestoreAsync(this->ActivateAsyncAppExtId().Text());
     }
-
 
     IAsyncAction Extension1::RestoreAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
@@ -126,12 +106,10 @@ namespace winrt::UIExtAdvSample::implementation
             this->ActivateAsyncAppExtId().Text());
     }
 
-
     IAsyncAction Extension1::CloseAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
         co_return co_await m_extensionControl.CloseAsync(this->ActivateAsyncAppExtId().Text());
     }
-
 
     IAsyncAction Extension1::CloseAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
@@ -145,7 +123,7 @@ namespace winrt::UIExtAdvSample::implementation
         Windows::Foundation::Size size;
         size.Height = (float)_wtof(this->WindowHeightBox().Text().c_str());
         size.Width = (float)_wtof(this->WindowWidthBox().Text().c_str());
-        /*auto result =*/ co_await m_uiExtension.TryResizeWindowAsync(size);
+        auto result = co_await m_uiExtension.TryResizeWindowAsync(size);
         co_return;
     }
 
@@ -176,8 +154,10 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
-        auto strongThis{ get_strong() };
-        auto value = m_uiExtension.GameBarDisplayMode();
+        hstring mode = (m_uiExtension.GameBarDisplayMode() == XboxGameBarDisplayMode::Foreground) ? L"Foreground\n" : L"PinnedOnly\n";
+        hstring modeOutput = L"Game Bar View Mode: " + mode;
+
+        OutputDebugString(modeOutput.c_str());
     }
 
     winrt::fire_and_forget Extension1::PinnedChanged(
@@ -185,10 +165,10 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
+
         hstring isPinned = m_uiExtension.Pinned() ? L"true" : L"false";
         hstring pinnedOutput = L"Pinned: \t\t" + isPinned;
 
-        //co_await winrt::resume_foreground(m_uiExtensionCoreWindow.Dispatcher());
         co_await winrt::resume_foreground(PinnedStateTextBlock().Dispatcher());
 
         PinnedStateTextBlock().Text(pinnedOutput);
@@ -221,31 +201,22 @@ namespace winrt::UIExtAdvSample::implementation
         RequestedThemeTextBlock().Text(requestedTheme);
     }
 
-    winrt::fire_and_forget Extension1::VisibleChanged(
+    void Extension1::VisibleChanged(
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
-        auto strongThis{ get_strong() };
-
         hstring isVisible = m_uiExtension.Visible() ? L"true\n" : L"false\n";
-        hstring visibleState = L"Visible: \t\t" + isVisible;
-       
-        co_await winrt::resume_foreground(VisibleChangedTextBlock().Dispatcher());
+        hstring visibleState = L"Visible: " + isVisible;
 
         OutputDebugString(visibleState.c_str());
     }
 
-    winrt::fire_and_forget Extension1::WindowStateChanged(
+    void Extension1::WindowStateChanged(
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
-        auto strongThis{ get_strong() };
-
-        XboxGameBarUIExtensionWindowState windowState{ m_uiExtension.WindowState() };
-        hstring window = windowState == XboxGameBarUIExtensionWindowState::Minimized ? L"Minimized\n" : L"Restored\n";
-        hstring windowOutput{ L"Window State: \t" + window };
-
-        co_await winrt::resume_foreground(WindowStateChangedTextBlock().Dispatcher());
+        hstring window = (m_uiExtension.WindowState() == XboxGameBarUIExtensionWindowState::Minimized) ? L"Minimized\n" : L"Restored\n";
+        hstring windowOutput = L"Window State: " + window;
 
         OutputDebugString(windowOutput.c_str());
     }

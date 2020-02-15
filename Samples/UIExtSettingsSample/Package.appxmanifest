@@ -59,8 +59,7 @@
             </uap3:Properties>
           </uap3:AppExtension>
         </uap3:Extension>
-
-
+        
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="ExtensionSettings"
@@ -72,7 +71,7 @@
                 <Window>
                   <Size>
                     <Height>300</Height>
-                    <Width>200</Width>
+                    <Width>300</Width>
                   </Size>
                   <ResizeSupported>
                     <Horizontal>false</Horizontal>
