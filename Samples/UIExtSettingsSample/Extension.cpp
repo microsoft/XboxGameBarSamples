@@ -8,7 +8,7 @@ using namespace Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Navigation;
 using namespace Microsoft::Gaming::XboxGameBar;
 
-namespace winrt::UIExtSettingsSampleCPP::implementation
+namespace winrt::UIExtSettingsSample::implementation
 {
     Extension::Extension()
     {
@@ -29,6 +29,18 @@ namespace winrt::UIExtSettingsSampleCPP::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strong_this{ get_strong() };
-        co_await m_uiExtension.ActivateSettingsAsync();
+        co_await m_uiExtension.ActivateSettingsAsync();        
+
+        //Comment out code below to  demonstrate how to activate settings with a Uri string
+        //
+        //hstring appExtID = L"ExtensionSettings"; //ID of Settings Extension 
+        //hstring appID = L"App";
+        //hstring uriSubPath = L"[uriSubPath]";
+        //hstring uriQuery = L"[?uriQuery]";
+        //hstring uriFragment = L"[#uriFragment]";
+
+        //Uri uri = m_extensionControl.CreateActivationUri(appID, appExtID, uriSubPath, uriQuery, uriFragment);
+
+        //co_await m_uiExtension.ActivateSettingsWithUriAsync(uri);
     }
 }

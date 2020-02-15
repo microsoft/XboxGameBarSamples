@@ -2,7 +2,7 @@
 
 #include "ExtensionSettings.g.h"
 
-namespace winrt::UIExtSettingsSampleCPP::implementation
+namespace winrt::UIExtSettingsSample::implementation
 {
     struct ExtensionSettings : ExtensionSettingsT<ExtensionSettings>
     {
@@ -11,7 +11,7 @@ namespace winrt::UIExtSettingsSampleCPP::implementation
     };
 }
 
-namespace winrt::UIExtSettingsSampleCPP::factory_implementation
+namespace winrt::UIExtSettingsSample::factory_implementation
 {
     struct ExtensionSettings : ExtensionSettingsT<ExtensionSettings, implementation::ExtensionSettings>
     {

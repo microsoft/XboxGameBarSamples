@@ -5,7 +5,7 @@
 using namespace winrt;
 using namespace Windows::UI::Xaml;
 
-namespace winrt::UIExtSettingsSampleCPP::implementation
+namespace winrt::UIExtSettingsSample::implementation
 {
     ExtensionSettings::ExtensionSettings()
     {

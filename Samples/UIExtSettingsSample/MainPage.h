@@ -2,7 +2,7 @@
 
 #include "MainPage.g.h"
 
-namespace winrt::UIExtSettingsSampleCPP::implementation
+namespace winrt::UIExtSettingsSample::implementation
 {
     struct MainPage : MainPageT<MainPage>
     {
@@ -15,7 +15,7 @@ namespace winrt::UIExtSettingsSampleCPP::implementation
     };
 }
 
-namespace winrt::UIExtSettingsSampleCPP::factory_implementation
+namespace winrt::UIExtSettingsSample::factory_implementation
 {
     struct MainPage : MainPageT<MainPage, implementation::MainPage>
     {

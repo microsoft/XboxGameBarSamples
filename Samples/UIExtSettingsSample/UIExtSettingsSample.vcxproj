@@ -7,8 +7,8 @@
     <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{e653c0f6-71a5-42f9-8063-d4c8db8d4887}</ProjectGuid>
-    <ProjectName>UIExtSettingsSampleCPP</ProjectName>
-    <RootNamespace>UIExtSettingsSampleCPP</RootNamespace>
+    <ProjectName>UIExtSettingsSample</ProjectName>
+    <RootNamespace>UIExtSettingsSample</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>

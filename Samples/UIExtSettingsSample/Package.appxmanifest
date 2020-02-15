@@ -10,7 +10,7 @@
     Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="32d58257-7bf8-4002-814a-66c8f415f564" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
   <Properties>
-    <DisplayName>UIExtSettingsSampleCPP</DisplayName>
+    <DisplayName>UIExtSettingsSample</DisplayName>
     <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -21,8 +21,8 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UIExtSettingsSampleCPP.App">
-      <uap:VisualElements DisplayName="UIExtSettingsSampleCPP" Description="Sample of settings extension activation"
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UIExtSettingsSample.App">
+      <uap:VisualElements DisplayName="UIExtSettingsSample" Description="Sample of settings extension activation"
         Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
         </uap:DefaultTile>

@@ -3,7 +3,7 @@
 #include <winrt/Microsoft.Gaming.XboxGameBar.h>
 
 
-namespace winrt::UIExtSettingsSampleCPP::implementation
+namespace winrt::UIExtSettingsSample::implementation
 {
     struct App : AppT<App>
     {

@@ -10,8 +10,8 @@ using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Navigation;
-using namespace UIExtSettingsSampleCPP;
-using namespace UIExtSettingsSampleCPP::implementation;
+using namespace UIExtSettingsSample;
+using namespace UIExtSettingsSample::implementation;
 using namespace Microsoft::Gaming::XboxGameBar;
 
 /// <summary>
@@ -72,7 +72,7 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(xaml_typename<UIExtSettingsSampleCPP::MainPage>(), box_value(e.Arguments()));
+                rootFrame.Navigate(xaml_typename<UIExtSettingsSample::MainPage>(), box_value(e.Arguments()));
             }
             // Place the frame in the current Window
             Window::Current().Content(rootFrame);
@@ -89,7 +89,7 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(xaml_typename<UIExtSettingsSampleCPP::MainPage>(), box_value(e.Arguments()));
+                rootFrame.Navigate(xaml_typename<UIExtSettingsSample::MainPage>(), box_value(e.Arguments()));
             }
             // Ensure the current window is active
             Window::Current().Activate();
@@ -128,7 +128,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
                     uiExtArgs,
                     Window::Current().CoreWindow(),
                     rootFrame);
-                rootFrame.Navigate(xaml_typename<UIExtSettingsSampleCPP::Extension>(), m_uiExtension);
+                rootFrame.Navigate(xaml_typename<UIExtSettingsSample::Extension>(), m_uiExtension);
             }
             else if (0 == appExtId.compare(L"ExtensionSettings"))
             {
@@ -136,19 +136,15 @@ void App::OnActivated(IActivatedEventArgs const& e)
                     uiExtArgs,
                     Window::Current().CoreWindow(),
                     rootFrame);
-                rootFrame.Navigate(xaml_typename<UIExtSettingsSampleCPP::ExtensionSettings>());
+                rootFrame.Navigate(xaml_typename<UIExtSettingsSample::ExtensionSettings>());
             }
             else
             {
                 return;
             }
+            
+            Window::Current().Activate();
         }
-        else
-        {
-        }
-        
-
-        Window::Current().Activate();
     }
 }
 

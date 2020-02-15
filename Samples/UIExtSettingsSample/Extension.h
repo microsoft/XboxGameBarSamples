@@ -4,7 +4,7 @@
 #include <winrt/Windows.UI.Xaml.Navigation.h>
 #include <winrt/Microsoft.Gaming.XboxGameBar.h>
 
-namespace winrt::UIExtSettingsSampleCPP::implementation
+namespace winrt::UIExtSettingsSample::implementation
 {
     struct Extension : ExtensionT<Extension>
     {
@@ -22,7 +22,7 @@ namespace winrt::UIExtSettingsSampleCPP::implementation
     };
 }
 
-namespace winrt::UIExtSettingsSampleCPP::factory_implementation
+namespace winrt::UIExtSettingsSample::factory_implementation
 {
     struct Extension : ExtensionT<Extension, implementation::Extension>
     {
