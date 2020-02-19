@@ -41,7 +41,6 @@ namespace winrt::UIExtAdvSample::implementation
         Microsoft::Gaming::XboxGameBar::XboxGameBarExtensionControl m_extensionControl{ nullptr };
         Windows::UI::Core::CoreWindow m_uiExtensionCoreWindow{ nullptr };
 
-        winrt::event_token m_settingsClickedToken{};
         winrt::event_token m_favoritedChangedToken{};
         winrt::event_token m_displayModeChangedToken{};
         winrt::event_token m_pinnedChangedToken{};
