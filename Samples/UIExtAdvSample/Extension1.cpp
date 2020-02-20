@@ -6,6 +6,7 @@ using namespace winrt;
 using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::Foundation;
 using namespace winrt::Windows::UI::Xaml;
+using namespace winrt::Windows::UI::Xaml::Media;
 using namespace winrt::Windows::UI::Xaml::Navigation;
 using namespace Microsoft::Gaming::XboxGameBar;
 
@@ -198,8 +199,24 @@ namespace winrt::UIExtAdvSample::implementation
 
         co_await winrt::resume_foreground(RequestedThemeTextBlock().Dispatcher());
         
+        //auto windowContent = Window::Current().Content;
+        //Window::Current().Content(value);
+
         RequestedThemeTextBlock().RequestedTheme(value);
         RootGrid().RequestedTheme(value);
+
+        if (value == ElementTheme::Dark)
+        {
+            SolidColorBrush blackBrush{ Windows::UI::Colors::Black() };
+            RootGrid().Background(blackBrush);
+
+        }
+        else
+        {
+            SolidColorBrush whiteBrush{ Windows::UI::Colors::White() };
+            RootGrid().Background(whiteBrush);
+        }
+        
         RequestedThemeTextBlock().Text(requestedTheme);
     }
 
