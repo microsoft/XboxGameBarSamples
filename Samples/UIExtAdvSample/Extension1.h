@@ -35,13 +35,11 @@ namespace winrt::UIExtAdvSample::implementation
         void WindowStateChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
 
     private:
-        winrt::event_token m_settingsToken{};
-
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarExtensionControl m_extensionControl{ nullptr };
         Windows::UI::Core::CoreWindow m_uiExtensionCoreWindow{ nullptr };
 
-        winrt::event_token m_settingsClickedToken{};
+        winrt::event_token m_settingsToken{};
         winrt::event_token m_favoritedChangedToken{};
         winrt::event_token m_displayModeChangedToken{};
         winrt::event_token m_pinnedChangedToken{};
