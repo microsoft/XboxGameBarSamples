@@ -197,7 +197,9 @@ namespace winrt::UIExtAdvSample::implementation
         hstring requestedTheme = L"Theme: \t\t" + theme;
 
         co_await winrt::resume_foreground(RequestedThemeTextBlock().Dispatcher());
-
+        
+        RequestedThemeTextBlock().RequestedTheme(value);
+        RootGrid().RequestedTheme(value);
         RequestedThemeTextBlock().Text(requestedTheme);
     }
 
