@@ -2,6 +2,7 @@
 
 #include "Extension1.g.h"
 #include <winrt/Windows.UI.Xaml.Navigation.h>
+#include <winrt/Windows.UI.Xaml.Media.h>
 #include <winrt/Windows.UI.Core.h>
 #include <winrt/Microsoft.Gaming.XboxGameBar.h>
 
