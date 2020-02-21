@@ -45,15 +45,13 @@ namespace winrt::UIExtAdvSample::implementation
         void OutputGameBarDisplayMode();
 
     private:
-        winrt::event_token m_settingsToken{};
-
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarExtensionControl m_extensionControl{ nullptr };
         Windows::UI::Core::CoreWindow m_uiExtensionCoreWindow{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionDarkThemeBrush{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionLightThemeBrush{ nullptr };
 
-        winrt::event_token m_settingsClickedToken{};
+        winrt::event_token m_settingsToken{};
         winrt::event_token m_favoritedChangedToken{};
         winrt::event_token m_displayModeChangedToken{};
         winrt::event_token m_pinnedChangedToken{};

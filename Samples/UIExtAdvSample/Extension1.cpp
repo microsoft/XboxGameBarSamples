@@ -184,7 +184,6 @@ namespace winrt::UIExtAdvSample::implementation
     hstring Extension1::RequestedThemeToString()
     {
         hstring requestedTheme{};
-
         switch (m_uiExtension.RequestedTheme())
         {
         case ElementTheme::Light:
