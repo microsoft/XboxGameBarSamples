@@ -43,27 +43,13 @@ namespace winrt::UIExtAdvSample::implementation
         favoriteState = L"Favorited: \t" + isFavorited;
         FavoritedTextBlock().Text(favoriteState);
 
-        hstring theme{};
-        switch (m_uiExtension.RequestedTheme())
-        {
-        case ElementTheme::Light:
-            theme = L"Light";
-            break;
-        case ElementTheme::Dark:
-            theme = L"Dark";
-            break;
-        default:
-            theme = L"Default";
-        }
-
-        hstring requestedTheme = L"Theme: \t\t" + theme;
-        RequestedThemeTextBlock().Text(requestedTheme);
+       
+        RequestedThemeTextBlock().Text(RequestedThemeToString());
 
 
         SetBackgroundColor();
 
-        hstring isVisible = m_uiExtension.Visible() ? L"true" : L"false";
-        hstring visibleState = L"Visible: \t\t" + isVisible;
+        OutputVisibleState();
 
         hstring window = (m_uiExtension.WindowState() == XboxGameBarUIExtensionWindowState::Minimized) ? L"Minimized\n" : L"Restored\n";
         hstring windowOutput = L"Window State: \t" + window;
@@ -243,6 +229,33 @@ namespace winrt::UIExtAdvSample::implementation
             this->RequestedTheme(requestedTheme);
             this->Background(m_uiExtensionWhiteBrush);
         }
+    }
+
+    hstring Extension1::RequestedThemeToString()
+    {
+        hstring theme{};
+        switch (m_uiExtension.RequestedTheme())
+        {
+        case ElementTheme::Light:
+            theme = L"Light";
+            break;
+        case ElementTheme::Dark:
+            theme = L"Dark";
+            break;
+        default:
+            theme = L"Default";
+        }
+
+        hstring requestedTheme = L"Theme: \t\t" + theme;
+
+        return requestedTheme;
+    }
+
+    void Extension1::OutputVisibleState()
+    {
+        hstring isVisible = m_uiExtension.Visible() ? L"true" : L"false";
+        hstring visibleState = L"Visible: \t\t" + isVisible;
+        OutputDebugString(visibleState.c_str());
     }
 }
 

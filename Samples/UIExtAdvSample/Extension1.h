@@ -37,6 +37,10 @@ namespace winrt::UIExtAdvSample::implementation
 
         void SetBackgroundColor();
 
+        hstring RequestedThemeToString();
+
+        void OutputVisibleState();
+
     private:
         winrt::event_token m_settingsToken{};
 
