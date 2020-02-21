@@ -50,8 +50,8 @@ namespace winrt::UIExtAdvSample::implementation
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarExtensionControl m_extensionControl{ nullptr };
         Windows::UI::Core::CoreWindow m_uiExtensionCoreWindow{ nullptr };
-        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionBlackBrush{ nullptr };
-        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionWhiteBrush{ nullptr };
+        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionDarkThemeBrush{ nullptr };
+        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionLightThemeBrush{ nullptr };
 
         winrt::event_token m_settingsClickedToken{};
         winrt::event_token m_favoritedChangedToken{};

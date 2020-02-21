@@ -22,8 +22,8 @@ namespace winrt::UIExtAdvSample::implementation
         m_uiExtension = e.Parameter().as<XboxGameBarUIExtension>();
         m_extensionControl = XboxGameBarExtensionControl(m_uiExtension);
 
-        m_uiExtensionBlackBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 38, 38, 38));
-        m_uiExtensionWhiteBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 219, 219, 219));
+        m_uiExtensionDarkThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 38, 38, 38));
+        m_uiExtensionLightThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 219, 219, 219));
 
         // Hook up event that's fired when our settings button is clicked
         m_settingsToken = m_uiExtension.SettingsClicked({ this, &Extension1::SettingsButton_Click });
@@ -172,29 +172,29 @@ namespace winrt::UIExtAdvSample::implementation
         if (requestedTheme == ElementTheme::Dark)
         {
             this->RequestedTheme(requestedTheme);
-            this->Background(m_uiExtensionBlackBrush);
+            this->Background(m_uiExtensionDarkThemeBrush);
         }
         else
         {
             this->RequestedTheme(requestedTheme);
-            this->Background(m_uiExtensionWhiteBrush);
+            this->Background(m_uiExtensionLightThemeBrush);
         }
     }
 
     hstring Extension1::RequestedThemeToString()
     {
-        hstring requestedTheme = L"Theme: \t\t";
+        hstring requestedTheme{};
 
         switch (m_uiExtension.RequestedTheme())
         {
         case ElementTheme::Light:
-            requestedTheme = requestedTheme + L"Light";
+            requestedTheme = L"Light";
             break;
         case ElementTheme::Dark:
-            requestedTheme = requestedTheme + L"Dark";
+            requestedTheme = L"Dark";
             break;
         default:
-            requestedTheme = requestedTheme + L"Default";
+            requestedTheme = L"Default";
         }
 
         return requestedTheme;
@@ -203,15 +203,13 @@ namespace winrt::UIExtAdvSample::implementation
     hstring Extension1::FavoritedStateToString()
     {
         hstring isFavorited = m_uiExtension.Favorited() ? L"true" : L"false";
-        hstring favoriteState = L"Favorited: \t" + isFavorited;
-        return favoriteState;
+        return isFavorited;
     }
 
     hstring Extension1::PinnedStateToString()
     {
         hstring isPinned = m_uiExtension.Pinned() ? L"true" : L"false";
-        hstring pinnedOutput = L"Pinned: \t\t" + isPinned;
-        return pinnedOutput;
+        return isPinned;
     }
 
     void Extension1::OutputVisibleState()

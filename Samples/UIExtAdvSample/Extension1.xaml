@@ -62,19 +62,34 @@
             </Grid>
             <Button x:Name="TryResizeWindowAsync" Click="TryResizeWindowAsync_Click" Margin="0,2">TryResizeWindowAsync</Button>
           <StackPanel>
-            <TextBlock  VerticalAlignment="Center" x:Name="PinnedStateTextBlock" />
+            <Grid Padding="2">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5*" />
+              </Grid.ColumnDefinitions>
+              <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Pinned: " />
+              <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="PinnedStateTextBlock" />
+            </Grid>
           </StackPanel>
           <StackPanel>
-            <TextBlock  VerticalAlignment="Center" x:Name="RequestedThemeTextBlock" />
+            <Grid Padding="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Theme: " />
+            <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="RequestedThemeTextBlock" />
+          </Grid>
           </StackPanel>
           <StackPanel>
-            <TextBlock  VerticalAlignment="Center" x:Name="FavoritedTextBlock" />
-          </StackPanel>
-          <StackPanel>
-            <TextBlock  VerticalAlignment="Center" x:Name="VisibleChangedTextBlock" />
-          </StackPanel>
-          <StackPanel>
-            <TextBlock  VerticalAlignment="Center" x:Name="WindowStateChangedTextBlock" />
+            <Grid Padding="2">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5*" />
+              </Grid.ColumnDefinitions>
+              <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Favorited: " />
+            <TextBlock   Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="FavoritedTextBlock" />
+            </Grid>
           </StackPanel>
         </StackPanel>
     </ScrollViewer>
