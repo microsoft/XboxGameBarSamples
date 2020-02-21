@@ -7,9 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+  <Grid > 
     <ScrollViewer VerticalScrollBarVisibility="Visible" 
                   HorizontalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Padding="10">
+        <StackPanel Orientation="Vertical" Padding="10" >
             <Grid Padding="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -77,4 +78,5 @@
           </StackPanel>
         </StackPanel>
     </ScrollViewer>
+  </Grid>
 </Page>

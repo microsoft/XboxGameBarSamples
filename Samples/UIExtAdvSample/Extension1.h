@@ -2,6 +2,7 @@
 
 #include "Extension1.g.h"
 #include <winrt/Windows.UI.Xaml.Navigation.h>
+#include <winrt/Windows.UI.Xaml.Media.h>
 #include <winrt/Windows.UI.Core.h>
 #include <winrt/Microsoft.Gaming.XboxGameBar.h>
 
@@ -33,11 +34,22 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::fire_and_forget RequestedThemeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void VisibleChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void WindowStateChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        
+        // Methods to handle updating of Text and UI
+        void SetBackgroundColor();
+        hstring RequestedThemeToString();
+        hstring FavoritedStateToString();
+        hstring PinnedStateToString();
+        void OutputVisibleState();
+        void OutputWindowState();
+        void OutputGameBarDisplayMode();
 
     private:
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarExtensionControl m_extensionControl{ nullptr };
         Windows::UI::Core::CoreWindow m_uiExtensionCoreWindow{ nullptr };
+        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionBlackBrush{ nullptr };
+        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionWhiteBrush{ nullptr };
 
         winrt::event_token m_settingsToken{};
         winrt::event_token m_favoritedChangedToken{};
