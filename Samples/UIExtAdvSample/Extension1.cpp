@@ -22,6 +22,9 @@ namespace winrt::UIExtAdvSample::implementation
         m_uiExtension = e.Parameter().as<XboxGameBarUIExtension>();
         m_extensionControl = XboxGameBarExtensionControl(m_uiExtension);
 
+        m_uiExtensionBlackBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 38, 38, 38));
+        m_uiExtensionWhiteBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 219, 219, 219));
+
         // Hook up event that's fired when our settings button is clicked
         m_settingsToken = m_uiExtension.SettingsClicked({ this, &Extension1::SettingsButton_Click });
         m_favoritedChangedToken = m_uiExtension.FavoritedChanged({ this, &Extension1::FavoritedChanged });
@@ -57,16 +60,7 @@ namespace winrt::UIExtAdvSample::implementation
         RequestedThemeTextBlock().Text(requestedTheme);
 
 
-        if (m_uiExtension.RequestedTheme() == ElementTheme::Dark)
-        {
-            this->RequestedTheme(m_uiExtension.RequestedTheme());
-            this->Background(SolidColorBrush{ Windows::UI::Colors::Black() });
-        }
-        else
-        {
-            this->RequestedTheme(m_uiExtension.RequestedTheme());
-            this->Background(SolidColorBrush{ Windows::UI::Colors::White() });
-        }
+        SetBackgroundColor();
 
         hstring isVisible = m_uiExtension.Visible() ? L"true" : L"false";
         hstring visibleState = L"Visible: \t\t" + isVisible;
@@ -192,7 +186,7 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
-        auto value = m_uiExtension.RequestedTheme();
+       
 
         hstring theme{};
         switch (m_uiExtension.RequestedTheme())
@@ -212,16 +206,7 @@ namespace winrt::UIExtAdvSample::implementation
         hstring requestedTheme = L"Theme: \t\t" + theme;
         RequestedThemeTextBlock().Text(requestedTheme);
 
-        if (value == ElementTheme::Dark)
-        {
-            this->RequestedTheme(value);
-            this->Background(SolidColorBrush{ Windows::UI::Colors::Black() });
-        }
-        else
-        {
-            this->RequestedTheme(value);
-            this->Background(SolidColorBrush{ Windows::UI::Colors::White() });
-        }
+        SetBackgroundColor();
     }
 
     void Extension1::VisibleChanged(
@@ -242,6 +227,22 @@ namespace winrt::UIExtAdvSample::implementation
         hstring windowOutput = L"Window State: " + window;
 
         OutputDebugString(windowOutput.c_str());
+    }
+
+    void Extension1::SetBackgroundColor()
+    {
+        auto requestedTheme = m_uiExtension.RequestedTheme();
+
+        if (requestedTheme == ElementTheme::Dark)
+        {
+            this->RequestedTheme(requestedTheme);
+            this->Background(m_uiExtensionBlackBrush);
+        }
+        else
+        {
+            this->RequestedTheme(requestedTheme);
+            this->Background(m_uiExtensionWhiteBrush);
+        }
     }
 }
 

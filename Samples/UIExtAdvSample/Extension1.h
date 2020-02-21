@@ -35,12 +35,16 @@ namespace winrt::UIExtAdvSample::implementation
         void VisibleChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void WindowStateChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
 
+        void SetBackgroundColor();
+
     private:
         winrt::event_token m_settingsToken{};
 
         Microsoft::Gaming::XboxGameBar::XboxGameBarUIExtension m_uiExtension{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarExtensionControl m_extensionControl{ nullptr };
         Windows::UI::Core::CoreWindow m_uiExtensionCoreWindow{ nullptr };
+        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionBlackBrush{ nullptr };
+        Windows::UI::Xaml::Media::SolidColorBrush m_uiExtensionWhiteBrush{ nullptr };
 
         winrt::event_token m_settingsClickedToken{};
         winrt::event_token m_favoritedChangedToken{};
