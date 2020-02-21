@@ -56,6 +56,18 @@ namespace winrt::UIExtAdvSample::implementation
         hstring requestedTheme = L"Theme: \t\t" + theme;
         RequestedThemeTextBlock().Text(requestedTheme);
 
+
+        if (m_uiExtension.RequestedTheme() == ElementTheme::Dark)
+        {
+            this->RequestedTheme(m_uiExtension.RequestedTheme());
+            this->Background(SolidColorBrush{ Windows::UI::Colors::Black() });
+        }
+        else
+        {
+            this->RequestedTheme(m_uiExtension.RequestedTheme());
+            this->Background(SolidColorBrush{ Windows::UI::Colors::White() });
+        }
+
         hstring isVisible = m_uiExtension.Visible() ? L"true" : L"false";
         hstring visibleState = L"Visible: \t\t" + isVisible;
 
@@ -195,29 +207,21 @@ namespace winrt::UIExtAdvSample::implementation
             theme = L"Default";
         }
 
-        hstring requestedTheme = L"Theme: \t\t" + theme;
-
         co_await winrt::resume_foreground(RequestedThemeTextBlock().Dispatcher());
-        
-        //auto windowContent = Window::Current().Content;
-        //Window::Current().Content(value);
 
-        RequestedThemeTextBlock().RequestedTheme(value);
-        RootGrid().RequestedTheme(value);
+        hstring requestedTheme = L"Theme: \t\t" + theme;
+        RequestedThemeTextBlock().Text(requestedTheme);
 
         if (value == ElementTheme::Dark)
         {
-            SolidColorBrush blackBrush{ Windows::UI::Colors::Black() };
-            RootGrid().Background(blackBrush);
-
+            this->RequestedTheme(value);
+            this->Background(SolidColorBrush{ Windows::UI::Colors::Black() });
         }
         else
         {
-            SolidColorBrush whiteBrush{ Windows::UI::Colors::White() };
-            RootGrid().Background(whiteBrush);
+            this->RequestedTheme(value);
+            this->Background(SolidColorBrush{ Windows::UI::Colors::White() });
         }
-        
-        RequestedThemeTextBlock().Text(requestedTheme);
     }
 
     void Extension1::VisibleChanged(
