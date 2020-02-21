@@ -34,26 +34,14 @@ namespace winrt::UIExtAdvSample::implementation
         m_visibleChangedToken = m_uiExtension.VisibleChanged({ this, &Extension1::VisibleChanged });
         m_windowStateChangedToken = m_uiExtension.WindowStateChanged({ this, &Extension1::WindowStateChanged });
 
-        hstring isPinned = m_uiExtension.Pinned() ? L"true" : L"false";
-        hstring pinnedOutput = L"Pinned: \t\t" + isPinned;
-        PinnedStateTextBlock().Text(pinnedOutput);
-
-        hstring favoriteState{};
-        hstring isFavorited = m_uiExtension.Favorited() ? L"true" : L"false";
-        favoriteState = L"Favorited: \t" + isFavorited;
-        FavoritedTextBlock().Text(favoriteState);
-
-       
+        PinnedStateTextBlock().Text(PinnedStateToString());
+        FavoritedTextBlock().Text(FavoritedStateToString());
         RequestedThemeTextBlock().Text(RequestedThemeToString());
 
-
         SetBackgroundColor();
-
+        OutputGameBarDisplayMode();
         OutputVisibleState();
-
-        hstring window = (m_uiExtension.WindowState() == XboxGameBarUIExtensionWindowState::Minimized) ? L"Minimized\n" : L"Restored\n";
-        hstring windowOutput = L"Window State: \t" + window;
-        OutputDebugString(windowOutput.c_str());
+        OutputWindowState();
     }
 
     IAsyncAction Extension1::ActivateAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -133,24 +121,15 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
-
-        hstring favoriteState{};
-        hstring isFavorited = m_uiExtension.Favorited() ? L"true" : L"false";
-        favoriteState = L"Favorited: \t" + isFavorited;
-
         co_await winrt::resume_foreground(FavoritedTextBlock().Dispatcher());
-
-        FavoritedTextBlock().Text(favoriteState);
+        FavoritedTextBlock().Text(FavoritedStateToString());
     }
 
     void Extension1::GameBarDisplayModeChanged(
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
-        hstring mode = (m_uiExtension.GameBarDisplayMode() == XboxGameBarDisplayMode::Foreground) ? L"Foreground\n" : L"PinnedOnly\n";
-        hstring modeOutput = L"Game Bar View Mode: " + mode;
-
-        OutputDebugString(modeOutput.c_str());
+        OutputGameBarDisplayMode();
     }
 
     winrt::fire_and_forget Extension1::PinnedChanged(
@@ -158,13 +137,8 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
-
-        hstring isPinned = m_uiExtension.Pinned() ? L"true" : L"false";
-        hstring pinnedOutput = L"Pinned: \t\t" + isPinned;
-
         co_await winrt::resume_foreground(PinnedStateTextBlock().Dispatcher());
-
-        PinnedStateTextBlock().Text(pinnedOutput);
+        PinnedStateTextBlock().Text(PinnedStateToString());
     }
 
     winrt::fire_and_forget  Extension1::RequestedThemeChanged(
@@ -172,26 +146,8 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& e)
     {
         auto strongThis{ get_strong() };
-       
-
-        hstring theme{};
-        switch (m_uiExtension.RequestedTheme())
-        {
-        case ElementTheme::Light:
-            theme = L"Light";
-            break;
-        case ElementTheme::Dark:
-            theme = L"Dark";
-            break;
-        case ElementTheme::Default:
-            theme = L"Default";
-        }
-
         co_await winrt::resume_foreground(RequestedThemeTextBlock().Dispatcher());
-
-        hstring requestedTheme = L"Theme: \t\t" + theme;
-        RequestedThemeTextBlock().Text(requestedTheme);
-
+        RequestedThemeTextBlock().Text(RequestedThemeToString());
         SetBackgroundColor();
     }
 
@@ -199,20 +155,14 @@ namespace winrt::UIExtAdvSample::implementation
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
-        hstring isVisible = m_uiExtension.Visible() ? L"true\n" : L"false\n";
-        hstring visibleState = L"Visible: " + isVisible;
-
-        OutputDebugString(visibleState.c_str());
+        OutputVisibleState();
     }
 
     void Extension1::WindowStateChanged(
         winrt::Windows::Foundation::IInspectable const& sender,
         winrt::Windows::Foundation::IInspectable const& e)
     {
-        hstring window = (m_uiExtension.WindowState() == XboxGameBarUIExtensionWindowState::Minimized) ? L"Minimized\n" : L"Restored\n";
-        hstring windowOutput = L"Window State: " + window;
-
-        OutputDebugString(windowOutput.c_str());
+        OutputWindowState();
     }
 
     void Extension1::SetBackgroundColor()
@@ -233,29 +183,56 @@ namespace winrt::UIExtAdvSample::implementation
 
     hstring Extension1::RequestedThemeToString()
     {
-        hstring theme{};
+        hstring requestedTheme = L"Theme: \t\t";
+
         switch (m_uiExtension.RequestedTheme())
         {
         case ElementTheme::Light:
-            theme = L"Light";
+            requestedTheme = requestedTheme + L"Light";
             break;
         case ElementTheme::Dark:
-            theme = L"Dark";
+            requestedTheme = requestedTheme + L"Dark";
             break;
         default:
-            theme = L"Default";
+            requestedTheme = requestedTheme + L"Default";
         }
-
-        hstring requestedTheme = L"Theme: \t\t" + theme;
 
         return requestedTheme;
     }
 
+    hstring Extension1::FavoritedStateToString()
+    {
+        hstring isFavorited = m_uiExtension.Favorited() ? L"true" : L"false";
+        hstring favoriteState = L"Favorited: \t" + isFavorited;
+        return favoriteState;
+    }
+
+    hstring Extension1::PinnedStateToString()
+    {
+        hstring isPinned = m_uiExtension.Pinned() ? L"true" : L"false";
+        hstring pinnedOutput = L"Pinned: \t\t" + isPinned;
+        return pinnedOutput;
+    }
+
     void Extension1::OutputVisibleState()
     {
-        hstring isVisible = m_uiExtension.Visible() ? L"true" : L"false";
+        hstring isVisible = m_uiExtension.Visible() ? L"true\n" : L"false\n";
         hstring visibleState = L"Visible: \t\t" + isVisible;
         OutputDebugString(visibleState.c_str());
+    }
+
+    void Extension1::OutputWindowState()
+    {
+        hstring window = (m_uiExtension.WindowState() == XboxGameBarUIExtensionWindowState::Minimized) ? L"Minimized\n" : L"Restored\n";
+        hstring windowOutput = L"Window State: \t" + window;
+        OutputDebugString(windowOutput.c_str());
+    }
+
+    void Extension1::OutputGameBarDisplayMode()
+    {
+        hstring mode = (m_uiExtension.GameBarDisplayMode() == XboxGameBarDisplayMode::Foreground) ? L"Foreground\n" : L"PinnedOnly\n";
+        hstring modeOutput = L"Game Bar View Mode: " + mode;
+        OutputDebugString(modeOutput.c_str());
     }
 }
 

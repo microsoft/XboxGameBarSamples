@@ -39,7 +39,15 @@ namespace winrt::UIExtAdvSample::implementation
 
         hstring RequestedThemeToString();
 
+        hstring FavoritedStateToString();
+
+        hstring PinnedStateToString();
+
         void OutputVisibleState();
+
+        void OutputWindowState();
+
+        void OutputGameBarDisplayMode();
 
     private:
         winrt::event_token m_settingsToken{};
