@@ -40,6 +40,7 @@ namespace UIExtAdvSampleCS
             extensionControl = new XboxGameBarExtensionControl(uiExtension);
 
             uiExtension.SettingsClicked += UiExtension_SettingsClicked;
+            //uiExtension.PinnedChanged += UiExtension
         }
 
         private async void ActivateAsyncAppExtIdButton_Click(object sender, RoutedEventArgs e)
@@ -99,6 +100,11 @@ namespace UIExtAdvSampleCS
         private async void UiExtension_SettingsClicked(XboxGameBarUIExtension sender, object args)
         {
             await uiExtension.ActivateSettingsAsync();
+        }
+
+        private async void UiExtension_PinnedChanged(XboxGameBarUIExtension sender, object args)
+        {
+
         }
     }
 }
