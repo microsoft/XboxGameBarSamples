@@ -105,20 +105,21 @@ namespace winrt::UIExtAdvSample::implementation
         size.Height = (float)_wtof(this->WindowHeightBox().Text().c_str());
         size.Width = (float)_wtof(this->WindowWidthBox().Text().c_str());
         auto result = co_await m_uiExtension.TryResizeWindowAsync(size);
+        UNREFERENCED_PARAMETER(result);
         co_return;
     }
 
     Windows::Foundation::IAsyncAction Extension1::SettingsButton_Click(
-        winrt::Windows::Foundation::IInspectable const& sender,
-        winrt::Windows::Foundation::IInspectable const& e)
+        winrt::Windows::Foundation::IInspectable const& /*sender*/,
+        winrt::Windows::Foundation::IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
         co_await m_uiExtension.ActivateSettingsAsync();
     }
 
     winrt::fire_and_forget Extension1::FavoritedChanged(
-        winrt::Windows::Foundation::IInspectable const& sender,
-        winrt::Windows::Foundation::IInspectable const& e)
+        winrt::Windows::Foundation::IInspectable const& /*sender*/,
+        winrt::Windows::Foundation::IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
         co_await winrt::resume_foreground(FavoritedTextBlock().Dispatcher());
@@ -126,15 +127,15 @@ namespace winrt::UIExtAdvSample::implementation
     }
 
     void Extension1::GameBarDisplayModeChanged(
-        winrt::Windows::Foundation::IInspectable const& sender,
-        winrt::Windows::Foundation::IInspectable const& e)
+        winrt::Windows::Foundation::IInspectable const& /*sender*/,
+        winrt::Windows::Foundation::IInspectable const& /*e*/)
     {
         OutputGameBarDisplayMode();
     }
 
     winrt::fire_and_forget Extension1::PinnedChanged(
-        winrt::Windows::Foundation::IInspectable const& sender,
-        winrt::Windows::Foundation::IInspectable const& e)
+        winrt::Windows::Foundation::IInspectable const& /*sender*/,
+        winrt::Windows::Foundation::IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
         co_await winrt::resume_foreground(PinnedStateTextBlock().Dispatcher());
@@ -142,8 +143,8 @@ namespace winrt::UIExtAdvSample::implementation
     }
 
     winrt::fire_and_forget  Extension1::RequestedThemeChanged(
-        winrt::Windows::Foundation::IInspectable const& sender,
-        winrt::Windows::Foundation::IInspectable const& e)
+        winrt::Windows::Foundation::IInspectable const& /*sender*/,
+        winrt::Windows::Foundation::IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
         co_await winrt::resume_foreground(RequestedThemeTextBlock().Dispatcher());
@@ -152,15 +153,15 @@ namespace winrt::UIExtAdvSample::implementation
     }
 
     void Extension1::VisibleChanged(
-        winrt::Windows::Foundation::IInspectable const& sender,
-        winrt::Windows::Foundation::IInspectable const& e)
+        winrt::Windows::Foundation::IInspectable const& /*sender*/,
+        winrt::Windows::Foundation::IInspectable const& /*e*/)
     {
         OutputVisibleState();
     }
 
     void Extension1::WindowStateChanged(
-        winrt::Windows::Foundation::IInspectable const& sender,
-        winrt::Windows::Foundation::IInspectable const& e)
+        winrt::Windows::Foundation::IInspectable const& /*sender*/,
+        winrt::Windows::Foundation::IInspectable const& /*e*/)
     {
         OutputWindowState();
     }
@@ -232,5 +233,3 @@ namespace winrt::UIExtAdvSample::implementation
         OutputDebugString(modeOutput.c_str());
     }
 }
-
-
