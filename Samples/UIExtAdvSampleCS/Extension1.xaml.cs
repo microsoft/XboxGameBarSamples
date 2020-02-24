@@ -39,7 +39,12 @@ namespace UIExtAdvSampleCS
             uiExtension = e.Parameter as XboxGameBarUIExtension;
             extensionControl = new XboxGameBarExtensionControl(uiExtension);
 
+            SetPinnedStateTextBox();
+
+
+            //Hook up events for when the ui is updated.
             uiExtension.SettingsClicked += UiExtension_SettingsClicked;
+            uiExtension.PinnedChanged += UiExtension_PinnedChanged;
         }
 
         private async void ActivateAsyncAppExtIdButton_Click(object sender, RoutedEventArgs e)
@@ -99,6 +104,20 @@ namespace UIExtAdvSampleCS
         private async void UiExtension_SettingsClicked(XboxGameBarUIExtension sender, object args)
         {
             await uiExtension.ActivateSettingsAsync();
+        }
+
+        private async void UiExtension_PinnedChanged(XboxGameBarUIExtension sender, object args)
+        {
+            await PinnedStateTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+            {
+                SetPinnedStateTextBox();
+            });
+            
+        }
+        private void SetPinnedStateTextBox()
+        {
+            String isPinned = uiExtension.Pinned ? "true" : "false";
+            PinnedStateTextBlock.Text = isPinned;
         }
     }
 }
