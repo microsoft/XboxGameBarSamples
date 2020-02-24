@@ -29,6 +29,10 @@ namespace UIExtAdvSampleCS
         private XboxGameBarExtensionControl extensionControl = null;
         private EventRegistrationToken settingsToken;
 
+
+        private SolidColorBrush uiExtensionBlackBrush  =  null;
+        private SolidColorBrush uiExtensionWhiteBrush = null;
+
         public Extension1()
         {
             this.InitializeComponent();
@@ -38,6 +42,9 @@ namespace UIExtAdvSampleCS
         {
             uiExtension = e.Parameter as XboxGameBarUIExtension;
             extensionControl = new XboxGameBarExtensionControl(uiExtension);
+
+            uiExtensionBlackBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 38, 38, 38));
+            uiExtensionWhiteBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 219, 219, 219));
 
             SetPinnedStateTextBox();
             SetFavoritedState();
@@ -134,9 +141,10 @@ namespace UIExtAdvSampleCS
             await RequestedThemeTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
             {
                 SetRequestedThemeState();
+                SetBackgroundColor();
             });
         }
-        private async void UiExtension_VisibleChanged(XboxGameBarUIExtension sender, object args)
+        private void UiExtension_VisibleChanged(XboxGameBarUIExtension sender, object args)
         {
             OutputVisibleState();
         }
@@ -151,6 +159,22 @@ namespace UIExtAdvSampleCS
         {
             String isFavorited = uiExtension.Favorited ? "true" : "false";
             FavoritedTextBlock.Text = isFavorited;
+        }
+
+        private void SetBackgroundColor()
+        {
+            ElementTheme requestedTheme = uiExtension.RequestedTheme;
+
+            if (requestedTheme == ElementTheme.Dark)
+            {
+                this.RequestedTheme = requestedTheme;
+                this.Background = uiExtensionBlackBrush;
+            }
+            else
+            {
+                this.RequestedTheme = requestedTheme;
+                this.Background = uiExtensionWhiteBrush;
+            }
         }
 
         private void SetRequestedThemeState()
