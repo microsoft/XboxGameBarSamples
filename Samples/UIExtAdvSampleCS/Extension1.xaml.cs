@@ -42,6 +42,7 @@ namespace UIExtAdvSampleCS
             SetPinnedStateTextBox();
             SetFavoritedState();
             SetRequestedThemeState();
+            OutputVisibleState();
 
 
             //Hook up events for when the ui is updated.
@@ -49,6 +50,7 @@ namespace UIExtAdvSampleCS
             uiExtension.PinnedChanged += UiExtension_PinnedChanged;
             uiExtension.FavoritedChanged += UiExtension_FavoritedChanged;
             uiExtension.RequestedThemeChanged += UiExtension_RequestedThemeChanged;
+            uiExtension.VisibleChanged += UiExtension_VisibleChanged;
         }
 
         private async void ActivateAsyncAppExtIdButton_Click(object sender, RoutedEventArgs e)
@@ -134,6 +136,10 @@ namespace UIExtAdvSampleCS
                 SetRequestedThemeState();
             });
         }
+        private async void UiExtension_VisibleChanged(XboxGameBarUIExtension sender, object args)
+        {
+            OutputVisibleState();
+        }
 
         private void SetPinnedStateTextBox()
         {
@@ -162,6 +168,13 @@ namespace UIExtAdvSampleCS
             }
 
             RequestedThemeTextBlock.Text = requestedTheme;
+        }
+
+        private void OutputVisibleState()
+        {
+            String isVisible = uiExtension.Visible ? "true" : "false";
+            String visibleState = "Visible: \t\t" + isVisible;
+            System.Diagnostics.Debug.WriteLine(visibleState);
         }
     }
 }
