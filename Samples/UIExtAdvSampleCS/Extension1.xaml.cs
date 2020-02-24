@@ -40,11 +40,15 @@ namespace UIExtAdvSampleCS
             extensionControl = new XboxGameBarExtensionControl(uiExtension);
 
             SetPinnedStateTextBox();
+            SetFavoritedState();
+            SetRequestedThemeState();
 
 
             //Hook up events for when the ui is updated.
             uiExtension.SettingsClicked += UiExtension_SettingsClicked;
             uiExtension.PinnedChanged += UiExtension_PinnedChanged;
+            uiExtension.FavoritedChanged += UiExtension_FavoritedChanged;
+            uiExtension.RequestedThemeChanged += UiExtension_RequestedThemeChanged;
         }
 
         private async void ActivateAsyncAppExtIdButton_Click(object sender, RoutedEventArgs e)
@@ -114,10 +118,50 @@ namespace UIExtAdvSampleCS
             });
             
         }
+
+        private async void UiExtension_FavoritedChanged(XboxGameBarUIExtension sender, object args)
+        {
+            await FavoritedTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () => 
+            {
+                SetFavoritedState();
+            });
+        }
+
+        private async void UiExtension_RequestedThemeChanged(XboxGameBarUIExtension sender, object args)
+        {
+            await RequestedThemeTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+            {
+                SetRequestedThemeState();
+            });
+        }
+
         private void SetPinnedStateTextBox()
         {
             String isPinned = uiExtension.Pinned ? "true" : "false";
             PinnedStateTextBlock.Text = isPinned;
+        }
+
+        private void SetFavoritedState()
+        {
+            String isFavorited = uiExtension.Favorited ? "true" : "false";
+            FavoritedTextBlock.Text = isFavorited;
+        }
+
+        private void SetRequestedThemeState()
+        {
+            String requestedTheme = "";
+
+            switch(uiExtension.RequestedTheme)
+            {
+                case ElementTheme.Light:
+                    requestedTheme = requestedTheme + "Light";
+                    break;
+                case ElementTheme.Dark:
+                    requestedTheme = requestedTheme + "Dark";
+                    break;
+            }
+
+            RequestedThemeTextBlock.Text = requestedTheme;
         }
     }
 }
