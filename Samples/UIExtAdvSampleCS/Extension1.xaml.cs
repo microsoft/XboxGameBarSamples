@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -50,6 +51,9 @@ namespace UIExtAdvSampleCS
             SetFavoritedState();
             SetRequestedThemeState();
             OutputVisibleState();
+            OutputWindowState();
+            OutputGameBarDisplayMode();
+            SetBackgroundColor();
 
 
             //Hook up events for when the ui is updated.
@@ -58,11 +62,14 @@ namespace UIExtAdvSampleCS
             uiExtension.FavoritedChanged += UiExtension_FavoritedChanged;
             uiExtension.RequestedThemeChanged += UiExtension_RequestedThemeChanged;
             uiExtension.VisibleChanged += UiExtension_VisibleChanged;
+            uiExtension.WindowStateChanged += UiExtension_WindowStateChanged;
+            uiExtension.GameBarDisplayModeChanged += UiExtension_GameBarDisplayModeChanged;
         }
 
         private async void ActivateAsyncAppExtIdButton_Click(object sender, RoutedEventArgs e)
         {
-            await extensionControl.ActivateAsync(ActivateAsyncAppExtId.Text);
+            String text = ActivateAsyncAppExtId.Text;
+            await extensionControl.ActivateAsync(text);
         }
 
         private async void ActivateAsyncAppIdButton_Click(object sender, RoutedEventArgs e)
@@ -149,6 +156,16 @@ namespace UIExtAdvSampleCS
             OutputVisibleState();
         }
 
+        private void UiExtension_WindowStateChanged(XboxGameBarUIExtension sender, object args)
+        {
+            OutputWindowState();
+        }
+
+        private void UiExtension_GameBarDisplayModeChanged(XboxGameBarUIExtension sender, object args)
+        {
+            OutputGameBarDisplayMode();
+        }
+
         private void SetPinnedStateTextBox()
         {
             String isPinned = uiExtension.Pinned ? "true" : "false";
@@ -199,6 +216,20 @@ namespace UIExtAdvSampleCS
             String isVisible = uiExtension.Visible ? "true" : "false";
             String visibleState = "Visible: \t\t" + isVisible;
             System.Diagnostics.Debug.WriteLine(visibleState);
+        }
+
+        private void OutputWindowState()
+        {
+            String window = (uiExtension.WindowState == XboxGameBarUIExtensionWindowState.Minimized) ? "Minimized" : "Restored";
+            String windowOutput = "Window State: \t" + window;
+            System.Diagnostics.Debug.WriteLine(windowOutput);
+        }
+
+        private void OutputGameBarDisplayMode()
+        {
+            String mode = (uiExtension.GameBarDisplayMode == XboxGameBarDisplayMode.Foreground) ? "Foreground" : "PinnedOnly";
+            String modeOutput = "Game Bar View Mode: " + mode;
+            System.Diagnostics.Debug.WriteLine(modeOutput);
         }
     }
 }
