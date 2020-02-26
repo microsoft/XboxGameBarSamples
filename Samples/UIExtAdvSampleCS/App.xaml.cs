@@ -91,7 +91,7 @@ namespace UIExtAdvSampleCS
                             rootFrame);
                         rootFrame.Navigate(typeof(Extension2), uiExtArgs.Uri);
                     }
-                    else
+                    else 
                     {
                         // Unknown - Game Bar should never send you an unknown App Extension Id
                         return;
@@ -99,7 +99,7 @@ namespace UIExtAdvSampleCS
 
                     Window.Current.Activate();
                 }
-                else
+                else if (uiExtArgs.AppExtensionId == "Extension2")
                 {
                     // You can perform whatever behavior you need based on the URI payload. In our case
                     // we're simply renavigating to Extension2 and displaying the absolute URI.  You
