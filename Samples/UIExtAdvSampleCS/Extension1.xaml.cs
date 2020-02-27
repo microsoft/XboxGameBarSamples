@@ -128,16 +128,15 @@ namespace UIExtAdvSampleCS
 
         private async void UiExtension_PinnedChanged(XboxGameBarUIExtension sender, object args)
         {
-            await PinnedStateTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+            await PinnedStateTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 SetPinnedStateTextBox();
             });
-            
         }
 
         private async void UiExtension_FavoritedChanged(XboxGameBarUIExtension sender, object args)
         {
-            await FavoritedTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () => 
+            await FavoritedTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => 
             {
                 SetFavoritedState();
             });
@@ -145,7 +144,7 @@ namespace UIExtAdvSampleCS
 
         private async void UiExtension_RequestedThemeChanged(XboxGameBarUIExtension sender, object args)
         {
-            await RequestedThemeTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+            await RequestedThemeTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 SetRequestedThemeState();
                 SetBackgroundColor();
@@ -168,68 +167,38 @@ namespace UIExtAdvSampleCS
 
         private void SetPinnedStateTextBox()
         {
-            String isPinned = uiExtension.Pinned ? "true" : "false";
-            PinnedStateTextBlock.Text = isPinned;
+            PinnedStateTextBlock.Text = uiExtension.Pinned.ToString();
         }
 
         private void SetFavoritedState()
-        {
-            String isFavorited = uiExtension.Favorited ? "true" : "false";
-            FavoritedTextBlock.Text = isFavorited;
+        { 
+            FavoritedTextBlock.Text = uiExtension.Favorited.ToString();
         }
 
         private void SetBackgroundColor()
         {
-            ElementTheme requestedTheme = uiExtension.RequestedTheme;
-
-            if (requestedTheme == ElementTheme.Dark)
-            {
-                this.RequestedTheme = requestedTheme;
-                this.Background = uiExtensionBlackBrush;
-            }
-            else
-            {
-                this.RequestedTheme = requestedTheme;
-                this.Background = uiExtensionWhiteBrush;
-            }
+            this.RequestedTheme = uiExtension.RequestedTheme;
+            this.Background = (uiExtension.RequestedTheme == ElementTheme.Dark) ? uiExtensionBlackBrush : uiExtensionWhiteBrush;
         }
 
         private void SetRequestedThemeState()
         {
-            String requestedTheme = "";
-
-            switch(uiExtension.RequestedTheme)
-            {
-                case ElementTheme.Light:
-                    requestedTheme = requestedTheme + "Light";
-                    break;
-                case ElementTheme.Dark:
-                    requestedTheme = requestedTheme + "Dark";
-                    break;
-            }
-
-            RequestedThemeTextBlock.Text = requestedTheme;
+            RequestedThemeTextBlock.Text = uiExtension.RequestedTheme.ToString();
         }
 
         private void OutputVisibleState()
         {
-            String isVisible = uiExtension.Visible ? "true" : "false";
-            String visibleState = "Visible: \t\t" + isVisible;
-            System.Diagnostics.Debug.WriteLine(visibleState);
+            Debug.WriteLine("Visible: " + uiExtension.Visible.ToString());
         }
 
         private void OutputWindowState()
         {
-            String window = (uiExtension.WindowState == XboxGameBarUIExtensionWindowState.Minimized) ? "Minimized" : "Restored";
-            String windowOutput = "Window State: \t" + window;
-            System.Diagnostics.Debug.WriteLine(windowOutput);
+            Debug.WriteLine("Window State: " + uiExtension.WindowState.ToString());
         }
 
         private void OutputGameBarDisplayMode()
         {
-            String mode = (uiExtension.GameBarDisplayMode == XboxGameBarDisplayMode.Foreground) ? "Foreground" : "PinnedOnly";
-            String modeOutput = "Game Bar View Mode: " + mode;
-            System.Diagnostics.Debug.WriteLine(modeOutput);
+            Debug.WriteLine("Game Bar View Mode: " + uiExtension.GameBarDisplayMode.ToString());
         }
     }
 }
