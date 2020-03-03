@@ -1,0 +1,8 @@
+namespace WidgetAdvSample
+{
+    [default_interface]
+    runtimeclass Widget1 : Windows.UI.Xaml.Controls.Page
+    {
+        Widget1();
+    }
+}

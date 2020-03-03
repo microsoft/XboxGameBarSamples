@@ -1,0 +1,9 @@
+namespace WidgetSample
+{
+    [default_interface]
+    runtimeclass Widget1 : Windows.UI.Xaml.Controls.Page
+    {
+        Widget1();
+        Int32 MyProperty;
+    }
+}
