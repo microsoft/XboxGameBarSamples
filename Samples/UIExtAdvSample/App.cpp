@@ -55,6 +55,8 @@ void App::OnActivated(IActivatedEventArgs const& e)
     }
     if (uiExtArgs)
     {
+        std::wstring appExtId{ uiExtArgs.AppExtensionId() };
+
         //
         // If IsLaunchActivation is true, this is Game Bar's initial activation of us 
         // and we MUST create and hold onto XboxGameBarUIExtension.
@@ -71,7 +73,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
             Window::Current().Content(rootFrame);
 
             // Navigate to correct view
-            std::wstring appExtId{ uiExtArgs.AppExtensionId() };
+            
             if (0 == appExtId.compare(L"Extension1"))
             {
                 m_uiExtension1 = XboxGameBarUIExtension(
@@ -104,7 +106,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
 
             Window::Current().Activate();
         }
-        else
+        else if (0 == appExtId.compare(L"Extension2"))
         {
             // You can perform whatever behavior you need based on the URI payload. In our case
             // we're simply renavigating to Extension2 and displaying the absolute URI.  You
