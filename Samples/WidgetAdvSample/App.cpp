@@ -73,6 +73,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
             Window::Current().Content(rootFrame);
 
             // Navigate to correct view
+            
             if (0 == appExtId.compare(L"Widget1"))
             {
                 m_widget1 = XboxGameBarWidget(
