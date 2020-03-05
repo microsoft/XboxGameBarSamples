@@ -55,9 +55,9 @@
                 <ActivateAfterInstall>true</ActivateAfterInstall>
                 <Window>
                   <Size>
-                    <Height>550</Height>
+                    <Height>625</Height>
                     <Width>600</Width>
-                    <MinHeight>550</MinHeight>
+                    <MinHeight>500</MinHeight>
                     <MinWidth>600</MinWidth>
                     <MaxHeight>1000</MaxHeight>
                     <MaxWidth>1000</MaxWidth>

@@ -16,16 +16,16 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
 
-namespace UIExtAdvSampleCS
+namespace WidgetAdvSampleCS
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application
     {
-        private XboxGameBarUIExtension uiExtension1 = null;
-        private XboxGameBarUIExtension uiExtension1Settings = null;
-        private XboxGameBarUIExtension uiExtension2 = null;
+        private XboxGameBarWidget widget1 = null;
+        private XboxGameBarWidget widget1Settings = null;
+        private XboxGameBarWidget widget2 = null;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -39,57 +39,57 @@ namespace UIExtAdvSampleCS
 
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            XboxGameBarUIExtensionActivatedEventArgs uiExtArgs = null;
+            XboxGameBarWidgetActivatedEventArgs widgetArgs = null;
             if (args.Kind == ActivationKind.Protocol)
             {
                 var protocolArgs = args as IProtocolActivatedEventArgs;
                 string scheme = protocolArgs.Uri.Scheme;
-                if (scheme.StartsWith("ms-gamebaruiextension"))
+                if (scheme.StartsWith("ms-gamebarwidget"))
                 {
-                    uiExtArgs = args as XboxGameBarUIExtensionActivatedEventArgs;
+                    widgetArgs = args as XboxGameBarWidgetActivatedEventArgs;
                 }
             }
-            if (uiExtArgs != null)
+            if (widgetArgs != null)
             {
                 //
                 // If IsLaunchActivation is true, this is Game Bar's initial activation of us 
-                // and we MUST create and hold onto XboxGameBarUIExtension.
+                // and we MUST create and hold onto XboxGameBarWidget.
                 //
                 // Otherwise this is a subsequent activation coming from Game Bar. We should
-                // continue to hold the XboxGameBarUIExtension created during initial activation
+                // continue to hold the XboxGameBarWidget created during initial activation
                 // and just observe the URI command here and act accordingly. It is ok to
                 // perform a navigate on the root frame to switch views/pages if needed.
                 //
-                if (uiExtArgs.IsLaunchActivation)
+                if (widgetArgs.IsLaunchActivation)
                 {
                     var rootFrame = new Frame();
                     rootFrame.NavigationFailed += OnNavigationFailed;
                     Window.Current.Content = rootFrame;
 
                     // Navigate to correct view
-                    if (uiExtArgs.AppExtensionId == "Extension1")
+                    if (widgetArgs.AppExtensionId == "Widget1")
                     {
-                        uiExtension1 = new XboxGameBarUIExtension(
-                            uiExtArgs,
+                        widget1 = new XboxGameBarWidget(
+                            widgetArgs,
                             Window.Current.CoreWindow,
                             rootFrame);
-                        rootFrame.Navigate(typeof(Extension1), uiExtension1);
+                        rootFrame.Navigate(typeof(Widget1), widget1);
                     }
-                    else if (uiExtArgs.AppExtensionId == "Extension1Settings")
+                    else if (widgetArgs.AppExtensionId == "Widget1Settings")
                     {
-                        uiExtension1Settings = new XboxGameBarUIExtension(
-                            uiExtArgs,
+                        widget1Settings = new XboxGameBarWidget(
+                            widgetArgs,
                             Window.Current.CoreWindow,
                             rootFrame);
-                        rootFrame.Navigate(typeof(Extension1Settings));
+                        rootFrame.Navigate(typeof(Widget1Settings));
                     }
-                    else if (uiExtArgs.AppExtensionId == "Extension2")
+                    else if (widgetArgs.AppExtensionId == "Widget2")
                     {
-                        uiExtension2 = new XboxGameBarUIExtension(
-                            uiExtArgs,
+                        widget2 = new XboxGameBarWidget(
+                            widgetArgs,
                             Window.Current.CoreWindow,
                             rootFrame);
-                        rootFrame.Navigate(typeof(Extension2), uiExtArgs.Uri);
+                        rootFrame.Navigate(typeof(Widget2), widgetArgs.Uri);
                     }
                     else 
                     {
@@ -99,19 +99,19 @@ namespace UIExtAdvSampleCS
 
                     Window.Current.Activate();
                 }
-                else if (uiExtArgs.AppExtensionId == "Extension2")
+                else if (widgetArgs.AppExtensionId == "Widget2")
                 {
                     // You can perform whatever behavior you need based on the URI payload. In our case
-                    // we're simply renavigating to Extension2 and displaying the absolute URI.  You
+                    // we're simply renavigating to Widget2 and displaying the absolute URI.  You
                     // define your URI schema (subpath + query + fragment). 
                     Frame rootFrame = null;
-                    rootFrame.NavigationFailed += OnNavigationFailed;
                     var content = Window.Current.Content;
                     if (content != null)
                     {
                         rootFrame = content as Frame;
                     }
-                    rootFrame.Navigate(typeof(Extension2), uiExtArgs.Uri);
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+                    rootFrame.Navigate(typeof(Widget2), widgetArgs.Uri);
                 }
             }
         }

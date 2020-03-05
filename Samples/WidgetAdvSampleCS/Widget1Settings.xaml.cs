@@ -15,14 +15,14 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace UIExtAdvSampleCS
+namespace WidgetAdvSampleCS
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Extension2 : Page
+    public sealed partial class Widget1Settings : Page
     {
-        public Extension2()
+        public Widget1Settings()
         {
             this.InitializeComponent();
         }

@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WidgetSampleCX", "WidgetSam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WidgetSettingsSample", "WidgetSettingsSample\WidgetSettingsSample.vcxproj", "{E653C0F6-71A5-42F9-8063-D4C8DB8D4887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIExtAdvSampleCS", "UIExtAdvSampleCS\UIExtAdvSampleCS.csproj", "{A2181EB4-E748-433B-96C1-8223B2A9EF18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetAdvSampleCS", "WidgetAdvSampleCS\WidgetAdvSampleCS.csproj", "{A2181EB4-E748-433B-96C1-8223B2A9EF18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

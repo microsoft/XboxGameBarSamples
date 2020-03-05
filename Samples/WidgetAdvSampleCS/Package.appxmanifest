@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap uap3 mp">
 
   <Identity
-    Name="UIExtAdvSampleCS"
+    Name="WidgetAdvSampleCS"
     Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="4b9dee15-da50-4b0a-8337-9b84da542023" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>UIExtAdvSampleCS</DisplayName>
+    <DisplayName>WidgetAdvSampleCS</DisplayName>
     <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -31,12 +31,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="UIExtAdvSampleCS.App">
+      EntryPoint="WidgetAdvSampleCS.App">
       <uap:VisualElements
-        DisplayName="UIExtAdvSampleCS"
+        DisplayName="WidgetAdvSampleCS"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="UIExtAdvSampleCS"
+        Description="WidgetAdvSampleCS"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
@@ -44,19 +44,19 @@
       <Extensions>
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
-                             Id="Extension1"
-                             DisplayName="UI Extension Adv Sample CS"
-                             Description="UI Extension Adv Sample CS Description"
+                             Id="Widget1"
+                             DisplayName="Widget Adv Sample CS"
+                             Description="Widget Adv Sample CS Description"
                              PublicFolder="GameBar">
             <uap3:Properties>
-              <GameBarUIExtension Type="Standard">
+              <GameBarWidget Type="Standard">
                 <HomeMenuVisible>true</HomeMenuVisible>
                 <PinningSupported>true</PinningSupported>
                 <Window>
                   <Size>
-                    <Height>550</Height>
+                    <Height>625</Height>
                     <Width>600</Width>
-                    <MinHeight>550</MinHeight>
+                    <MinHeight>500</MinHeight>
                     <MinWidth>600</MinWidth>
                     <MaxHeight>1000</MaxHeight>
                     <MaxWidth>1000</MaxWidth>
@@ -66,7 +66,7 @@
                     <Vertical>true</Vertical>
                   </ResizeSupported>
                 </Window>
-              </GameBarUIExtension>
+              </GameBarWidget>
             </uap3:Properties>
           </uap3:AppExtension>
         </uap3:Extension>
@@ -74,12 +74,12 @@
         <!-- Extension 1 Settings (Also an extension of separate type) -->
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
-                             Id="Extension1Settings"
-                             DisplayName="UI Extension Adv Sample 1 Settings"
-                             Description="UI Extension Adv Sample 2 Settings Description"
-                             PublicFolder="Extension1">
+                             Id="Widget1Settings"
+                             DisplayName="Widget Adv Sample 1 Settings"
+                             Description="Widget Adv Sample 2 Settings Description"
+                             PublicFolder="Widget1">
             <uap3:Properties>
-              <GameBarUIExtension Type="Settings">
+              <GameBarWidget Type="Settings">
                 <Window>
                   <Size>
                     <Height>300</Height>
@@ -90,7 +90,7 @@
                     <Vertical>false</Vertical>
                   </ResizeSupported>
                 </Window>
-              </GameBarUIExtension>
+              </GameBarWidget>
             </uap3:Properties>
           </uap3:AppExtension>
         </uap3:Extension>
@@ -98,12 +98,12 @@
         <!-- 2nd extension -->
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
-                             Id="Extension2"
-                             DisplayName="UI Extension Adv Sample 2"
-                             Description="UI Extension Adv Sample 2 Description"
-                             PublicFolder="Extension2">
+                             Id="Widget2"
+                             DisplayName="Widget Adv Sample 2 CS"
+                             Description="Widget Adv Sample 2 CS Description"
+                             PublicFolder="Widget2">
             <uap3:Properties>
-              <GameBarUIExtension Type="Standard">
+              <GameBarWidget Type="Standard">
                 <HomeMenuVisible>true</HomeMenuVisible>
                 <PinningSupported>false</PinningSupported>
                 <Window>
@@ -120,7 +120,7 @@
                     <Vertical>false</Vertical>
                   </ResizeSupported>
                 </Window>
-              </GameBarUIExtension>
+              </GameBarWidget>
             </uap3:Properties>
           </uap3:AppExtension>
         </uap3:Extension>
@@ -135,11 +135,11 @@
     <Extension Category="windows.activatableClass.proxyStub">
       <ProxyStub ClassId="00000355-0000-0000-C000-000000000046">
         <Path>Microsoft.Gaming.XboxGameBar.winmd</Path>
-        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarExtensionControlHost" InterfaceId="C309CAC7-8435-4082-8F37-784523747047" />
+        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetControlHost" InterfaceId="C309CAC7-8435-4082-8F37-784523747047" />
         <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarNavigationKeyCombo" InterfaceId="5EEA3DBF-09BB-42A5-B491-CF561E33C172" />
-        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarUIExtensionActivatedEventArgsPrivate" InterfaceId="782535A7-9407-4572-BFCB-316B4086F102" />
-        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarUIExtensionHost" InterfaceId="5D12BC93-212B-4B9F-9091-76B73BF56525" />
-        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarUIExtensionPrivate" InterfaceId="22ABA97F-FB0F-4439-9BDD-2C67B2D5AA8F" />
+        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetActivatedEventArgsPrivate" InterfaceId="782535A7-9407-4572-BFCB-316B4086F102" />
+        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetHost" InterfaceId="5D12BC93-212B-4B9F-9091-76B73BF56525" />
+        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetPrivate" InterfaceId="22ABA97F-FB0F-4439-9BDD-2C67B2D5AA8F" />
       </ProxyStub>
     </Extension>
   </Extensions>

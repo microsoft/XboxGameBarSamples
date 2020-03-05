@@ -11,7 +11,6 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\SmallTile.scale-100.png">
       <Filter>Assets</Filter>
     </Image>
@@ -132,24 +131,6 @@
     <Image Include="Assets\StoreLogo.scale-400.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Widget1\Icons\icon.targetsize-16.png">
-      <Filter>Widget1\Icons</Filter>
-    </Image>
-    <Image Include="Widget1\Icons\icon.targetsize-20.png">
-      <Filter>Widget1\Icons</Filter>
-    </Image>
-    <Image Include="Widget1\Icons\icon.targetsize-24.png">
-      <Filter>Widget1\Icons</Filter>
-    </Image>
-    <Image Include="Widget1\Icons\icon.targetsize-32.png">
-      <Filter>Widget1\Icons</Filter>
-    </Image>
-    <Image Include="Widget1\Icons\icon.targetsize-44.png">
-      <Filter>Widget1\Icons</Filter>
-    </Image>
-    <Image Include="Widget1\Icons\icon.targetsize-256.png">
-      <Filter>Widget1\Icons</Filter>
-    </Image>
     <Image Include="Assets\Square150x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
@@ -165,8 +146,23 @@
     <Image Include="Assets\SplashScreen.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
     <Image Include="Widget2\Icons\icon.targetsize-16.png">
       <Filter>Widget2\Icons</Filter>
+    </Image>
+    <Image Include="Widget1\Icons\icon.targetsize-16.png">
+      <Filter>Widget1\Icons</Filter>
+    </Image>
+    <Image Include="Widget1\Icons\icon.targetsize-20.png">
+      <Filter>Widget1\Icons</Filter>
     </Image>
     <Image Include="Widget2\Icons\icon.targetsize-20.png">
       <Filter>Widget2\Icons</Filter>
@@ -174,11 +170,23 @@
     <Image Include="Widget2\Icons\icon.targetsize-24.png">
       <Filter>Widget2\Icons</Filter>
     </Image>
+    <Image Include="Widget1\Icons\icon.targetsize-24.png">
+      <Filter>Widget1\Icons</Filter>
+    </Image>
     <Image Include="Widget2\Icons\icon.targetsize-32.png">
       <Filter>Widget2\Icons</Filter>
     </Image>
+    <Image Include="Widget1\Icons\icon.targetsize-32.png">
+      <Filter>Widget1\Icons</Filter>
+    </Image>
     <Image Include="Widget2\Icons\icon.targetsize-44.png">
       <Filter>Widget2\Icons</Filter>
+    </Image>
+    <Image Include="Widget1\Icons\icon.targetsize-44.png">
+      <Filter>Widget1\Icons</Filter>
+    </Image>
+    <Image Include="Widget1\Icons\icon.targetsize-256.png">
+      <Filter>Widget1\Icons</Filter>
     </Image>
     <Image Include="Widget2\Icons\icon.targetsize-256.png">
       <Filter>Widget2\Icons</Filter>
@@ -201,12 +209,6 @@
     <Image Include="Widget2\Icons\icon.targetsize-light-256.png">
       <Filter>Widget2\Icons</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Widget1Settings.xaml" />
