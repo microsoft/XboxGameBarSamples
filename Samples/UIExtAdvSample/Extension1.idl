@@ -1,8 +1,0 @@
-namespace UIExtAdvSample
-{
-    [default_interface]
-    runtimeclass Extension1 : Windows.UI.Xaml.Controls.Page
-    {
-        Extension1();
-    }
-}
