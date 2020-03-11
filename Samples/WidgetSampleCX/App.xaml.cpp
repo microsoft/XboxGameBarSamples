@@ -43,7 +43,9 @@ void App::OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs
         auto protocolArgs = dynamic_cast<IProtocolActivatedEventArgs^>(e);
         if (protocolArgs)
         {
-            if (0 != wcsstr(protocolArgs->Uri->AbsoluteUri->Data(), L"ms-gamebarwidget:"))
+            // If scheme name is ms-gamebarwidget, Xbox Game Bar is activating us.
+            const wchar_t* scheme = protocolArgs->Uri->SchemeName->Data();
+            if (0 != wcsstr(scheme, L"ms-gamebarwidget"))
             {
                 widgetArgs = dynamic_cast<XboxGameBarWidgetActivatedEventArgs^>(e);
             }

@@ -2,13 +2,16 @@
 #include "Widget1.h"
 #include "Widget1.g.cpp"
 
+#include <strsafe.h>
+
 using namespace winrt;
 using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::Foundation;
 using namespace winrt::Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Media;
 using namespace winrt::Windows::UI::Xaml::Navigation;
-using namespace Microsoft::Gaming::XboxGameBar;
+using namespace winrt::Microsoft::Gaming::XboxGameBar;
+using namespace winrt::Microsoft::Gaming::XboxGameBar::Authentication;
 
 namespace winrt::WidgetAdvSample::implementation
 {
@@ -21,6 +24,7 @@ namespace winrt::WidgetAdvSample::implementation
     {
         m_widget = e.Parameter().as<XboxGameBarWidget>();
         m_widgetControl = XboxGameBarWidgetControl(m_widget);
+        m_gameBarWebAuth = XboxGameBarWebAuthenticationBroker(m_widget);
 
         m_widgetDarkThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 38, 38, 38));
         m_widgetLightThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 219, 219, 219));
@@ -107,6 +111,35 @@ namespace winrt::WidgetAdvSample::implementation
         auto result = co_await m_widget.TryResizeWindowAsync(size);
         UNREFERENCED_PARAMETER(result);
         co_return;
+    }
+
+    IAsyncAction Widget1::AuthenticateAsync_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    {
+        if (RequestUriBox().Text().empty() || CallbackUriBox().Text().empty())
+        {
+            co_return;
+        }
+
+        auto strongThis{ get_strong() };
+
+        Uri requestUri{ RequestUriBox().Text() };
+        Uri callbackUri{ CallbackUriBox().Text() };
+        XboxGameBarWebAuthenticationResult result = co_await m_gameBarWebAuth.AuthenticateAsync(
+            XboxGameBarWebAuthenticationOptions::None,
+            requestUri,
+            callbackUri);
+
+        std::wstring debugOut = L"ResponseData: ";
+        debugOut += result.ResponseData();
+        debugOut += L"\r\n";
+        OutputDebugString(debugOut.c_str());
+
+        wchar_t buffer[256] = {};
+        StringCchPrintfW(buffer, 256, L"ResponseStatus: %u\r\n", (uint32_t)result.ResponseStatus());
+        OutputDebugString(buffer);
+
+        StringCchPrintfW(buffer, 256, L"ResponseErrorDetail: %u\r\n", result.ResponseErrorDetail());
+        OutputDebugString(buffer);
     }
 
     Windows::Foundation::IAsyncAction Widget1::SettingsButton_Click(

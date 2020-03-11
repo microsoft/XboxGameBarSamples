@@ -19,9 +19,9 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|ARM">
+    <ProjectConfiguration Include="Debug|ARM64">
       <Configuration>Debug</Configuration>
-      <Platform>ARM</Platform>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -31,9 +31,9 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|ARM">
+    <ProjectConfiguration Include="Release|ARM64">
       <Configuration>Release</Configuration>
-      <Platform>ARM</Platform>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -71,7 +71,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxBundle>Never</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
@@ -230,7 +230,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets')" />
-    <Import Project="..\packages\Microsoft.Gaming.XboxGameBar.4.1.200305001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets" Condition="Exists('..\packages\Microsoft.Gaming.XboxGameBar.4.1.200305001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets')" />
+    <Import Project="..\packages\Microsoft.Gaming.XboxGameBar.4.1.200311001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets" Condition="Exists('..\packages\Microsoft.Gaming.XboxGameBar.4.1.200311001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -238,6 +238,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Gaming.XboxGameBar.4.1.200305001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Gaming.XboxGameBar.4.1.200305001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Gaming.XboxGameBar.4.1.200311001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Gaming.XboxGameBar.4.1.200311001-prerelease\build\native\Microsoft.Gaming.XboxGameBar.targets'))" />
   </Target>
 </Project>

@@ -105,8 +105,9 @@ void App::OnActivated(IActivatedEventArgs const& e)
         auto protocolArgs = e.try_as<IProtocolActivatedEventArgs>();
         if (protocolArgs)
         {
-            const wchar_t* protocolString = protocolArgs.Uri().AbsoluteUri().c_str();
-            if (0 != wcsstr(protocolString, L"ms-gamebarwidget:"))
+            // If scheme name is ms-gamebarwidget, Xbox Game Bar is activating us.
+            const wchar_t* scheme = protocolArgs.Uri().SchemeName().c_str();
+            if (0 != wcsstr(scheme, L"ms-gamebarwidget"))
             {
                 widgetArgs = e.try_as<XboxGameBarWidgetActivatedEventArgs>();
             }

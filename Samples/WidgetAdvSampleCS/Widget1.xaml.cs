@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
 using System.Diagnostics;
+using Microsoft.Gaming.XboxGameBar.Authentication;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,6 +27,7 @@ namespace WidgetAdvSampleCS
     {
         private XboxGameBarWidget widget = null;
         private XboxGameBarWidgetControl widgetControl = null;
+        private XboxGameBarWebAuthenticationBroker gameBarWebAuth = null;
         private SolidColorBrush widgetBlackBrush =  null;
         private SolidColorBrush widgetWhiteBrush = null;
 
@@ -38,6 +40,7 @@ namespace WidgetAdvSampleCS
         {
             widget = e.Parameter as XboxGameBarWidget;
             widgetControl = new XboxGameBarWidgetControl(widget);
+            gameBarWebAuth = new XboxGameBarWebAuthenticationBroker(widget);
 
             widgetBlackBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 38, 38, 38));
             widgetWhiteBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 219, 219, 219));
@@ -113,6 +116,25 @@ namespace WidgetAdvSampleCS
             size.Height = int.Parse(WindowHeightBox.Text);
             size.Width = int.Parse(WindowWidthBox.Text);
             await widget.TryResizeWindowAsync(size);
+        }
+
+        private async void AuthenticateAsync_Click(object sender, RoutedEventArgs e)
+        {
+            if (RequestUriBox.Text == "" || CallbackUriBox.Text == "")
+            {
+                return;
+            }
+
+            Uri requestUri = new Uri(RequestUriBox.Text);
+            Uri callbackUri = new Uri(CallbackUriBox.Text);
+            XboxGameBarWebAuthenticationResult result = await gameBarWebAuth.AuthenticateAsync(
+                XboxGameBarWebAuthenticationOptions.None,
+                requestUri,
+                callbackUri);
+
+            Debug.WriteLine("ResponseData: " + result.ResponseData);
+            Debug.WriteLine("ResponseStatus: " + result.ResponseStatus.ToString());
+            Debug.WriteLine("ResponseErrorDetail: " + result.ResponseErrorDetail);
         }
 
         private async void Widget_SettingsClicked(XboxGameBarWidget sender, object args)
