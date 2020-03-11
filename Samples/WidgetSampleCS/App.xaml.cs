@@ -41,8 +41,8 @@ namespace WidgetSampleCS
             if (args.Kind == ActivationKind.Protocol)
             {
                 var protocolArgs = args as IProtocolActivatedEventArgs;
-                string protocolString = protocolArgs.Uri.AbsoluteUri;
-                if (protocolString.StartsWith("ms-gamebarwidget"))
+                string scheme = protocolArgs.Uri.Scheme;
+                if (scheme.StartsWith("ms-gamebarwidget"))
                 {
                     widgetArgs = args as XboxGameBarWidgetActivatedEventArgs;
                 }
