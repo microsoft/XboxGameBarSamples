@@ -5,6 +5,7 @@
 #include <winrt/Windows.UI.Xaml.Media.h>
 #include <winrt/Windows.UI.Core.h>
 #include <winrt/Microsoft.Gaming.XboxGameBar.h>
+#include <winrt/Microsoft.Gaming.XboxGameBar.Authentication.h>
 
 namespace winrt::WidgetAdvSample::implementation
 {
@@ -25,6 +26,7 @@ namespace winrt::WidgetAdvSample::implementation
         Windows::Foundation::IAsyncAction CloseAsyncAppExtIdButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction CloseAsyncAppIdButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction TryResizeWindowAsync_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction AuthenticateAsync_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
 
         // Settings click handler for widget settings click event
         Windows::Foundation::IAsyncAction SettingsButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
@@ -46,6 +48,7 @@ namespace winrt::WidgetAdvSample::implementation
 
     private:
         Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget{ nullptr };
+        Microsoft::Gaming::XboxGameBar::Authentication::XboxGameBarWebAuthenticationBroker m_gameBarWebAuth{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarWidgetControl m_widgetControl{ nullptr };
         Windows::UI::Core::CoreWindow m_widgetCoreWindow{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_widgetDarkThemeBrush{ nullptr };

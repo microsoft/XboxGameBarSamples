@@ -61,6 +61,21 @@
           <TextBox Grid.Column="1" Grid.Row="1" x:Name="WindowHeightBox" VerticalAlignment="Center" Text="800"/>
         </Grid>
         <Button x:Name="TryResizeWindowAsync" Click="TryResizeWindowAsync_Click" Margin="0,2">TryResizeWindowAsync</Button>
+        <Grid Padding="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <TextBlock Grid.Column="0" Grid.Row="0" Text="Request URI: " VerticalAlignment="Center" />
+          <TextBox Grid.Column="1" Grid.Row="0" x:Name="RequestUriBox" VerticalAlignment="Center" />
+          <TextBlock Grid.Column="0" Grid.Row="1" Text="Callback URI: " VerticalAlignment="Center" />
+          <TextBox Grid.Column="1" Grid.Row="1" x:Name="CallbackUriBox" VerticalAlignment="Center" />
+        </Grid>
+        <Button x:Name="AuthenticateAsync" Click="AuthenticateAsync_Click" Margin="0,2">AuthenticateAsync</Button>
         <StackPanel>
           <Grid Padding="2">
             <Grid.ColumnDefinitions>

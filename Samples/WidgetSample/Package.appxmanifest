@@ -75,6 +75,7 @@
     <Extension Category="windows.activatableClass.proxyStub">
       <ProxyStub ClassId="00000355-0000-0000-C000-000000000046">
         <Path>Microsoft.Gaming.XboxGameBar.winmd</Path>
+        <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetAuthHost" InterfaceId="DC263529-B12F-469E-BB35-B94069F5B15A" />
         <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetControlHost" InterfaceId="C309CAC7-8435-4082-8F37-784523747047" />
         <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarNavigationKeyCombo" InterfaceId="5EEA3DBF-09BB-42A5-B491-CF561E33C172" />
         <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetActivatedEventArgsPrivate" InterfaceId="782535A7-9407-4572-BFCB-316B4086F102" />

@@ -33,4 +33,5 @@
 #include <winrt/Windows.UI.Xaml.Markup.h>
 #include <winrt/Windows.UI.Xaml.Navigation.h>
 #include <winrt/Microsoft.Gaming.XboxGameBar.h>
+#include <winrt/Microsoft.Gaming.XboxGameBar.Authentication.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
