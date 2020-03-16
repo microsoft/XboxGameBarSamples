@@ -9,6 +9,7 @@ trigger:
     include:
     - master
 
+jobs:
 - job: Build
   displayName: Build Xbox Game Bar Samples
   strategy:
