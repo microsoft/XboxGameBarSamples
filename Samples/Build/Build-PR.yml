@@ -31,10 +31,17 @@ jobs:
     displayName: 'NuGet restore all solutions'
     inputs:
       restoreSolution: '$(solution)'
+      feedsToUse: select
+      vstsFeed: 'https://microsoft.pkgs.visualstudio.com/_packaging/Microsoft.Gaming.Internal.XboxGameBar/nuget/v3/index.json'
+      includeNuGetOrg: false
 
   - task: VSBuild@1
     inputs:
       solution: '$(solution)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
-      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+                    /p:AppxPackageDir="$(appxPackageDir)"
+                    /p:AppxBundle=Never
+                    /p:AppxPackageSigningEnabled=true
+                    /p:UapAppxPackageBuildMode=SideloadOnly'

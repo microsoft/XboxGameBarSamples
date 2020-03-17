@@ -61,12 +61,12 @@ jobs:
       solution: '$(solution)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
-      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" 
-                    /p:AppxPackageDir="$(appxPackageDir)" 
-                    /p:AppxBundle=Never 
-                    /p:UapAppxPackageBuildMode=SideloadOnly 
+      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+                    /p:AppxPackageDir="$(appxPackageDir)"
+                    /p:AppxBundle=Never
+                    /p:UapAppxPackageBuildMode=SideloadOnly
                     /p:AppxPackageSigningEnabled=true
-                    /p:PackageCertificateThumbprint="" 
+                    /p:PackageCertificateThumbprint=""
                     /p:PackageCertificateKeyFile="$(signingCert.secureFilePath)"
                     /p:PackageCertificatePassword="$(PackageCertPwd)"'
 
