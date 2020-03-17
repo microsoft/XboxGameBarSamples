@@ -20,6 +20,10 @@ Taxonomies for products and languages: https://review.docs.microsoft.com/new-hop
 
 Give a short description for your sample here. What does it do and why is it important?
 
+## Build Status
+Master Branch
+[![Build Status](https://microsoft.visualstudio.com/Xbox.Apps/_apis/build/status/XboxGameBar/XboxGameBarSamples_CI?branchName=master)](https://microsoft.visualstudio.com/Xbox.Apps/_build/latest?definitionId=50221&branchName=master)
+
 ## Contents
 
 Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
@@ -41,7 +45,7 @@ Outline the required components and tools that a user might need to have on thei
 
 Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
 
-## Runnning the sample
+## Running the sample
 
 Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
 
