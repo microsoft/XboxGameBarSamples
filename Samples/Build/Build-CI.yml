@@ -46,9 +46,8 @@ jobs:
     displayName: 'NuGet restore all solutions'
     inputs:
       restoreSolution: '$(solution)'
-      feedsToUse: select
-      vstsFeed: 'https://microsoft.pkgs.visualstudio.com/_packaging/Microsoft.Gaming.Internal.XboxGameBar/nuget/v3/index.json'
-      includeNuGetOrg: false
+      feedsToUse: config
+      vstsFeed: 'nuget.config'
 
   - task: DownloadSecureFile@1
     name: signingCert
