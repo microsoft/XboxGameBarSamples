@@ -75,5 +75,5 @@ jobs:
     condition: succeededOrFailed()
     inputs:
       PathtoPublish: '$(build.artifactStagingDirectory)'
-      ArtifactName: '$(buildConfiguration)\$(buildPlatform)'
+      ArtifactName: 'Bin'
       
