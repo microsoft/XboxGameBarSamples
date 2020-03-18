@@ -32,7 +32,7 @@ jobs:
     inputs:
       restoreSolution: '$(solution)'
       feedsToUse: config
-      vstsFeed: 'nuget.config'
+      nugetConfigPath: 'nuget.config'
 
   - task: VSBuild@1
     inputs:
