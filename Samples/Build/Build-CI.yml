@@ -47,7 +47,7 @@ jobs:
     inputs:
       restoreSolution: '$(solution)'
       feedsToUse: config
-      nugetConfigPath: 'nuget.config'
+      nugetConfigPath: 'Samples\Build\nuget.config'
 
   - task: DownloadSecureFile@1
     name: signingCert
