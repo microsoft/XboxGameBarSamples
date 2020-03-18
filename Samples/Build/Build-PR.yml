@@ -42,5 +42,5 @@ jobs:
       msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
                     /p:AppxPackageDir="$(appxPackageDir)"
                     /p:AppxBundle=Never
-                    /p:AppxPackageSigningEnabled=true
+                    /p:AppxPackageSigningEnabled=false
                     /p:UapAppxPackageBuildMode=SideloadOnly'
