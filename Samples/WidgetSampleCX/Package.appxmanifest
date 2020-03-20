@@ -9,14 +9,14 @@
 
   <Identity
     Name="WidgetSampleCX"
-    Publisher="CN=benmc"
+    Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="0d4864f4-b4f5-48c2-a868-7d6275202a7b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>WidgetSampleCX</DisplayName>
-    <PublisherDisplayName>benmc</PublisherDisplayName>
+    <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

@@ -33,8 +33,11 @@ jobs:
     vmImage: 'windows-latest'
 
   variables:
-    solution: '**/*.sln'
-    appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+    - group: XboxGameBarSamples
+    - name: solution
+      value: '**/*.sln'
+    - name: appxPackageDir
+      value: '$(build.artifactStagingDirectory)\AppPackages\\'
 
   steps:
   - task: NuGetToolInstaller@1
@@ -43,10 +46,34 @@ jobs:
     displayName: 'NuGet restore all solutions'
     inputs:
       restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'Samples\Build\nuget.config'
+
+  - task: DownloadSecureFile@1
+    name: signingCert
+    displayName: 'Download CA certificate'
+    inputs:
+      secureFile: 'XboxGameBarSamplesBuild.pfx'
 
   - task: VSBuild@1
     inputs:
       solution: '$(solution)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
-      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+                    /p:AppxPackageDir="$(appxPackageDir)"
+                    /p:AppxBundle=Never
+                    /p:UapAppxPackageBuildMode=SideloadOnly
+                    /p:AppxPackageSigningEnabled=true
+                    /p:PackageCertificateThumbprint=""
+                    /p:PackageCertificateKeyFile="$(signingCert.secureFilePath)"
+                    /p:PackageCertificatePassword="$(PackageCertPwd)"'
+
+ # Publish build artifacts 
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: $(buildConfiguration)\$(buildPlatform)'
+    condition: succeededOrFailed()
+    inputs:
+      PathtoPublish: '$(build.artifactStagingDirectory)'
+      ArtifactName: 'Bin'
+      

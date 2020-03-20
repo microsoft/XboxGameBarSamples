@@ -31,10 +31,16 @@ jobs:
     displayName: 'NuGet restore all solutions'
     inputs:
       restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'Samples\Build\nuget.config'
 
   - task: VSBuild@1
     inputs:
       solution: '$(solution)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
-      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+                    /p:AppxPackageDir="$(appxPackageDir)"
+                    /p:AppxBundle=Never
+                    /p:AppxPackageSigningEnabled=false
+                    /p:UapAppxPackageBuildMode=SideloadOnly'
