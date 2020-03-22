@@ -103,9 +103,79 @@
               <ColumnDefinition Width="5*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Favorited:" />
-            <TextBlock   Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="FavoritedTextBlock" />
+            <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="FavoritedTextBlock" />
           </Grid>
         </StackPanel>
+        <StackPanel>
+          <Grid Padding="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="HorizontalResizeSupported:" />
+            <CheckBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="HorizontalResizeSupportedCheckBox" Padding="2" Checked="HorizontalResizeSupportedCheckBox_Checked" Unchecked="HorizontalResizeSupportedCheckBox_Unchecked" />
+          </Grid>
+        </StackPanel>
+        <StackPanel>
+          <Grid Padding="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="VerticalResizeSupported:" />
+            <CheckBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="VerticalResizeSupportedCheckBox" Padding="2" Checked="VerticalResizeSupportedCheckBox_Checked" Unchecked="VerticalResizeSupportedCheckBox_Unchecked" />
+          </Grid>
+        </StackPanel>
+        <StackPanel>
+          <Grid Padding="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="PinningSupported:" />
+            <CheckBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="PinningSupportedCheckBox" Padding="2" Checked="PinningSupportedCheckBox_Checked" Unchecked="PinningSupportedCheckBox_Unchecked" />
+          </Grid>
+        </StackPanel>
+        <StackPanel>
+          <Grid Padding="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="SettingsSupported:" />
+            <CheckBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="SettingsSupportedCheckBox" Padding="2" Checked="SettingsSupportedCheckBox_Checked" Unchecked="SettingsSupportedCheckBox_Unchecked" />
+          </Grid>
+        </StackPanel>
+        <Grid Padding="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <TextBlock Grid.Column="0" Grid.Row="0" Text="Min Window Width: " VerticalAlignment="Center" />
+          <TextBox Grid.Column="1" Grid.Row="0" x:Name="MinWindowWidthBox" VerticalAlignment="Center" />
+          <TextBlock Grid.Column="0" Grid.Row="1" Text="Min Window Height: " VerticalAlignment="Center" />
+          <TextBox Grid.Column="1" Grid.Row="1" x:Name="MinWindowHeightBox" VerticalAlignment="Center" />
+        </Grid>
+        <Button x:Name="MinWindowSizeButton" Click="MinWindowSize_Click" Margin="0,2">Set MinWindowSize</Button>
+        <Grid Padding="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <TextBlock Grid.Column="0" Grid.Row="0" Text="Max Window Width: " VerticalAlignment="Center" />
+          <TextBox Grid.Column="1" Grid.Row="0" x:Name="MaxWindowWidthBox" VerticalAlignment="Center" />
+          <TextBlock Grid.Column="0" Grid.Row="1" Text="Max Window Height: " VerticalAlignment="Center" />
+          <TextBox Grid.Column="1" Grid.Row="1" x:Name="MaxWindowHeightBox" VerticalAlignment="Center" />
+        </Grid>
+        <Button x:Name="MaxWindowSizeButton" Click="MaxWindowSize_Click" Margin="0,2">Set MaxWindowSize</Button>
       </StackPanel>
     </ScrollViewer>
   </Grid>
