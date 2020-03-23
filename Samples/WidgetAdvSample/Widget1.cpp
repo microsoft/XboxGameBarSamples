@@ -42,6 +42,21 @@ namespace winrt::WidgetAdvSample::implementation
         FavoritedTextBlock().Text(FavoritedStateToString());
         RequestedThemeTextBlock().Text(RequestedThemeToString());
 
+        HorizontalResizeSupportedCheckBox().IsChecked(m_widget.HorizontalResizeSupported());
+        VerticalResizeSupportedCheckBox().IsChecked(m_widget.VerticalResizeSupported());
+        PinningSupportedCheckBox().IsChecked(m_widget.PinningSupported());
+        SettingsSupportedCheckBox().IsChecked(m_widget.SettingsSupported());
+
+        wchar_t buffer[256];
+        StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"%g", m_widget.MinWindowSize().Height);
+        MinWindowHeightBox().Text(buffer);
+        StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"%g", m_widget.MinWindowSize().Width);
+        MinWindowWidthBox().Text(buffer);
+        StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"%g", m_widget.MaxWindowSize().Height);
+        MaxWindowHeightBox().Text(buffer);
+        StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"%g", m_widget.MaxWindowSize().Width);
+        MaxWindowWidthBox().Text(buffer);
+
         SetBackgroundColor();
         OutputGameBarDisplayMode();
         OutputVisibleState();
@@ -54,56 +69,56 @@ namespace winrt::WidgetAdvSample::implementation
         return m_widgetControl.ActivateAsync(text);
     }
 
-    IAsyncAction Widget1::ActivateAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::ActivateAsyncAppIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_return co_await m_widgetControl.ActivateAsync(
             this->ActivateAsyncAppId().Text(),
             this->ActivateAsyncAppExtId().Text());
     }
 
-    IAsyncAction Widget1::ActivateWithUriAsyncButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::ActivateWithUriAsyncButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         Uri uri{ this->ActivateAsyncUri().Text() };
         co_return co_await m_widgetControl.ActivateWithUriAsync(uri);
     }
 
-    IAsyncAction Widget1::MinimizeAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::MinimizeAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_return co_await m_widgetControl.MinimizeAsync(this->ActivateAsyncAppExtId().Text());
     }
 
-    IAsyncAction Widget1::MinimizeAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::MinimizeAsyncAppIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_return co_await m_widgetControl.MinimizeAsync(
             this->ActivateAsyncAppId().Text(),
             this->ActivateAsyncAppExtId().Text());
     }
 
-    IAsyncAction Widget1::RestoreAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::RestoreAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_return co_await m_widgetControl.RestoreAsync(this->ActivateAsyncAppExtId().Text());
     }
 
-    IAsyncAction Widget1::RestoreAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::RestoreAsyncAppIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_return co_await m_widgetControl.RestoreAsync(
             this->ActivateAsyncAppId().Text(),
             this->ActivateAsyncAppExtId().Text());
     }
 
-    IAsyncAction Widget1::CloseAsyncAppExtIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::CloseAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_return co_await m_widgetControl.CloseAsync(this->ActivateAsyncAppExtId().Text());
     }
 
-    IAsyncAction Widget1::CloseAsyncAppIdButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::CloseAsyncAppIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_return co_await m_widgetControl.CloseAsync(
             this->ActivateAsyncAppId().Text(),
             this->ActivateAsyncAppExtId().Text());
     }
 
-    IAsyncAction Widget1::TryResizeWindowAsync_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::TryResizeWindowAsync_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         Windows::Foundation::Size size;
         size.Height = (float)_wtof(this->WindowHeightBox().Text().c_str());
@@ -113,7 +128,7 @@ namespace winrt::WidgetAdvSample::implementation
         co_return;
     }
 
-    IAsyncAction Widget1::AuthenticateAsync_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    IAsyncAction Widget1::AuthenticateAsync_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         if (RequestUriBox().Text().empty() || CallbackUriBox().Text().empty())
         {
@@ -135,66 +150,108 @@ namespace winrt::WidgetAdvSample::implementation
         OutputDebugString(debugOut.c_str());
 
         wchar_t buffer[256] = {};
-        StringCchPrintfW(buffer, 256, L"ResponseStatus: %u\r\n", (uint32_t)result.ResponseStatus());
+        StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"ResponseStatus: %u\r\n", (uint32_t)result.ResponseStatus());
         OutputDebugString(buffer);
 
-        StringCchPrintfW(buffer, 256, L"ResponseErrorDetail: %u\r\n", result.ResponseErrorDetail());
+        StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"ResponseErrorDetail: %u\r\n", result.ResponseErrorDetail());
         OutputDebugString(buffer);
     }
 
-    Windows::Foundation::IAsyncAction Widget1::SettingsButton_Click(
-        winrt::Windows::Foundation::IInspectable const& /*sender*/,
-        winrt::Windows::Foundation::IInspectable const& /*e*/)
+    void Widget1::HorizontalResizeSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.HorizontalResizeSupported(true);
+    }
+
+    void Widget1::HorizontalResizeSupportedCheckBox_Unchecked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.HorizontalResizeSupported(false);
+    }
+
+    void Widget1::VerticalResizeSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.VerticalResizeSupported(true);
+    }
+
+    void Widget1::VerticalResizeSupportedCheckBox_Unchecked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.VerticalResizeSupported(false);
+    }
+
+    void Widget1::PinningSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.PinningSupported(true);
+    }
+
+    void Widget1::PinningSupportedCheckBox_Unchecked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.PinningSupported(false);
+    }
+
+    void Widget1::SettingsSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.SettingsSupported(true);
+    }
+
+    void Widget1::SettingsSupportedCheckBox_Unchecked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        m_widget.SettingsSupported(false);
+    }
+
+    void Widget1::MinWindowSize_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        Windows::Foundation::Size size;
+        size.Height = (float)_wtof(this->MinWindowHeightBox().Text().c_str());
+        size.Width = (float)_wtof(this->MinWindowWidthBox().Text().c_str());
+        m_widget.MinWindowSize(size);
+    }
+
+    void Widget1::MaxWindowSize_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        Windows::Foundation::Size size;
+        size.Height = (float)_wtof(this->MaxWindowHeightBox().Text().c_str());
+        size.Width = (float)_wtof(this->MaxWindowWidthBox().Text().c_str());
+        m_widget.MaxWindowSize(size);
+    }
+
+    IAsyncAction Widget1::SettingsButton_Click(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
         co_await m_widget.ActivateSettingsAsync();
     }
 
-    winrt::fire_and_forget Widget1::FavoritedChanged(
-        winrt::Windows::Foundation::IInspectable const& /*sender*/,
-        winrt::Windows::Foundation::IInspectable const& /*e*/)
+    fire_and_forget Widget1::FavoritedChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
-        co_await winrt::resume_foreground(FavoritedTextBlock().Dispatcher());
+        co_await resume_foreground(FavoritedTextBlock().Dispatcher());
         FavoritedTextBlock().Text(FavoritedStateToString());
     }
 
-    void Widget1::GameBarDisplayModeChanged(
-        winrt::Windows::Foundation::IInspectable const& /*sender*/,
-        winrt::Windows::Foundation::IInspectable const& /*e*/)
+    void Widget1::GameBarDisplayModeChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         OutputGameBarDisplayMode();
     }
 
-    winrt::fire_and_forget Widget1::PinnedChanged(
-        winrt::Windows::Foundation::IInspectable const& /*sender*/,
-        winrt::Windows::Foundation::IInspectable const& /*e*/)
+    fire_and_forget Widget1::PinnedChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
-        co_await winrt::resume_foreground(PinnedStateTextBlock().Dispatcher());
+        co_await resume_foreground(PinnedStateTextBlock().Dispatcher());
         PinnedStateTextBlock().Text(PinnedStateToString());
     }
 
-    winrt::fire_and_forget  Widget1::RequestedThemeChanged(
-        winrt::Windows::Foundation::IInspectable const& /*sender*/,
-        winrt::Windows::Foundation::IInspectable const& /*e*/)
+    fire_and_forget  Widget1::RequestedThemeChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
-        co_await winrt::resume_foreground(RequestedThemeTextBlock().Dispatcher());
+        co_await resume_foreground(RequestedThemeTextBlock().Dispatcher());
         RequestedThemeTextBlock().Text(RequestedThemeToString());
         SetBackgroundColor();
     }
 
-    void Widget1::VisibleChanged(
-        winrt::Windows::Foundation::IInspectable const& /*sender*/,
-        winrt::Windows::Foundation::IInspectable const& /*e*/)
+    void Widget1::VisibleChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         OutputVisibleState();
     }
 
-    void Widget1::WindowStateChanged(
-        winrt::Windows::Foundation::IInspectable const& /*sender*/,
-        winrt::Windows::Foundation::IInspectable const& /*e*/)
+    void Widget1::WindowStateChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         OutputWindowState();
     }
