@@ -53,6 +53,16 @@ namespace WidgetAdvSampleCS
             OutputGameBarDisplayMode();
             SetBackgroundColor();
 
+            HorizontalResizeSupportedCheckBox.IsChecked = widget.HorizontalResizeSupported;
+            VerticalResizeSupportedCheckBox.IsChecked = widget.VerticalResizeSupported;
+            PinningSupportedCheckBox.IsChecked = widget.PinningSupported;
+            SettingsSupportedCheckBox.IsChecked = widget.SettingsSupported;
+
+            MinWindowHeightBox.Text = widget.MinWindowSize.Height.ToString();
+            MinWindowWidthBox.Text = widget.MinWindowSize.Width.ToString();
+            MaxWindowHeightBox.Text = widget.MaxWindowSize.Height.ToString();
+            MaxWindowWidthBox.Text = widget.MaxWindowSize.Width.ToString();
+
             // Hook up events for when the ui is updated.
             widget.SettingsClicked += Widget_SettingsClicked;
             widget.PinnedChanged += Widget_PinnedChanged;
@@ -135,6 +145,76 @@ namespace WidgetAdvSampleCS
             Debug.WriteLine("ResponseData: " + result.ResponseData);
             Debug.WriteLine("ResponseStatus: " + result.ResponseStatus.ToString());
             Debug.WriteLine("ResponseErrorDetail: " + result.ResponseErrorDetail);
+        }
+
+        private void HorizontalResizeSupportedCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            widget.HorizontalResizeSupported = true;
+        }
+
+        private void HorizontalResizeSupportedCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            widget.HorizontalResizeSupported = false;
+        }
+
+        private void VerticalResizeSupportedCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            widget.VerticalResizeSupported = true;
+        }
+
+        private void VerticalResizeSupportedCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            widget.VerticalResizeSupported = false;
+        }
+
+        private void PinningSupportedCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            widget.PinningSupported = true;
+        }
+
+        private void PinningSupportedCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            widget.PinningSupported = false;
+        }
+
+        private void SettingsSupportedCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            widget.SettingsSupported = true;
+        }
+
+        private void SettingsSupportedCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            widget.SettingsSupported = false;
+        }
+
+        private void MinWindowSize_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Size size;
+                size.Height = Convert.ToDouble(MinWindowHeightBox.Text);
+                size.Width = Convert.ToDouble(MinWindowWidthBox.Text);
+                widget.MinWindowSize = size;
+            }
+            catch (FormatException ex)
+            {
+                Debug.WriteLine("Text box must contain valid number");
+            }
+        }
+
+        private void MaxWindowSize_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Size size;
+                size.Height = Convert.ToDouble(MaxWindowHeightBox.Text);
+                size.Width = Convert.ToDouble(MaxWindowWidthBox.Text);
+                widget.MaxWindowSize = size;
+            }
+            catch (FormatException ex)
+            {
+                Debug.WriteLine("Text box must contain valid number");
+            }
         }
 
         private async void Widget_SettingsClicked(XboxGameBarWidget sender, object args)
