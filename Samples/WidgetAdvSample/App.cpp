@@ -81,6 +81,13 @@ void App::OnActivated(IActivatedEventArgs const& e)
                     Window::Current().CoreWindow(),
                     rootFrame);
                 rootFrame.Navigate(xaml_typename<WidgetAdvSample::Widget1>(), m_widget1);
+
+                // Ensure we cleanup the widget object when our window is closed
+                Window::Current().Closed(
+                    [this](IInspectable const& /*sender*/, IInspectable const& /*e*/)
+                    {
+                        m_widget1 = nullptr;
+                    });
             }
             else if (0 == appExtId.compare(L"Widget1Settings"))
             {
@@ -89,6 +96,13 @@ void App::OnActivated(IActivatedEventArgs const& e)
                     Window::Current().CoreWindow(),
                     rootFrame);
                 rootFrame.Navigate(xaml_typename<WidgetAdvSample::Widget1Settings>());
+
+                // Ensure we cleanup the widget object when our window is closed
+                Window::Current().Closed(
+                    [this](IInspectable const& /*sender*/, IInspectable const& /*e*/)
+                    {
+                        m_widget1Settings = nullptr;
+                    });
             }
             else if (0 == appExtId.compare(L"Widget2"))
             {
@@ -97,6 +111,13 @@ void App::OnActivated(IActivatedEventArgs const& e)
                     Window::Current().CoreWindow(),
                     rootFrame);
                 rootFrame.Navigate(xaml_typename<WidgetAdvSample::Widget2>(), widgetArgs.Uri());
+
+                // Ensure we cleanup the widget object when our window is closed
+                Window::Current().Closed(
+                    [this](IInspectable const& /*sender*/, IInspectable const& /*e*/)
+                    {
+                        m_widget2 = nullptr;
+                    });
             }
             else
             {

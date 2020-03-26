@@ -74,6 +74,12 @@ namespace WidgetAdvSampleCS
                             Window.Current.CoreWindow,
                             rootFrame);
                         rootFrame.Navigate(typeof(Widget1), widget1);
+
+                        // Ensure we cleanup the widget object when our window is closed
+                        Window.Current.Closed += (sender, e) =>
+                        {
+                            widget1 = null;
+                        };
                     }
                     else if (widgetArgs.AppExtensionId == "Widget1Settings")
                     {
@@ -82,6 +88,12 @@ namespace WidgetAdvSampleCS
                             Window.Current.CoreWindow,
                             rootFrame);
                         rootFrame.Navigate(typeof(Widget1Settings));
+
+                        // Ensure we cleanup the widget object when our window is closed
+                        Window.Current.Closed += (sender, e) =>
+                        {
+                            widget1Settings = null;
+                        };
                     }
                     else if (widgetArgs.AppExtensionId == "Widget2")
                     {
@@ -90,6 +102,12 @@ namespace WidgetAdvSampleCS
                             Window.Current.CoreWindow,
                             rootFrame);
                         rootFrame.Navigate(typeof(Widget2), widgetArgs.Uri);
+
+                        // Ensure we cleanup the widget object when our window is closed
+                        Window.Current.Closed += (sender, e) =>
+                        {
+                            widget2 = null;
+                        };
                     }
                     else 
                     {

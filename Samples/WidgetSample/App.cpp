@@ -56,6 +56,14 @@ void App::OnActivated(IActivatedEventArgs const& e)
         // Create root frame and set it as the window content
         auto rootFrame = Frame();
         rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
+
+        // Ensure we cleanup the widget object when our window is closed
+        Window::Current().Closed(
+            [this](IInspectable const& /*sender*/, IInspectable const& /*e*/)
+            {
+                m_widget1 = nullptr;
+            });
+
         Window::Current().Content(rootFrame);
 
         // Create Game Bar widget object which bootstraps the connection with Game Bar
