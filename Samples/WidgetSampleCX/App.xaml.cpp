@@ -34,7 +34,6 @@ App::App()
     Suspending += ref new SuspendingEventHandler(this, &App::OnSuspending);
 }
 
-
 void App::OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs^ e)
 {
     XboxGameBarWidgetActivatedEventArgs^ widgetArgs = nullptr;
@@ -56,6 +55,9 @@ void App::OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs
         // Create root frame and set it as the window content
         auto rootFrame = ref new Frame();
         rootFrame->NavigationFailed += ref new Windows::UI::Xaml::Navigation::NavigationFailedEventHandler(this, &App::OnNavigationFailed);
+
+        // Ensure we cleanup the widget object when our window is closed
+        Window::Current->Closed += ref new WindowClosedEventHandler(this, &WidgetSampleCX::App::OnClosed);        
         Window::Current->Content = rootFrame;
 
         // Create Game Bar widget object which bootstraps the connection with Game Bar
@@ -151,4 +153,9 @@ void App::OnSuspending(Object^ sender, SuspendingEventArgs^ e)
 void App::OnNavigationFailed(Platform::Object ^sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs ^e)
 {
     throw ref new FailureException("Failed to load Page " + e->SourcePageType.Name);
+}
+
+void App::OnClosed(Platform::Object^ /*sender*/, Windows::UI::Core::CoreWindowEventArgs^ /*e*/)
+{
+    m_widget1 = nullptr;
 }

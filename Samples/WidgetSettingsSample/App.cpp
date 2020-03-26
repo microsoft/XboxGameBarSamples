@@ -130,6 +130,13 @@ void App::OnActivated(IActivatedEventArgs const& e)
                     Window::Current().CoreWindow(),
                     rootFrame);
                 rootFrame.Navigate(xaml_typename<WidgetSettingsSample::Widget>(), m_widget);
+
+                // Ensure we cleanup the widget object when our window is closed
+                Window::Current().Closed(
+                    [this](IInspectable const& /*sender*/, IInspectable const& /*e*/)
+                    {
+                        m_widget = nullptr;
+                    });
             }
             else if (0 == appExtId.compare(L"WidgetSettings"))
             {
@@ -138,6 +145,13 @@ void App::OnActivated(IActivatedEventArgs const& e)
                     Window::Current().CoreWindow(),
                     rootFrame);
                 rootFrame.Navigate(xaml_typename<WidgetSettingsSample::WidgetSettings>());
+
+                // Ensure we cleanup the widget object when our window is closed
+                Window::Current().Closed(
+                    [this](IInspectable const& /*sender*/, IInspectable const& /*e*/)
+                    {
+                        m_widgetSettings = nullptr;
+                    });
             }
             else
             {

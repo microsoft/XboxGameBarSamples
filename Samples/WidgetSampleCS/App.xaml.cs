@@ -52,6 +52,13 @@ namespace WidgetSampleCS
                 // Create root frame and set it as the window content
                 Frame rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
+
+                // Ensure we cleanup the widget object when our window is closed
+                Window.Current.Closed += (sender, e) =>
+                {
+                    widget1 = null;
+                };
+
                 Window.Current.Content = rootFrame;
 
                 // Create Game Bar widget object which bootstraps the connection with Game Bar
