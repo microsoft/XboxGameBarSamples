@@ -44,7 +44,7 @@ void App::OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs
         {
             // If scheme name is ms-gamebarwidget, Xbox Game Bar is activating us.
             const wchar_t* scheme = protocolArgs->Uri->SchemeName->Data();
-            if (0 != wcsstr(scheme, L"ms-gamebarwidget"))
+            if (0 == wcscmp(scheme, L"ms-gamebarwidget"))
             {
                 widgetArgs = dynamic_cast<XboxGameBarWidgetActivatedEventArgs^>(e);
             }
@@ -52,24 +52,54 @@ void App::OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs
     }
     if (widgetArgs)
     {
-        // Create root frame and set it as the window content
-        auto rootFrame = ref new Frame();
-        rootFrame->NavigationFailed += ref new Windows::UI::Xaml::Navigation::NavigationFailedEventHandler(this, &App::OnNavigationFailed);
+        //
+        // Activation Notes:
+        //
+        //    If IsLaunchActivation is true, this is Game Bar launching a new instance
+        // of our widget. This means we have a NEW CoreWindow with corresponding UI
+        // dispatcher, and we MUST create and hold onto a new XboxGameBarWidget.
+        //
+        // Otherwise this is a subsequent activation coming from Game Bar. We MUST
+        // continue to hold the XboxGameBarWidget created during initial activation
+        // and ignore this repeat activation, or just observe the URI command here and act 
+        // accordingly.  It is ok to perform a navigate on the root frame to switch 
+        // views/pages if needed.  Game Bar lets us control the URI for sending widget to
+        // widget commands or receiving a command from another non-widget process. 
+        //
+        // Important Cleanup Notes:
+        //    When our widget is closed--by Game Bar or us calling XboxGameBarWidget.Close()-,
+        // the CoreWindow will get a closed event.  We can register for Window.Closed
+        // event to know when our partucular widget has shutdown, and cleanup accordingly.
+        //
+        // NOTE: If a widget's CoreWindow is the LAST CoreWindow being closed for the process
+        // then we won't get the Window.Closed event.  However, we will get the OnSuspending
+        // call and can use that for cleanup.
+        //
+        if (widgetArgs->IsLaunchActivation)
+        {
+            auto rootFrame = ref new Frame();
+            rootFrame->NavigationFailed += ref new Windows::UI::Xaml::Navigation::NavigationFailedEventHandler(this, &App::OnNavigationFailed);
+            Window::Current->Content = rootFrame;
 
-        // Ensure we cleanup the widget object when our window is closed
-        Window::Current->Closed += ref new WindowClosedEventHandler(this, &WidgetSampleCX::App::OnClosed);        
-        Window::Current->Content = rootFrame;
+            // Create Game Bar widget object which bootstraps the connection with Game Bar
+            m_widget1 = ref new XboxGameBarWidget(
+                widgetArgs,
+                Window::Current->CoreWindow,
+                rootFrame);
+            rootFrame->Navigate(TypeName(Widget1::typeid), nullptr);
 
-        // Create Game Bar widget object which bootstraps the connection with Game Bar
-        m_widget1 = ref new XboxGameBarWidget(
-            widgetArgs,
-            Window::Current->CoreWindow,
-            rootFrame);
-        rootFrame->Navigate(TypeName(Widget1::typeid), nullptr);
+            m_widget1WindowClosedHandlerToken = Window::Current->Closed += 
+                ref new WindowClosedEventHandler(this, &WidgetSampleCX::App::Widget1WindowClosedHandler);
 
-        // Activate our window
-        Window::Current->Activate();
+            Window::Current->Activate();
+        }
     }
+}
+
+void App::Widget1WindowClosedHandler(Platform::Object^ /*sender*/, Windows::UI::Core::CoreWindowEventArgs^ /*e*/)
+{
+    m_widget1 = nullptr;
+    Window::Current->Closed -= m_widget1WindowClosedHandlerToken;
 }
 
 /// <summary>
@@ -131,9 +161,14 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 }
 
 /// <summary>
-/// Invoked when application execution is being suspended.  Application state is saved
-/// without knowing whether the application will be terminated or resumed with the contents
-/// of memory still intact.
+/// Invoked when application execution is being suspended.  Normally we
+/// wouldn't know if the app was being terminated or just suspended at this
+/// point. However, the app will never be suspeded if Game Bar has an
+/// active widget connection to it, so if you see this call it's safe to
+/// cleanup any widget related objects. Keep in mind if all widgets are closed
+/// and you have a foreground window for your app, this could still result in 
+/// suspend or terminate. Regardless, it should always be safe to cleanup
+/// your widget related objects.
 /// </summary>
 /// <param name="sender">The source of the suspend request.</param>
 /// <param name="e">Details about the suspend request.</param>
@@ -142,7 +177,7 @@ void App::OnSuspending(Object^ sender, SuspendingEventArgs^ e)
     (void) sender;  // Unused parameter
     (void) e;   // Unused parameter
 
-    //TODO: Save application state and stop any background activity
+    m_widget1 = nullptr;
 }
 
 /// <summary>
@@ -153,9 +188,4 @@ void App::OnSuspending(Object^ sender, SuspendingEventArgs^ e)
 void App::OnNavigationFailed(Platform::Object ^sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs ^e)
 {
     throw ref new FailureException("Failed to load Page " + e->SourcePageType.Name);
-}
-
-void App::OnClosed(Platform::Object^ /*sender*/, Windows::UI::Core::CoreWindowEventArgs^ /*e*/)
-{
-    m_widget1 = nullptr;
 }
