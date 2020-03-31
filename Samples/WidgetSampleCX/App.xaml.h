@@ -25,8 +25,9 @@ namespace WidgetSampleCX
         void OnSuspending(Platform::Object^ sender, Windows::ApplicationModel::SuspendingEventArgs^ e);
         void OnNavigationFailed(Platform::Object ^sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs ^e);
 
-        void OnClosed(Platform::Object^ sender, Windows::UI::Core::CoreWindowEventArgs^ e);
+        void Widget1WindowClosedHandler(Platform::Object^ sender, Windows::UI::Core::CoreWindowEventArgs^ e);
 
+        Windows::Foundation::EventRegistrationToken m_widget1WindowClosedHandlerToken{};
         Microsoft::Gaming::XboxGameBar::XboxGameBarWidget^ m_widget1{ nullptr };
     };
 }

@@ -45,6 +45,15 @@ namespace WidgetAdvSampleCS
             widgetBlackBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 38, 38, 38));
             widgetWhiteBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 219, 219, 219));
 
+            // Hook up events for when the ui is updated.
+            widget.SettingsClicked += Widget_SettingsClicked;
+            widget.PinnedChanged += Widget_PinnedChanged;
+            widget.FavoritedChanged += Widget_FavoritedChanged;
+            widget.RequestedThemeChanged += Widget_RequestedThemeChanged;
+            widget.VisibleChanged += Widget_VisibleChanged;
+            widget.WindowStateChanged += Widget_WindowStateChanged;
+            widget.GameBarDisplayModeChanged += Widget_GameBarDisplayModeChanged;
+
             SetPinnedStateTextBox();
             SetFavoritedState();
             SetRequestedThemeState();
@@ -62,15 +71,6 @@ namespace WidgetAdvSampleCS
             MinWindowWidthBox.Text = widget.MinWindowSize.Width.ToString();
             MaxWindowHeightBox.Text = widget.MaxWindowSize.Height.ToString();
             MaxWindowWidthBox.Text = widget.MaxWindowSize.Width.ToString();
-
-            // Hook up events for when the ui is updated.
-            widget.SettingsClicked += Widget_SettingsClicked;
-            widget.PinnedChanged += Widget_PinnedChanged;
-            widget.FavoritedChanged += Widget_FavoritedChanged;
-            widget.RequestedThemeChanged += Widget_RequestedThemeChanged;
-            widget.VisibleChanged += Widget_VisibleChanged;
-            widget.WindowStateChanged += Widget_WindowStateChanged;
-            widget.GameBarDisplayModeChanged += Widget_GameBarDisplayModeChanged;
         }
 
         private async void ActivateAsyncAppExtIdButton_Click(object sender, RoutedEventArgs e)
@@ -196,7 +196,7 @@ namespace WidgetAdvSampleCS
                 size.Width = Convert.ToDouble(MinWindowWidthBox.Text);
                 widget.MinWindowSize = size;
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 Debug.WriteLine("Text box must contain valid number");
             }
@@ -211,7 +211,7 @@ namespace WidgetAdvSampleCS
                 size.Width = Convert.ToDouble(MaxWindowWidthBox.Text);
                 widget.MaxWindowSize = size;
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 Debug.WriteLine("Text box must contain valid number");
             }

@@ -14,8 +14,15 @@ namespace winrt::WidgetSettingsSample::implementation
         void OnSuspending(IInspectable const&, Windows::ApplicationModel::SuspendingEventArgs const&);
         void OnNavigationFailed(IInspectable const&, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs const&);
 
+        void Widget1WindowClosedHandler(IInspectable const&, IInspectable const&);
+        void Widget1SettingsWindowClosedHandler(IInspectable const&, IInspectable const&);
+
     private:
-        Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget{ nullptr };
-        Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widgetSettings{ nullptr };
+
+        Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget1{ nullptr };
+        event_token m_widget1WindowClosedHandlerToken{};
+
+        Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget1Settings{ nullptr };
+        event_token m_widget1SettingsWindowClosedHandlerToken{};
     };
 }
