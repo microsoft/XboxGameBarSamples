@@ -1,8 +1,3 @@
----
-products: Xbox Game Bar SDK
-description: "Xbox Game Bar software development kit allows you to build widgets for Xbox Game Bar"
----
-
 # Xbox Game Bar SDK Samples
 
 <!-- 
