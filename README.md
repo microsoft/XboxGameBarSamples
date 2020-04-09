@@ -1,11 +1,6 @@
 ---
-page_type: sample
-languages:
-- csharp
-products:
-- dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+products: Xbox Game Bar SDK
+description: "Xbox Game Bar software development kit allows you to build widgets for Xbox Game Bar"
 ---
 
 # Xbox Game Bar SDK Samples
@@ -33,6 +28,11 @@ Master Branch
 ## Documentation
 
 All documentation describing the Game Bar SDK, these samples, OS requirements, and setting up your environment can be found on [docs.microsoft.com/gaming/game-bar](https://docs.microsoft.com/gaming/game-bar).
+
+* [Known Issues and Limitations](https://docs.microsoft.com/gaming/game-bar/known-issues)
+* [Changelog](https://docs.microsoft.com/gaming/game-bar/changelog)
+* [What is the Game Bar SDK](https://docs.microsoft.com/gaming/game-bar)
+* [Getting Started](https://docs.microsoft.com/gaming/game-bar/quickstart/introduction)
 
 ## Contributing
 
