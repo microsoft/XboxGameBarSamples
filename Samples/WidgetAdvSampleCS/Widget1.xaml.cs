@@ -154,6 +154,8 @@ namespace WidgetAdvSampleCS
                     // We recommend using the Dispatcher RunTaskAsync task extension so you can easily wait for UI work to complete if you
                     // will need to do work after the foreground operation completed
                     // Look at Extensions/DispatcherTaskExtensions.cs
+                    // For more information you can read this blog post: https://devblogs.microsoft.com/oldnewthing/20190327-00/?p=102364
+                    // For another approach more akin to how C++/WinRT handles awaitable thread switching, read this blog post: https://devblogs.microsoft.com/oldnewthing/20190328-00/?p=102368
                     file = await Dispatcher.RunTaskAsync(async () =>
                     {
                         var fileOpenPicker = new FileOpenPicker
