@@ -7,6 +7,8 @@
 using namespace winrt;
 using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::Foundation;
+using namespace winrt::Windows::Storage;
+using namespace winrt::Windows::Storage::Pickers;
 using namespace winrt::Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Media;
 using namespace winrt::Windows::UI::Xaml::Navigation;
@@ -155,6 +157,27 @@ namespace winrt::WidgetAdvSample::implementation
 
         StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"ResponseErrorDetail: %u\r\n", result.ResponseErrorDetail());
         OutputDebugString(buffer);
+    }
+
+    IAsyncAction Widget1::ForegroundOperation_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        StorageFile file{ nullptr };
+
+        ForegroundWorkHandler handler = ([&]() -> IAsyncOperation<bool>
+            {
+                co_await resume_foreground(Dispatcher());
+
+                FileOpenPicker fileOpenPicker;
+                fileOpenPicker.SuggestedStartLocation(PickerLocationId::DocumentsLibrary);
+                fileOpenPicker.FileTypeFilter().Append(L"*");
+                file = co_await fileOpenPicker.PickSingleFileAsync();
+                return true;
+            });
+
+        auto foregroundWorker = XboxGameBarForegroundWorker(m_widget, handler);
+        co_await foregroundWorker.ExecuteAsync();
+
+        // You can now operate on file
     }
 
     void Widget1::HorizontalResizeSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)

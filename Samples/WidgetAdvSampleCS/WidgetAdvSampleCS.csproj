@@ -102,6 +102,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\DispatcherTaskExtensions.cs" />
     <Compile Include="Widget1Settings.xaml.cs">
       <DependentUpon>Widget1Settings.xaml</DependentUpon>
     </Compile>
@@ -194,7 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Gaming.XboxGameBar">
-      <Version>5.1.200401003</Version>
+      <Version>5.2.200415002</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
