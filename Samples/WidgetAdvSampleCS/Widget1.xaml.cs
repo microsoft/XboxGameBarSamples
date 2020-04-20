@@ -151,8 +151,9 @@ namespace WidgetAdvSampleCS
             {
                 return Task.Run(async () =>
                 {
-                    // We recommend using the Dispatcher RunTaskAsync task extension so you can easily wait for UI work to complete if you
-                    // will need to do work after the foreground operation completed
+                    // If you are doing async work on the UI thread inside this lambda, it must be awaited before the lambda returns to ensure Game Bar is
+                    // in the right state for the entirety of the foreground operation.
+                    // We recommend using the Dispatcher RunTaskAsync task extension to make this easier
                     // Look at Extensions/DispatcherTaskExtensions.cs
                     // For more information you can read this blog post: https://devblogs.microsoft.com/oldnewthing/20190327-00/?p=102364
                     // For another approach more akin to how C++/WinRT handles awaitable thread switching, read this blog post: https://devblogs.microsoft.com/oldnewthing/20190328-00/?p=102368
