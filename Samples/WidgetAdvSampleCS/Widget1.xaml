@@ -76,7 +76,6 @@
         <TextBox Grid.Column="1" Grid.Row="1" x:Name="CallbackUriBox" VerticalAlignment="Center" />
       </Grid>
       <Button x:Name="AuthenticateAsync" Click="AuthenticateAsync_Click" Margin="0,2">AuthenticateAsync</Button>
-      <Button x:Name="ForegroundOperation" Click="ForegroundOperation_Click" Margin="0,2">ForegroundWorker.ExecuteAsync</Button>
       <StackPanel>
         <Grid Padding="2">
           <Grid.ColumnDefinitions>

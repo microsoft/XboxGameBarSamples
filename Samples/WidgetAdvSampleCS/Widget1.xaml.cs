@@ -1,16 +1,20 @@
-﻿using Microsoft.Gaming.XboxGameBar;
-using Microsoft.Gaming.XboxGameBar.Authentication;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using WidgetAdvSampleCS.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.Storage;
-using Windows.Storage.Pickers;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Gaming.XboxGameBar;
+using System.Diagnostics;
+using Microsoft.Gaming.XboxGameBar.Authentication;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -141,40 +145,6 @@ namespace WidgetAdvSampleCS
             Debug.WriteLine("ResponseData: " + result.ResponseData);
             Debug.WriteLine("ResponseStatus: " + result.ResponseStatus.ToString());
             Debug.WriteLine("ResponseErrorDetail: " + result.ResponseErrorDetail);
-        }
-
-        private async void ForegroundOperation_Click(object sender, RoutedEventArgs e)
-        {
-            StorageFile file = null;
-
-            ForegroundWorkHandler handler = (() =>
-            {
-                return Task.Run(async () =>
-                {
-                    // If you are doing async work on the UI thread inside this lambda, it must be awaited before the lambda returns to ensure Game Bar is
-                    // in the right state for the entirety of the foreground operation.
-                    // We recommend using the Dispatcher RunTaskAsync task extension to make this easier
-                    // Look at Extensions/DispatcherTaskExtensions.cs
-                    // For more information you can read this blog post: https://devblogs.microsoft.com/oldnewthing/20190327-00/?p=102364
-                    // For another approach more akin to how C++/WinRT handles awaitable thread switching, read this blog post: https://devblogs.microsoft.com/oldnewthing/20190328-00/?p=102368
-                    file = await Dispatcher.RunTaskAsync(async () =>
-                    {
-                        var fileOpenPicker = new FileOpenPicker
-                        {
-                            SuggestedStartLocation = PickerLocationId.DocumentsLibrary
-                        };
-                        fileOpenPicker.FileTypeFilter.Add("*");
-                        return await fileOpenPicker.PickSingleFileAsync();
-                    });
-
-                    return true;
-                }).AsAsyncOperation();
-            });
-
-            var foregroundWorker = new XboxGameBarForegroundWorker(widget, handler);
-            await foregroundWorker.ExecuteAsync();
-
-            // You can now operate on file
         }
 
         private void HorizontalResizeSupportedCheckBox_Checked(object sender, RoutedEventArgs e)
