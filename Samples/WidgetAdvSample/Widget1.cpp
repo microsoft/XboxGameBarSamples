@@ -2,6 +2,7 @@
 #include "Widget1.h"
 #include "Widget1.g.cpp"
 
+#include <sstream>
 #include <strsafe.h>
 
 using namespace winrt;
@@ -33,6 +34,7 @@ namespace winrt::WidgetAdvSample::implementation
         m_settingsToken = m_widget.SettingsClicked({ this, &Widget1::SettingsButton_Click });
         m_favoritedChangedToken = m_widget.FavoritedChanged({ this, &Widget1::FavoritedChanged });
         m_displayModeChangedToken = m_widget.GameBarDisplayModeChanged({ this, &Widget1::GameBarDisplayModeChanged });
+        m_opacityChangedToken = m_widget.RequestedOpacityChanged({ this, &Widget1::RequestedOpacityChanged });
         m_pinnedChangedToken = m_widget.PinnedChanged({ this, &Widget1::PinnedChanged });
         m_themeChangedToken = m_widget.RequestedThemeChanged({ this, &Widget1::RequestedThemeChanged });
         m_visibleChangedToken = m_widget.VisibleChanged({ this, &Widget1::VisibleChanged });
@@ -40,6 +42,7 @@ namespace winrt::WidgetAdvSample::implementation
 
         PinnedStateTextBlock().Text(PinnedStateToString());
         FavoritedTextBlock().Text(FavoritedStateToString());
+        RequestedOpacityTextBlock().Text(RequestedOpacityToString());
         RequestedThemeTextBlock().Text(RequestedThemeToString());
 
         HorizontalResizeSupportedCheckBox().IsChecked(m_widget.HorizontalResizeSupported());
@@ -58,6 +61,7 @@ namespace winrt::WidgetAdvSample::implementation
         MaxWindowWidthBox().Text(buffer);
 
         SetBackgroundColor();
+        SetBackgroundOpacity();
         OutputGameBarDisplayMode();
         OutputVisibleState();
         OutputWindowState();
@@ -238,6 +242,14 @@ namespace winrt::WidgetAdvSample::implementation
         PinnedStateTextBlock().Text(PinnedStateToString());
     }
 
+    fire_and_forget Widget1::RequestedOpacityChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
+    {
+        auto strongThis{ get_strong() };
+        co_await resume_foreground(BackgroundGrid().Dispatcher());
+        RequestedOpacityTextBlock().Text(RequestedOpacityToString());
+        SetBackgroundOpacity();
+    }
+
     fire_and_forget  Widget1::RequestedThemeChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
@@ -263,13 +275,30 @@ namespace winrt::WidgetAdvSample::implementation
         if (requestedTheme == ElementTheme::Dark)
         {
             this->RequestedTheme(requestedTheme);
-            this->Background(m_widgetDarkThemeBrush);
+            BackgroundGrid().Background(m_widgetDarkThemeBrush);
         }
         else
         {
             this->RequestedTheme(requestedTheme);
-            this->Background(m_widgetLightThemeBrush);
+            this->BackgroundGrid().Background(m_widgetLightThemeBrush);
         }
+
+        BackgroundGrid().Opacity(m_widget.RequestedOpacity());
+    }
+
+    void Widget1::SetBackgroundOpacity()
+    {
+        BackgroundGrid().Opacity(m_widget.RequestedOpacity());
+    }
+
+    hstring Widget1::RequestedOpacityToString()
+    {
+        auto requestedOpacity = m_widget.RequestedOpacity();
+
+        std::wstringstream opacityStringStream;
+        opacityStringStream << requestedOpacity;
+
+        return opacityStringStream.str().c_str();
     }
 
     hstring Widget1::RequestedThemeToString()
