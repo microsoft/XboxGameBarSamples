@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="WidgetForegroundWorkerSample.Widget1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WidgetForegroundWorkerSample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <StackPanel
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Orientation="Vertical">
+        <Button x:Name="LaunchForegroundWorkButton" Click="LaunchForegroundWorkButton_Click">Launch Foreground Operation</Button>
+        <Grid Padding="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Picked File: " />
+            <TextBlock
+                x:Name="PickedFile"
+                Grid.Column="1"
+                Text="" />
+        </Grid>
+    </StackPanel>
+</Page>
