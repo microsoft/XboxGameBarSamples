@@ -49,6 +49,7 @@ namespace WidgetAdvSampleCS
             widget.SettingsClicked += Widget_SettingsClicked;
             widget.PinnedChanged += Widget_PinnedChanged;
             widget.FavoritedChanged += Widget_FavoritedChanged;
+            widget.RequestedOpacityChanged += Widget_RequestedOpacityChanged;
             widget.RequestedThemeChanged += Widget_RequestedThemeChanged;
             widget.VisibleChanged += Widget_VisibleChanged;
             widget.WindowStateChanged += Widget_WindowStateChanged;
@@ -56,11 +57,13 @@ namespace WidgetAdvSampleCS
 
             SetPinnedStateTextBox();
             SetFavoritedState();
+            SetRequestedOpacityState();
             SetRequestedThemeState();
             OutputVisibleState();
             OutputWindowState();
             OutputGameBarDisplayMode();
             SetBackgroundColor();
+            SetBackgroundOpacity();
 
             HorizontalResizeSupportedCheckBox.IsChecked = widget.HorizontalResizeSupported;
             VerticalResizeSupportedCheckBox.IsChecked = widget.VerticalResizeSupported;
@@ -238,6 +241,15 @@ namespace WidgetAdvSampleCS
             });
         }
 
+        private async void Widget_RequestedOpacityChanged(XboxGameBarWidget sender, object args)
+        {
+            await RequestedOpacityTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                SetRequestedOpacityState();
+                SetBackgroundOpacity();
+            });
+        }
+
         private async void Widget_RequestedThemeChanged(XboxGameBarWidget sender, object args)
         {
             await RequestedThemeTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
@@ -246,6 +258,7 @@ namespace WidgetAdvSampleCS
                 SetBackgroundColor();
             });
         }
+
         private void Widget_VisibleChanged(XboxGameBarWidget sender, object args)
         {
             OutputVisibleState();
@@ -274,7 +287,17 @@ namespace WidgetAdvSampleCS
         private void SetBackgroundColor()
         {
             this.RequestedTheme = widget.RequestedTheme;
-            this.Background = (widget.RequestedTheme == ElementTheme.Dark) ? widgetBlackBrush : widgetWhiteBrush;
+            BackgroundGrid.Background = (widget.RequestedTheme == ElementTheme.Dark) ? widgetBlackBrush : widgetWhiteBrush;
+        }
+
+        private void SetBackgroundOpacity()
+        {
+            BackgroundGrid.Opacity = widget.RequestedOpacity;
+        }
+
+        private void SetRequestedOpacityState()
+        {
+            RequestedOpacityTextBlock.Text = widget.RequestedOpacity.ToString();
         }
 
         private void SetRequestedThemeState()
