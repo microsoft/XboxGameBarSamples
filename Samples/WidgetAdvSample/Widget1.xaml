@@ -43,7 +43,7 @@
             <ColumnDefinition Width="*" />
           </Grid.ColumnDefinitions>
           <TextBlock Grid.Column="0" Text="Uri: " VerticalAlignment="Center"/>
-          <TextBox Grid.Column="1" x:Name="ActivateAsyncUri" VerticalAlignment="Center" Text="ms-gamebar:activate/WidgetAdvSample_8wekyb3d8bbwe_App_Widget2/?var=value" AutomationProperties.Name="Uri"/>
+          <TextBox Grid.Column="1" x:Name="ActivateAsyncUri" VerticalAlignment="Center" Text="ms-gamebar:activate/WidgetAdvSampleCS_8wekyb3d8bbwe_App_Widget2/?var=value" AutomationProperties.Name="Uri"/>
         </Grid>
         <Button x:Name="ActivateWithUriAsyncButton" Click="ActivateWithUriAsyncButton_Click" Margin="0,2">ActivateWithUriAsync(uri)</Button>
         <Grid Padding="2">
