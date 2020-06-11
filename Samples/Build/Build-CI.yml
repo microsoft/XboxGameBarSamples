@@ -8,6 +8,7 @@ trigger:
   branches:
     include:
     - master
+    - prerelease
     
 pr: none
 
