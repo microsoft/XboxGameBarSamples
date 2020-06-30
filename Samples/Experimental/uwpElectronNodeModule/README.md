@@ -27,17 +27,17 @@ from an elevated PowerShell or CMD.exe (run as Administrator).
 
 2) Clone and build UWPELECTRONSAMPLE project
 
-navigate to https://github.com/bertburtbert/uwpElectronNodeModule
+navigate to https://github.com/microsoft/XboxGameBarSamples
 
 paste  the following into your terminal to clone the repo
         
-    git clone https://github.com/bertburtbert/uwpElectronNodeModule.git 
+    git clone https://github.com/microsoft/XboxGameBarSamples.git
 
 Change directories to the ElectronApp folder
 
-    cd .\uwpElectronNodeModule\ElectronApp\
+    cd .\XboxGameBarSamples\Samples\Experimental\uwpElectronNodeModule\ElectronApp
 
-Install npm dependencies and recompile for electron
+Install npm dependencies and recompile for current supported version of electron (*Found in the package.json file).
         
     npm install &&  node-gyp rebuild --target=9.0.5 --arch=x64 --dist-url=https://electronjs.org/headers
 
