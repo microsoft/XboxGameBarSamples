@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  </head>
+  <body>
+    <script>
+      const GbRpc = require('./build/Release/GbRpc');
+      const { ipcRenderer } = require('electron')
+
+      async function startServer()
+      {
+          return await Promise.resolve(GbRpc.ServerStart());
+      }
+
+      ipcRenderer.on('StartServer', (event, arg) => 
+      {
+          event.sender.send('asynchronous-reply', 'RESPONSE: Connected to Game Bar');
+
+          startServer();
+      })
+    </script>
+ </body>
+</html>
