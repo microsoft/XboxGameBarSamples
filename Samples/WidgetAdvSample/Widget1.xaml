@@ -24,6 +24,7 @@
                     <TextBox
                         x:Name="ActivateAsyncAppId"
                         Grid.Column="1"
+                        AutomationProperties.Name="AppId"
                         Text="App" />
                 </Grid>
                 <Grid Padding="2">
@@ -38,6 +39,7 @@
                     <TextBox
                         x:Name="ActivateAsyncAppExtId"
                         Grid.Column="1"
+                        AutomationProperties.Name="AppExtensionId"
                         Text="Widget2" />
                 </Grid>
                 <StackPanel
@@ -106,7 +108,8 @@
                         x:Name="ActivateAsyncUri"
                         Grid.Column="1"
                         VerticalAlignment="Center"
-                        Text="ms-gamebar:activate/WidgetAdvSample_8wekyb3d8bbwe_App_Widget2/?var=value" />
+                        AutomationProperties.Name="Uri"
+                        Text="ms-gamebar:activate/WidgetAdvSampleCS_8wekyb3d8bbwe_App_Widget2/?var=value" />
                 </Grid>
                 <Button
                     x:Name="ActivateWithUriAsyncButton"
@@ -133,6 +136,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         VerticalAlignment="Center"
+                        AutomationProperties.Name="Window Width"
                         Text="800" />
                     <TextBlock
                         Grid.Row="1"
@@ -144,6 +148,7 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         VerticalAlignment="Center"
+                        AutomationProperties.Name="Window Height"
                         Text="800" />
                 </Grid>
                 <Button
@@ -170,7 +175,8 @@
                         x:Name="RequestUriBox"
                         Grid.Row="0"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Request URI" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
@@ -180,7 +186,8 @@
                         x:Name="CallbackUriBox"
                         Grid.Row="1"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Callback URI" />
                 </Grid>
                 <Button
                     x:Name="AuthenticateAsync"
@@ -277,6 +284,7 @@
                             Grid.Column="1"
                             Padding="2"
                             VerticalAlignment="Center"
+                            AutomationProperties.Name="HorizontalResizeSupported"
                             Checked="HorizontalResizeSupportedCheckBox_Checked"
                             Unchecked="HorizontalResizeSupportedCheckBox_Unchecked" />
                     </Grid>
@@ -298,6 +306,7 @@
                             Grid.Column="1"
                             Padding="2"
                             VerticalAlignment="Center"
+                            AutomationProperties.Name="VerticalResizeSupported"
                             Checked="VerticalResizeSupportedCheckBox_Checked"
                             Unchecked="VerticalResizeSupportedCheckBox_Unchecked" />
                     </Grid>
@@ -319,6 +328,7 @@
                             Grid.Column="1"
                             Padding="2"
                             VerticalAlignment="Center"
+                            AutomationProperties.Name="PinningSupported"
                             Checked="PinningSupportedCheckBox_Checked"
                             Unchecked="PinningSupportedCheckBox_Unchecked" />
                     </Grid>
@@ -340,6 +350,7 @@
                             Grid.Column="1"
                             Padding="2"
                             VerticalAlignment="Center"
+                            AutomationProperties.Name="SettingsSupported"
                             Checked="SettingsSupportedCheckBox_Checked"
                             Unchecked="SettingsSupportedCheckBox_Unchecked" />
                     </Grid>
@@ -362,7 +373,8 @@
                         x:Name="MinWindowWidthBox"
                         Grid.Row="0"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Min Window Width" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
@@ -372,7 +384,8 @@
                         x:Name="MinWindowHeightBox"
                         Grid.Row="1"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Min Window Height" />
                 </Grid>
                 <Button
                     x:Name="MinWindowSizeButton"
@@ -398,7 +411,8 @@
                         x:Name="MaxWindowWidthBox"
                         Grid.Row="0"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Max Window Width" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
@@ -408,7 +422,8 @@
                         x:Name="MaxWindowHeightBox"
                         Grid.Row="1"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Max Window Height" />
                 </Grid>
                 <Button
                     x:Name="MaxWindowSizeButton"
