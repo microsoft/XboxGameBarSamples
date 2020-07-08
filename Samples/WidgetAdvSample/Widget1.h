@@ -43,12 +43,15 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::fire_and_forget FavoritedChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void GameBarDisplayModeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         winrt::fire_and_forget PinnedChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget RequestedOpacityChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         winrt::fire_and_forget RequestedThemeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void VisibleChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void WindowStateChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         
         // Methods to handle updating of Text and UI
         void SetBackgroundColor();
+        void SetBackgroundOpacity();
+        hstring RequestedOpacityToString();
         hstring RequestedThemeToString();
         hstring FavoritedStateToString();
         hstring PinnedStateToString();
@@ -68,6 +71,7 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::event_token m_favoritedChangedToken{};
         winrt::event_token m_displayModeChangedToken{};
         winrt::event_token m_pinnedChangedToken{};
+        winrt::event_token m_opacityChangedToken{};
         winrt::event_token m_themeChangedToken{};
         winrt::event_token m_visibleChangedToken{};
         winrt::event_token m_windowStateChangedToken{};

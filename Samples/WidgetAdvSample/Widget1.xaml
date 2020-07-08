@@ -8,6 +8,8 @@
     mc:Ignorable="d">
 
     <Grid>
+        <Grid x:Name="BackgroundGrid" />
+
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
             <StackPanel Padding="10" Orientation="Vertical">
                 <Grid Padding="2">
@@ -206,6 +208,24 @@
                             Text="Pinned:" />
                         <TextBlock
                             x:Name="PinnedStateTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Opacity:" />
+                        <TextBlock
+                            x:Name="RequestedOpacityTextBlock"
                             Grid.Row="0"
                             Grid.Column="1"
                             VerticalAlignment="Center" />

@@ -8,409 +8,431 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-        <StackPanel Padding="10" Orientation="Vertical">
-            <Grid Padding="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="AppId: " />
-                <TextBox
-                    x:Name="ActivateAsyncAppId"
-                    Grid.Column="1"
-                    AutomationProperties.Name="AppId"
-                    Text="App" />
-            </Grid>
-            <Grid Padding="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="AppExtensionId: " />
-                <TextBox
-                    x:Name="ActivateAsyncAppExtId"
-                    Grid.Column="1"
-                    AutomationProperties.Name="AppExtensionId"
-                    Text="Widget2" />
-            </Grid>
-            <StackPanel
-                Padding="2"
-                HorizontalAlignment="Left"
-                Orientation="Vertical">
-                <Button
-                    x:Name="ActivateAsyncAppExtIdButton"
-                    Margin="0,2"
-                    Click="ActivateAsyncAppExtIdButton_Click">
-                    ActivateAsync(appExtensionId)
-                </Button>
-                <Button
-                    x:Name="ActivateAsyncAppIdButton"
-                    Margin="0,2"
-                    Click="ActivateAsyncAppIdButton_Click">
-                    ActivateAsync(appId, appExtensionId)
-                </Button>
-                <Button
-                    x:Name="MinimizeAsyncAppExtIdButton"
-                    Margin="0,2"
-                    Click="MinimizeAsyncAppExtIdButton_Click">
-                    MinimizeAsync(appExtensionId)
-                </Button>
-                <Button
-                    x:Name="MinimizeAsyncAppIdButton"
-                    Margin="0,2"
-                    Click="MinimizeAsyncAppIdButton_Click">
-                    MinimizeAsync(appId, appExtensionId)
-                </Button>
-                <Button
-                    x:Name="RestoreAsyncAppExtIdButton"
-                    Margin="0,2"
-                    Click="RestoreAsyncAppExtIdButton_Click">
-                    RestoreAsync(appExtensionId)
-                </Button>
-                <Button
-                    x:Name="RestoreAsyncAppIdButton"
-                    Margin="0,2"
-                    Click="RestoreAsyncAppIdButton_Click">
-                    RestoreAsync(appId, appExtensionId)
-                </Button>
-                <Button
-                    x:Name="CloseAsyncAppExtIdButton"
-                    Margin="0,2"
-                    Click="CloseAsyncAppExtIdButton_Click">
-                    CloseAsync(appExtensionId)
-                </Button>
-                <Button
-                    x:Name="CloseAsyncAppIdButton"
-                    Margin="0,2"
-                    Click="CloseAsyncAppIdButton_Click">
-                    CloseAsync(appId, appExtensionId)
-                </Button>
-            </StackPanel>
-            <Grid Padding="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Uri: " />
-                <TextBox
-                    x:Name="ActivateAsyncUri"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Uri"
-                    Text="ms-gamebar:activate/WidgetAdvSample_8wekyb3d8bbwe_App_Widget2/?var=value" />
-            </Grid>
-            <Button
-                x:Name="ActivateWithUriAsyncButton"
-                Margin="0,2"
-                Click="ActivateWithUriAsyncButton_Click">
-                ActivateWithUriAsync(uri)
-            </Button>
-            <Grid Padding="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Window Width: " />
-                <TextBox
-                    x:Name="WindowWidthBox"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Window Width"
-                    Text="800" />
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Window Height: " />
-                <TextBox
-                    x:Name="WindowHeightBox"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Window Height"
-                    Text="800" />
-            </Grid>
-            <Button
-                x:Name="TryResizeWindowAsync"
-                Margin="0,2"
-                Click="TryResizeWindowAsync_Click">
-                TryResizeWindowAsync
-            </Button>
-            <Grid Padding="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Request URI: " />
-                <TextBox
-                    x:Name="RequestUriBox"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Request URI" />
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Callback URI: " />
-                <TextBox
-                    x:Name="CallbackUriBox"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Callback URI" />
-            </Grid>
-            <Button
-                x:Name="AuthenticateAsync"
-                Margin="0,2"
-                Click="AuthenticateAsync_Click">
-                AuthenticateAsync
-            </Button>
-            <StackPanel>
+    <Grid>
+        <Grid x:Name="BackgroundGrid" />
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+            <StackPanel Padding="10" Orientation="Vertical">
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
                     </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="AppId: " />
+                    <TextBox
+                        x:Name="ActivateAsyncAppId"
+                        Grid.Column="1"
+                        AutomationProperties.Name="AppId"
+                        Text="App" />
+                </Grid>
+                <Grid Padding="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="AppExtensionId: " />
+                    <TextBox
+                        x:Name="ActivateAsyncAppExtId"
+                        Grid.Column="1"
+                        AutomationProperties.Name="AppExtensionId"
+                        Text="Widget2" />
+                </Grid>
+                <StackPanel
+                    Padding="2"
+                    HorizontalAlignment="Left"
+                    Orientation="Vertical">
+                    <Button
+                        x:Name="ActivateAsyncAppExtIdButton"
+                        Margin="0,2"
+                        Click="ActivateAsyncAppExtIdButton_Click">
+                        ActivateAsync(appExtensionId)
+                    </Button>
+                    <Button
+                        x:Name="ActivateAsyncAppIdButton"
+                        Margin="0,2"
+                        Click="ActivateAsyncAppIdButton_Click">
+                        ActivateAsync(appId, appExtensionId)
+                    </Button>
+                    <Button
+                        x:Name="MinimizeAsyncAppExtIdButton"
+                        Margin="0,2"
+                        Click="MinimizeAsyncAppExtIdButton_Click">
+                        MinimizeAsync(appExtensionId)
+                    </Button>
+                    <Button
+                        x:Name="MinimizeAsyncAppIdButton"
+                        Margin="0,2"
+                        Click="MinimizeAsyncAppIdButton_Click">
+                        MinimizeAsync(appId, appExtensionId)
+                    </Button>
+                    <Button
+                        x:Name="RestoreAsyncAppExtIdButton"
+                        Margin="0,2"
+                        Click="RestoreAsyncAppExtIdButton_Click">
+                        RestoreAsync(appExtensionId)
+                    </Button>
+                    <Button
+                        x:Name="RestoreAsyncAppIdButton"
+                        Margin="0,2"
+                        Click="RestoreAsyncAppIdButton_Click">
+                        RestoreAsync(appId, appExtensionId)
+                    </Button>
+                    <Button
+                        x:Name="CloseAsyncAppExtIdButton"
+                        Margin="0,2"
+                        Click="CloseAsyncAppExtIdButton_Click">
+                        CloseAsync(appExtensionId)
+                    </Button>
+                    <Button
+                        x:Name="CloseAsyncAppIdButton"
+                        Margin="0,2"
+                        Click="CloseAsyncAppIdButton_Click">
+                        CloseAsync(appId, appExtensionId)
+                    </Button>
+                </StackPanel>
+                <Grid Padding="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Uri: " />
+                    <TextBox
+                        x:Name="ActivateAsyncUri"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Uri"
+                        Text="ms-gamebar:activate/WidgetAdvSample_8wekyb3d8bbwe_App_Widget2/?var=value" />
+                </Grid>
+                <Button
+                    x:Name="ActivateWithUriAsyncButton"
+                    Margin="0,2"
+                    Click="ActivateWithUriAsyncButton_Click">
+                    ActivateWithUriAsync(uri)
+                </Button>
+                <Grid Padding="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="Pinned:" />
-                    <TextBlock
-                        x:Name="PinnedStateTextBlock"
+                        Text="Window Width: " />
+                    <TextBox
+                        x:Name="WindowWidthBox"
                         Grid.Row="0"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Window Width"
+                        Text="800" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Window Height: " />
+                    <TextBox
+                        x:Name="WindowHeightBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Window Height"
+                        Text="800" />
                 </Grid>
-            </StackPanel>
-            <StackPanel>
+                <Button
+                    x:Name="TryResizeWindowAsync"
+                    Margin="0,2"
+                    Click="TryResizeWindowAsync_Click">
+                    TryResizeWindowAsync
+                </Button>
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="Theme:" />
-                    <TextBlock
-                        x:Name="RequestedThemeTextBlock"
+                        Text="Request URI: " />
+                    <TextBox
+                        x:Name="RequestUriBox"
                         Grid.Row="0"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Request URI" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Callback URI: " />
+                    <TextBox
+                        x:Name="CallbackUriBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Callback URI" />
                 </Grid>
-            </StackPanel>
-            <StackPanel>
+                <Button
+                    x:Name="AuthenticateAsync"
+                    Margin="0,2"
+                    Click="AuthenticateAsync_Click">
+                    AuthenticateAsync
+                </Button>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Pinned:" />
+                        <TextBlock
+                            x:Name="PinnedStateTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Opacity:" />
+                        <TextBlock
+                            x:Name="RequestedOpacityTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Theme:" />
+                        <TextBlock
+                            x:Name="RequestedThemeTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Favorited:" />
+                        <TextBlock
+                            x:Name="FavoritedTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="HorizontalResizeSupported:" />
+                        <CheckBox
+                            x:Name="HorizontalResizeSupportedCheckBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="HorizontalResizeSupported"
+                            Checked="HorizontalResizeSupportedCheckBox_Checked"
+                            Unchecked="HorizontalResizeSupportedCheckBox_Unchecked" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="VerticalResizeSupported:" />
+                        <CheckBox
+                            x:Name="VerticalResizeSupportedCheckBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="VerticalResizeSupported"
+                            Checked="VerticalResizeSupportedCheckBox_Checked"
+                            Unchecked="VerticalResizeSupportedCheckBox_Unchecked" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="PinningSupported:" />
+                        <CheckBox
+                            x:Name="PinningSupportedCheckBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="PinningSupported"
+                            Checked="PinningSupportedCheckBox_Checked"
+                            Unchecked="PinningSupportedCheckBox_Unchecked" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="SettingsSupported:" />
+                        <CheckBox
+                            x:Name="SettingsSupportedCheckBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="SettingsSupported"
+                            Checked="SettingsSupportedCheckBox_Checked"
+                            Unchecked="SettingsSupportedCheckBox_Unchecked" />
+                    </Grid>
+                </StackPanel>
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="Favorited:" />
-                    <TextBlock
-                        x:Name="FavoritedTextBlock"
+                        Text="Min Window Width: " />
+                    <TextBox
+                        x:Name="MinWindowWidthBox"
                         Grid.Row="0"
                         Grid.Column="1"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Min Window Width" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Min Window Height: " />
+                    <TextBox
+                        x:Name="MinWindowHeightBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Min Window Height" />
                 </Grid>
-            </StackPanel>
-            <StackPanel>
+                <Button
+                    x:Name="MinWindowSizeButton"
+                    Margin="0,2"
+                    Click="MinWindowSize_Click">
+                    Set MinWindowSize
+                </Button>
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="HorizontalResizeSupported:" />
-                    <CheckBox
-                        x:Name="HorizontalResizeSupportedCheckBox"
+                        Text="Max Window Width: " />
+                    <TextBox
+                        x:Name="MaxWindowWidthBox"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Padding="2"
                         VerticalAlignment="Center"
-                        AutomationProperties.Name="HorizontalResizeSupported"
-                        Checked="HorizontalResizeSupportedCheckBox_Checked"
-                        Unchecked="HorizontalResizeSupportedCheckBox_Unchecked" />
-                </Grid>
-            </StackPanel>
-            <StackPanel>
-                <Grid Padding="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
-                    </Grid.ColumnDefinitions>
+                        AutomationProperties.Name="Max Window Width" />
                     <TextBlock
-                        Grid.Row="0"
+                        Grid.Row="1"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="VerticalResizeSupported:" />
-                    <CheckBox
-                        x:Name="VerticalResizeSupportedCheckBox"
-                        Grid.Row="0"
+                        Text="Max Window Height: " />
+                    <TextBox
+                        x:Name="MaxWindowHeightBox"
+                        Grid.Row="1"
                         Grid.Column="1"
-                        Padding="2"
                         VerticalAlignment="Center"
-                        AutomationProperties.Name="VerticalResizeSupported"
-                        Checked="VerticalResizeSupportedCheckBox_Checked"
-                        Unchecked="VerticalResizeSupportedCheckBox_Unchecked" />
+                        AutomationProperties.Name="Max Window Height" />
                 </Grid>
+                <Button
+                    x:Name="MaxWindowSizeButton"
+                    Margin="0,2"
+                    Click="MaxWindowSize_Click">
+                    Set MaxWindowSize
+                </Button>
             </StackPanel>
-            <StackPanel>
-                <Grid Padding="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Text="PinningSupported:" />
-                    <CheckBox
-                        x:Name="PinningSupportedCheckBox"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Padding="2"
-                        VerticalAlignment="Center"
-                        AutomationProperties.Name="PinningSupported"
-                        Checked="PinningSupportedCheckBox_Checked"
-                        Unchecked="PinningSupportedCheckBox_Unchecked" />
-                </Grid>
-            </StackPanel>
-            <StackPanel>
-                <Grid Padding="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Text="SettingsSupported:" />
-                    <CheckBox
-                        x:Name="SettingsSupportedCheckBox"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Padding="2"
-                        VerticalAlignment="Center"
-                        AutomationProperties.Name="SettingsSupported"
-                        Checked="SettingsSupportedCheckBox_Checked"
-                        Unchecked="SettingsSupportedCheckBox_Unchecked" />
-                </Grid>
-            </StackPanel>
-            <Grid Padding="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Min Window Width: " />
-                <TextBox
-                    x:Name="MinWindowWidthBox"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Min Window Width" />
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Min Window Height: " />
-                <TextBox
-                    x:Name="MinWindowHeightBox"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Min Window Height" />
-            </Grid>
-            <Button
-                x:Name="MinWindowSizeButton"
-                Margin="0,2"
-                Click="MinWindowSize_Click">
-                Set MinWindowSize
-            </Button>
-            <Grid Padding="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Max Window Width: " />
-                <TextBox
-                    x:Name="MaxWindowWidthBox"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Max Window Width" />
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="Max Window Height: " />
-                <TextBox
-                    x:Name="MaxWindowHeightBox"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Max Window Height" />
-            </Grid>
-            <Button
-                x:Name="MaxWindowSizeButton"
-                Margin="0,2"
-                Click="MaxWindowSize_Click">
-                Set MaxWindowSize
-            </Button>
-        </StackPanel>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 </Page>

@@ -5,14 +5,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:WidgetSampleCX"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Orientation="Vertical">
-        <TextBlock Padding="0,0,0,5" Text="Widget1" />
-        <Button x:Name="myButton" Click="MyButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <TextBlock Padding="0,0,0,5" Text="Widget1" />
+            <Button x:Name="myButton" Click="MyButton_Click">Click Me</Button>
+        </StackPanel>
+    </Grid>
 </Page>

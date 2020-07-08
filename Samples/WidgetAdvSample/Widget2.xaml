@@ -7,16 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Orientation="Vertical">
-        <TextBlock Padding="0,0,0,5" Text="Widget2" />
-        <Button x:Name="myButton" Click="MyButton_Click">Click Me</Button>
-        <TextBlock
-            Margin="0,5,0,2"
-            FontWeight="Bold"
-            Text="Activation URI: " />
-        <TextBlock x:Name="uriTextBlock" TextWrapping="WrapWholeWords" />
-    </StackPanel>
+    <Grid>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <TextBlock Padding="0,0,0,5" Text="Widget2" />
+            <Button x:Name="myButton" Click="MyButton_Click">Click Me</Button>
+            <TextBlock
+                Margin="0,5,0,2"
+                FontWeight="Bold"
+                Text="Activation URI: " />
+            <TextBlock x:Name="uriTextBlock" TextWrapping="WrapWholeWords" />
+        </StackPanel>
+    </Grid>
 </Page>
