@@ -74,7 +74,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
         // Important Cleanup Notes:
         //    When our widget is closed--by Game Bar or us calling XboxGameBarWidget.Close()-,
         // the CoreWindow will get a closed event.  We can register for Window.Closed
-        // event to know when our partucular widget has shutdown, and cleanup accordingly.
+        // event to know when our particular widget has shutdown, and cleanup accordingly.
         //
         // NOTE: If a widget's CoreWindow is the LAST CoreWindow being closed for the process
         // then we won't get the Window.Closed event.  However, we will get the OnSuspending
@@ -227,7 +227,7 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
 /// <summary>
 /// Invoked when application execution is being suspended.  Normally we
 /// wouldn't know if the app was being terminated or just suspended at this
-/// point. However, the app will never be suspeded if Game Bar has an
+/// point. However, the app will never be suspended if Game Bar has an
 /// active widget connection to it, so if you see this call it's safe to
 /// cleanup any widget related objects. Keep in mind if all widgets are closed
 /// and you have a foreground window for your app, this could still result in 
