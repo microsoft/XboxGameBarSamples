@@ -110,7 +110,7 @@
                         Grid.Column="1"
                         VerticalAlignment="Center"
                         AutomationProperties.Name="Uri"
-                        Text="ms-gamebar:activate/WidgetAdvSample_8wekyb3d8bbwe_App_Widget2/?var=value" />
+                        Text="ms-gamebar:activate/WidgetAdvSampleCS_8wekyb3d8bbwe_App_Widget2/?var=value" />
                 </Grid>
                 <Button
                     x:Name="ActivateWithUriAsyncButton"
