@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
@@ -28,8 +20,9 @@ namespace WidgetAdvSampleCS
         private XboxGameBarWidget widget = null;
         private XboxGameBarWidgetControl widgetControl = null;
         private XboxGameBarWebAuthenticationBroker gameBarWebAuth = null;
-        private SolidColorBrush widgetBlackBrush =  null;
-        private SolidColorBrush widgetWhiteBrush = null;
+        private SolidColorBrush widgetDarkThemeBrush =  null;
+        private SolidColorBrush widgetLightThemeBrush = null;
+        private double? opacityOverride = null;
 
         public Widget1()
         {
@@ -42,8 +35,8 @@ namespace WidgetAdvSampleCS
             widgetControl = new XboxGameBarWidgetControl(widget);
             gameBarWebAuth = new XboxGameBarWebAuthenticationBroker(widget);
 
-            widgetBlackBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 38, 38, 38));
-            widgetWhiteBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 219, 219, 219));
+            widgetDarkThemeBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 38, 38, 38));
+            widgetLightThemeBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 219, 219, 219));
 
             // Hook up events for when the ui is updated.
             widget.SettingsClicked += Widget_SettingsClicked;
@@ -129,6 +122,11 @@ namespace WidgetAdvSampleCS
             size.Height = int.Parse(WindowHeightBox.Text);
             size.Width = int.Parse(WindowWidthBox.Text);
             await widget.TryResizeWindowAsync(size);
+        }
+
+        private async void CenterWindowAsync_Click(object sender, RoutedEventArgs e)
+        {
+            await widget.CenterWindowAsync();
         }
 
         private async void AuthenticateAsync_Click(object sender, RoutedEventArgs e)
@@ -220,6 +218,33 @@ namespace WidgetAdvSampleCS
             }
         }
 
+        private void OpacityOverride_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                opacityOverride = Double.Parse(OpacityOverrideBox.Text, System.Globalization.NumberStyles.Any);
+            }
+            catch (Exception)
+            {
+                opacityOverride = null;
+            }
+
+            // - Value cannot be empty
+            // - Value cannot be non-numeric (wtof returns 0)
+            // - Value must be between 0 and 1.
+            if (   !opacityOverride.HasValue
+                || opacityOverride.Value < 0
+                || opacityOverride.Value > 1)
+            {
+                // Invalid
+                opacityOverride = null;
+                OpacityOverrideBox.Text = "";
+            }
+
+            SetRequestedOpacityState();
+            SetBackgroundOpacity();
+        }
+
         private async void Widget_SettingsClicked(XboxGameBarWidget sender, object args)
         {
             await widget.ActivateSettingsAsync();
@@ -243,11 +268,14 @@ namespace WidgetAdvSampleCS
 
         private async void Widget_RequestedOpacityChanged(XboxGameBarWidget sender, object args)
         {
-            await RequestedOpacityTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            if (!opacityOverride.HasValue)
             {
-                SetRequestedOpacityState();
-                SetBackgroundOpacity();
-            });
+                await RequestedOpacityTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    SetRequestedOpacityState();
+                    SetBackgroundOpacity();
+                });
+            }
         }
 
         private async void Widget_RequestedThemeChanged(XboxGameBarWidget sender, object args)
@@ -287,17 +315,31 @@ namespace WidgetAdvSampleCS
         private void SetBackgroundColor()
         {
             this.RequestedTheme = widget.RequestedTheme;
-            BackgroundGrid.Background = (widget.RequestedTheme == ElementTheme.Dark) ? widgetBlackBrush : widgetWhiteBrush;
+            BackgroundGrid.Background = (widget.RequestedTheme == ElementTheme.Dark) ? widgetDarkThemeBrush : widgetLightThemeBrush;
         }
 
         private void SetBackgroundOpacity()
         {
-            BackgroundGrid.Opacity = widget.RequestedOpacity;
+            if (opacityOverride.HasValue)
+            {
+                BackgroundGrid.Opacity = opacityOverride.Value;
+            }
+            else
+            {
+                BackgroundGrid.Opacity = widget.RequestedOpacity;
+            }
         }
 
         private void SetRequestedOpacityState()
         {
-            RequestedOpacityTextBlock.Text = widget.RequestedOpacity.ToString();
+            if (opacityOverride.HasValue)
+            {
+                RequestedOpacityTextBlock.Text = opacityOverride.Value.ToString();
+            }
+            else
+            {
+                RequestedOpacityTextBlock.Text = widget.RequestedOpacity.ToString();
+            }
         }
 
         private void SetRequestedThemeState()
