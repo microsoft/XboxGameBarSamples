@@ -54,7 +54,6 @@ namespace winrt::WidgetAdvSample::implementation
         void SetBackgroundColor();
         void SetBackgroundOpacity();
         void SetRequestedOpacityState();
-        hstring OpacityToString();
         hstring RequestedThemeToString();
         hstring FavoritedStateToString();
         hstring PinnedStateToString();
