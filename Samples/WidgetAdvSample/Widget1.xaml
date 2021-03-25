@@ -157,6 +157,12 @@
                     Click="TryResizeWindowAsync_Click">
                     TryResizeWindowAsync
                 </Button>
+                <Button
+                    x:Name="CenterWindowAsync"
+                    Margin="0,2"
+                    Click="CenterWindowAsync_Click">
+                    CenterWindowAsync
+                </Button>
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -267,6 +273,32 @@
                             VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
+                <Grid Padding="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Opacity Override: " />
+                    <TextBox
+                        x:Name="OpacityOverrideBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Opacity Override" />
+                </Grid>
+                <Button
+                    x:Name="OpacityOverrideButton"
+                    Margin="0,2"
+                    Click="OpacityOverride_Click">
+                    Set Opacity Override
+                </Button>
                 <StackPanel>
                     <Grid Padding="2">
                         <Grid.ColumnDefinitions>
