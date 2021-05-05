@@ -26,6 +26,7 @@ namespace winrt::WidgetAdvSample::implementation
         Windows::Foundation::IAsyncAction CloseAsyncAppExtIdButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction CloseAsyncAppIdButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction TryResizeWindowAsync_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction CenterWindowAsync_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction AuthenticateAsync_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void HorizontalResizeSupportedCheckBox_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void HorizontalResizeSupportedCheckBox_Unchecked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
@@ -37,6 +38,7 @@ namespace winrt::WidgetAdvSample::implementation
         void SettingsSupportedCheckBox_Unchecked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void MinWindowSize_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void MaxWindowSize_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
+        void OpacityOverride_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
 
         // Settings click handler for widget settings click event
         Windows::Foundation::IAsyncAction SettingsButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
@@ -51,7 +53,7 @@ namespace winrt::WidgetAdvSample::implementation
         // Methods to handle updating of Text and UI
         void SetBackgroundColor();
         void SetBackgroundOpacity();
-        hstring RequestedOpacityToString();
+        void SetRequestedOpacityState();
         hstring RequestedThemeToString();
         hstring FavoritedStateToString();
         hstring PinnedStateToString();
@@ -66,6 +68,7 @@ namespace winrt::WidgetAdvSample::implementation
         Windows::UI::Core::CoreWindow m_widgetCoreWindow{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_widgetDarkThemeBrush{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_widgetLightThemeBrush{ nullptr };
+        std::optional<double> m_opacityOverride;
 
         winrt::event_token m_settingsToken{};
         winrt::event_token m_favoritedChangedToken{};

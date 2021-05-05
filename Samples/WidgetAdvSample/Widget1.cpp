@@ -42,8 +42,13 @@ namespace winrt::WidgetAdvSample::implementation
 
         PinnedStateTextBlock().Text(PinnedStateToString());
         FavoritedTextBlock().Text(FavoritedStateToString());
-        RequestedOpacityTextBlock().Text(RequestedOpacityToString());
+        SetRequestedOpacityState();
         RequestedThemeTextBlock().Text(RequestedThemeToString());
+        OutputVisibleState();
+        OutputWindowState();
+        OutputGameBarDisplayMode();
+        SetBackgroundColor();
+        SetBackgroundOpacity();
 
         HorizontalResizeSupportedCheckBox().IsChecked(m_widget.HorizontalResizeSupported());
         VerticalResizeSupportedCheckBox().IsChecked(m_widget.VerticalResizeSupported());
@@ -59,12 +64,6 @@ namespace winrt::WidgetAdvSample::implementation
         MaxWindowHeightBox().Text(buffer);
         StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"%g", m_widget.MaxWindowSize().Width);
         MaxWindowWidthBox().Text(buffer);
-
-        SetBackgroundColor();
-        SetBackgroundOpacity();
-        OutputGameBarDisplayMode();
-        OutputVisibleState();
-        OutputWindowState();
     }
 
     IAsyncAction Widget1::ActivateAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -130,6 +129,11 @@ namespace winrt::WidgetAdvSample::implementation
         auto result = co_await m_widget.TryResizeWindowAsync(size);
         UNREFERENCED_PARAMETER(result);
         co_return;
+    }
+
+    IAsyncAction Widget1::CenterWindowAsync_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {        
+        co_return co_await m_widget.CenterWindowAsync();
     }
 
     IAsyncAction Widget1::AuthenticateAsync_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -217,6 +221,38 @@ namespace winrt::WidgetAdvSample::implementation
         m_widget.MaxWindowSize(size);
     }
 
+    void Widget1::OpacityOverride_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        std::wstring_view str{ this->OpacityOverrideBox().Text() };
+        double opacityOverride{ 1 };
+
+        if (!str.empty())
+        {
+            opacityOverride = _wtof(str.data());
+        }
+
+        // - Value cannot be empty
+        // - Value cannot be non-numeric (wtof returns 0)
+        // - Value must be between 0 and 1.
+        if (   str.empty() 
+            || (opacityOverride == 0 && (0 != str.compare(L"0")) && (0 != str.compare(L"0.0")))
+            || (opacityOverride < 0)
+            || (opacityOverride > 1))
+        {
+            // Invalid
+            this->OpacityOverrideBox().Text(L"");
+            m_opacityOverride.reset();
+        }
+        else
+        {
+            // Valid
+            m_opacityOverride = opacityOverride;
+        }
+
+        SetRequestedOpacityState();
+        SetBackgroundOpacity();
+    }
+
     IAsyncAction Widget1::SettingsButton_Click(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
@@ -245,9 +281,12 @@ namespace winrt::WidgetAdvSample::implementation
     fire_and_forget Widget1::RequestedOpacityChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
-        co_await resume_foreground(BackgroundGrid().Dispatcher());
-        RequestedOpacityTextBlock().Text(RequestedOpacityToString());
-        SetBackgroundOpacity();
+        if (!m_opacityOverride.has_value())
+        {
+            co_await resume_foreground(BackgroundGrid().Dispatcher());
+            SetRequestedOpacityState();
+            SetBackgroundOpacity();
+        }
     }
 
     fire_and_forget  Widget1::RequestedThemeChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
@@ -288,17 +327,30 @@ namespace winrt::WidgetAdvSample::implementation
 
     void Widget1::SetBackgroundOpacity()
     {
-        BackgroundGrid().Opacity(m_widget.RequestedOpacity());
+        if (m_opacityOverride.has_value())
+        {
+            BackgroundGrid().Opacity(m_opacityOverride.value());
+        }
+        else
+        {
+            BackgroundGrid().Opacity(m_widget.RequestedOpacity());
+        }
     }
 
-    hstring Widget1::RequestedOpacityToString()
+    void Widget1::SetRequestedOpacityState()
     {
         auto requestedOpacity = m_widget.RequestedOpacity();
+        if (m_opacityOverride.has_value())
+        {
+            requestedOpacity = m_opacityOverride.value();
+        }
 
         std::wstringstream opacityStringStream;
         opacityStringStream << requestedOpacity;
 
-        return opacityStringStream.str().c_str();
+        opacityStringStream.str().c_str();
+
+        RequestedOpacityTextBlock().Text(opacityStringStream.str().c_str());
     }
 
     hstring Widget1::RequestedThemeToString()
