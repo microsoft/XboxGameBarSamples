@@ -31,7 +31,7 @@ jobs:
         buildPlatform: x64
         buildConfiguration: Debug
   pool:
-    vmImage: 'windows-latest'
+    vmImage: 'windows-2019'
 
   variables:
     - group: XboxGameBarSamples
