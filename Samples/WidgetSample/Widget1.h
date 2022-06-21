@@ -11,7 +11,13 @@ namespace winrt::WidgetSample::implementation
         int32_t MyProperty();
         void MyProperty(int32_t value);
 
-        void MyButton_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        virtual void OnNavigatedTo(winrt::Windows::UI::Xaml::Navigation::NavigationEventArgs e);
+
+        winrt::fire_and_forget MyButton_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+
+    private:
+
+        Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget1{ nullptr };
     };
 }
 

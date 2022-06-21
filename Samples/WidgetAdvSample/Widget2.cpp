@@ -9,6 +9,8 @@ using namespace winrt::Windows::UI::Xaml::Navigation;
 
 namespace winrt::WidgetAdvSample::implementation
 {
+    std::wstring Widget2::m_suspendResumeState{};
+
     Widget2::Widget2()
     {
         InitializeComponent();
@@ -16,8 +18,15 @@ namespace winrt::WidgetAdvSample::implementation
 
     void Widget2::OnNavigatedTo(NavigationEventArgs e)
     {
-        auto uri = e.Parameter().as<Uri>();
-        uriTextBlock().Text(uri.AbsoluteUri());
+        if (m_suspendResumeState.empty())
+        {
+            auto uri = e.Parameter().as<Uri>();
+            uriTextBlock().Text(uri.AbsoluteUri());
+        }
+        else
+        {
+            uriTextBlock().Text(m_suspendResumeState);
+        }
     }
 
     int32_t Widget2::MyProperty()

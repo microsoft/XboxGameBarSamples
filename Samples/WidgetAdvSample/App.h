@@ -11,6 +11,7 @@ namespace winrt::WidgetAdvSample::implementation
         void OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs const& args);
         void OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEventArgs const&);
         void OnSuspending(IInspectable const&, Windows::ApplicationModel::SuspendingEventArgs const&);
+        void OnResuming(IInspectable const&, IInspectable const&);
         void OnNavigationFailed(IInspectable const&, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs const&);
 
         void Widget1WindowClosedHandler(IInspectable const&, IInspectable const&);

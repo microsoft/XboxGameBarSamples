@@ -87,7 +87,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
                 widgetArgs,
                 Window::Current().CoreWindow(),
                 rootFrame);
-            rootFrame.Navigate(xaml_typename<WidgetSample::Widget1>());
+            rootFrame.Navigate(xaml_typename<WidgetSample::Widget1>(), m_widget1);
 
             m_widget1WindowClosedHandlerToken = Window::Current().Closed(
                 { get_weak(), &App::Widget1WindowClosedHandler });

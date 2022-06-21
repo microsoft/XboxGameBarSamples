@@ -24,6 +24,7 @@ App::App()
 {
     InitializeComponent();
     Suspending({ this, &App::OnSuspending });
+    Resuming({ this, &App::OnResuming });
 
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
     UnhandledException([this](IInspectable const&, UnhandledExceptionEventArgs const& e)
@@ -238,9 +239,15 @@ void App::OnLaunched(LaunchActivatedEventArgs const& e)
 /// <param name="e">Details about the suspend request.</param>
 void App::OnSuspending([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] SuspendingEventArgs const& e)
 {
-    m_widget1 = nullptr;
-    m_widget1Settings = nullptr;
-    m_widget2 = nullptr;
+    winrt::WidgetAdvSample::implementation::Widget2::m_suspendResumeState = L"OnSuspending";
+    //m_widget1 = nullptr;
+    //m_widget1Settings = nullptr;
+    //m_widget2 = nullptr;
+}
+
+void App::OnResuming([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] IInspectable const& args)
+{
+    winrt::WidgetAdvSample::implementation::Widget2::m_suspendResumeState = L"OnResuming";
 }
 
 /// <summary>
