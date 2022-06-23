@@ -9,8 +9,6 @@ using namespace winrt::Windows::UI::Xaml::Navigation;
 
 namespace winrt::WidgetAdvSample::implementation
 {
-    std::wstring Widget2::m_suspendResumeState{};
-
     Widget2::Widget2()
     {
         InitializeComponent();

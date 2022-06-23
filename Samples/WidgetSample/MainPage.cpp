@@ -2,8 +2,6 @@
 #include "MainPage.h"
 #include "MainPage.g.cpp"
 
-#include "winrt\Windows.System.h"
-
 using namespace winrt;
 using namespace Windows::UI::Xaml;
 
@@ -24,8 +22,8 @@ namespace winrt::WidgetSample::implementation
         throw hresult_not_implemented();
     }
 
-    winrt::fire_and_forget MainPage::MyButton_Click(IInspectable const&, RoutedEventArgs const&)
+    void MainPage::MyButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        co_return;
+        myButton().Content(box_value(L"Clicked"));
     }
 }
