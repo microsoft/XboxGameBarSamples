@@ -15,8 +15,6 @@ namespace winrt::WidgetAdvSample::implementation
         void MyProperty(int32_t value);
 
         void MyButton_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
-
-        static std::wstring m_suspendResumeState;
     };
 }
 

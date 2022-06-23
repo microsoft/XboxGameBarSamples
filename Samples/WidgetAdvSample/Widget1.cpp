@@ -348,8 +348,6 @@ namespace winrt::WidgetAdvSample::implementation
         std::wstringstream opacityStringStream;
         opacityStringStream << requestedOpacity;
 
-        opacityStringStream.str().c_str();
-
         RequestedOpacityTextBlock().Text(opacityStringStream.str().c_str());
     }
 

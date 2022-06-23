@@ -27,15 +27,8 @@ namespace winrt::WidgetSample::implementation
         throw hresult_not_implemented();
     }
 
-    void Widget1::OnNavigatedTo(NavigationEventArgs e)
+    void Widget1::MyButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        m_widget1 = e.Parameter().as<XboxGameBarWidget>();
-    }
-
-    winrt::fire_and_forget Widget1::MyButton_Click(IInspectable const&, RoutedEventArgs const&)
-    {
-        //bool result = co_await winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri(L"spotify://"));
-        bool result = co_await m_widget1.LaunchUriAsync(winrt::Windows::Foundation::Uri(L"spotify://"));
-        myButton().Content(box_value(result ? L"true" : L"false"));
+        myButton().Content(box_value(L"Clicked"));
     }
 }

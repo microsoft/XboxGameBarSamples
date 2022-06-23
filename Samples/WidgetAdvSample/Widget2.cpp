@@ -18,15 +18,8 @@ namespace winrt::WidgetAdvSample::implementation
 
     void Widget2::OnNavigatedTo(NavigationEventArgs e)
     {
-        if (m_suspendResumeState.empty())
-        {
-            auto uri = e.Parameter().as<Uri>();
-            uriTextBlock().Text(uri.AbsoluteUri());
-        }
-        else
-        {
-            uriTextBlock().Text(m_suspendResumeState);
-        }
+        auto uri = e.Parameter().as<Uri>();
+        uriTextBlock().Text(uri.AbsoluteUri());
     }
 
     int32_t Widget2::MyProperty()
