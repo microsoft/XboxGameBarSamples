@@ -165,6 +165,17 @@ namespace winrt::WidgetAdvSample::implementation
         OutputDebugString(buffer);
     }
 
+    IAsyncAction Widget1::LaunchUriAsyncButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        Uri uri{ this->LaunchUriAsyncText().Text() };
+        bool result = co_await m_widget.LaunchUriAsync(uri);
+        if (!result)
+        {
+            OutputDebugStringW(L"LaunchUriAsync returned false");
+        }
+        co_return;
+    }
+
     void Widget1::HorizontalResizeSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         m_widget.HorizontalResizeSupported(true);
@@ -347,8 +358,6 @@ namespace winrt::WidgetAdvSample::implementation
 
         std::wstringstream opacityStringStream;
         opacityStringStream << requestedOpacity;
-
-        opacityStringStream.str().c_str();
 
         RequestedOpacityTextBlock().Text(opacityStringStream.str().c_str());
     }
