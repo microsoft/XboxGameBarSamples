@@ -148,6 +148,16 @@ namespace WidgetAdvSampleCS
             Debug.WriteLine("ResponseErrorDetail: " + result.ResponseErrorDetail);
         }
 
+        private async void LaunchUriAsyncButton_Click(object sender, RoutedEventArgs e)
+        {
+            Uri uri = new Uri(LaunchUriAsyncText.Text);
+            bool result = await widget.LaunchUriAsync(uri);
+            if (!result)
+            {
+                Debug.WriteLine("LaunchUriAsync returned false");
+            }
+        }
+
         private void HorizontalResizeSupportedCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             widget.HorizontalResizeSupported = true;
