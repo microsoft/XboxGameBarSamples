@@ -463,6 +463,28 @@
                     Click="MaxWindowSize_Click">
                     Set MaxWindowSize
                 </Button>
+                <Grid Padding="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Uri: " />
+                    <TextBox
+                        x:Name="LaunchUriAsyncText"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Uri"
+                        Text="ms-calculator://" />
+                </Grid>
+                <Button
+                    x:Name="LaunchUriAsyncButton"
+                    Margin="0,2"
+                    Click="LaunchUriAsyncButton_Click">
+                    LaunchUriAsync(uri)
+                </Button>
             </StackPanel>
         </ScrollViewer>
     </Grid>
