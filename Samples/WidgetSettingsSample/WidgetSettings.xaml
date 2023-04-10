@@ -7,15 +7,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Orientation="Vertical">
-            <TextBlock Padding="0,0,0,5" Text="WidgetSettings" />
-            <Button x:Name="myButton" Click="MyButton_Click">Click Me</Button>
+        <TextBlock Grid.Row="0" Grid.Column="0" Padding="10,0,10,10" FontSize="24" Text="WidgetSettings" />
+
+        <Border Grid.Row="1" Grid.Column="0" Margin="10" Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="10">
+            <StackPanel Orientation="Vertical" Padding="10">
+                <TextBlock FontSize="18" Text="Welcome to the WidgetSettings page!" Margin="0,0,0,10" />
+
+                <Button x:Name="myButton" Content="Click Me" FontSize="18" Click="MyButton_Click" />
+
+                <Border Margin="0,20,0,0" Background="{ThemeResource SystemControlBackgroundAltHighBrush}" CornerRadius="10">
+                    <StackPanel Orientation="Vertical" Padding="10">
+                        <TextBlock FontSize="16" Text="Some additional information:" Margin="0,0,0,5" />
+
+                        <TextBlock FontSize="14" Text="• Lorem ipsum dolor sit amet, consectetur adipiscing elit." Margin="0,0,0,5" />
+                        <TextBlock FontSize="14" Text="• Aliquam euismod convallis risus, non scelerisque massa tincidunt et." Margin="0,0,0,5" />
+                        <TextBlock FontSize="14" Text="• Donec bibendum lectus eget felis lobortis, sed finibus velit iaculis." Margin="0,0,0,5" />
+                        <TextBlock FontSize="14" Text="• Morbi ac odio suscipit, laoreet eros eget, fringilla risus." Margin="0,0,0,5" />
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Cancel" FontSize="18" Margin="10" />
+            <Button Content="Save" FontSize="18" Margin="10" />
         </StackPanel>
     </Grid>
 </Page>
