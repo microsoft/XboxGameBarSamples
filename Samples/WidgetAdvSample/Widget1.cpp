@@ -176,6 +176,33 @@ namespace winrt::WidgetAdvSample::implementation
         co_return;
     }
 
+    IAsyncAction Widget1::StartActivityButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        if (!m_widgetActivity)
+        {
+            try
+            {
+                // Throws if given activityId already exists
+                m_widgetActivity = XboxGameBarWidgetActivity::Create(m_widget, L"uniqueActivityId");
+            }
+            catch (hresult_error error)
+            {
+                OutputDebugStringW(L"Activity::Create failed");
+            }
+        }
+        co_return;
+    }
+
+    IAsyncAction Widget1::StopActivityButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        if (m_widgetActivity)
+        {
+            m_widgetActivity.Complete();
+            m_widgetActivity = nullptr;
+        }
+        co_return;
+    }
+
     void Widget1::HorizontalResizeSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         m_widget.HorizontalResizeSupported(true);

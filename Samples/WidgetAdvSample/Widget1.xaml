@@ -485,6 +485,25 @@
                     Click="LaunchUriAsyncButton_Click">
                     LaunchUriAsync(uri)
                 </Button>
+                <Grid Padding="0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="StartActivity"
+                        Grid.Column="0"
+                        Margin="0,0,4,0"
+                        Click="StartActivityButton_Click">
+                        Start Activity
+                    </Button>
+                    <Button
+                        x:Name="StopActivity"
+                        Grid.Column="1"
+                        Click="StopActivityButton_Click">
+                        Stop Activity
+                    </Button>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>
