@@ -183,11 +183,11 @@ namespace winrt::WidgetAdvSample::implementation
             try
             {
                 // Throws if given activityId already exists
-                m_widgetActivity = XboxGameBarWidgetActivity::Create(m_widget, L"uniqueActivityId");
+                m_widgetActivity = XboxGameBarWidgetActivity(m_widget, L"uniqueActivityId");
             }
             catch (hresult_error error)
             {
-                OutputDebugStringW(L"Activity::Create failed");
+                OutputDebugStringW(L"XboxGameBarWidgetActivity create failed");
             }
         }
         co_return;
