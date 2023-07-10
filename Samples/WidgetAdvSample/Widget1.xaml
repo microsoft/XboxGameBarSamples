@@ -273,6 +273,24 @@
                             VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Target:" />
+                        <TextBlock
+                            x:Name="TargetTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
