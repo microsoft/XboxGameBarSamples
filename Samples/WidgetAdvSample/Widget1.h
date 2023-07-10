@@ -48,6 +48,7 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::fire_and_forget PinnedChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         winrt::fire_and_forget RequestedOpacityChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         winrt::fire_and_forget RequestedThemeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget TargetChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void VisibleChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void WindowStateChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         
@@ -58,6 +59,7 @@ namespace winrt::WidgetAdvSample::implementation
         hstring RequestedThemeToString();
         hstring FavoritedStateToString();
         hstring PinnedStateToString();
+        hstring TargetToString();
         void OutputVisibleState();
         void OutputWindowState();
         void OutputGameBarDisplayMode();
@@ -66,6 +68,7 @@ namespace winrt::WidgetAdvSample::implementation
         Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget{ nullptr };
         Microsoft::Gaming::XboxGameBar::Authentication::XboxGameBarWebAuthenticationBroker m_gameBarWebAuth{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarWidgetControl m_widgetControl{ nullptr };
+        Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetTracker m_appTargetTracker{ nullptr };
         Windows::UI::Core::CoreWindow m_widgetCoreWindow{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_widgetDarkThemeBrush{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_widgetLightThemeBrush{ nullptr };
@@ -79,6 +82,7 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::event_token m_themeChangedToken{};
         winrt::event_token m_visibleChangedToken{};
         winrt::event_token m_windowStateChangedToken{};
+        winrt::event_token m_targetChangedToken{};
     };
 }
 
