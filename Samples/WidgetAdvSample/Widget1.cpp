@@ -26,6 +26,7 @@ namespace winrt::WidgetAdvSample::implementation
         m_widget = e.Parameter().as<XboxGameBarWidget>();
         m_widgetControl = XboxGameBarWidgetControl(m_widget);
         m_gameBarWebAuth = XboxGameBarWebAuthenticationBroker(m_widget);
+        m_appTargetTracker = XboxGameBarAppTargetTracker(m_widget);
 
         m_widgetDarkThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 38, 38, 38));
         m_widgetLightThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 219, 219, 219));
@@ -39,11 +40,13 @@ namespace winrt::WidgetAdvSample::implementation
         m_themeChangedToken = m_widget.RequestedThemeChanged({ this, &Widget1::RequestedThemeChanged });
         m_visibleChangedToken = m_widget.VisibleChanged({ this, &Widget1::VisibleChanged });
         m_windowStateChangedToken = m_widget.WindowStateChanged({ this, &Widget1::WindowStateChanged });
+        m_targetChangedToken = m_appTargetTracker.TargetChanged({ this, &Widget1::TargetChanged });
 
         PinnedStateTextBlock().Text(PinnedStateToString());
         FavoritedTextBlock().Text(FavoritedStateToString());
-        SetRequestedOpacityState();
         RequestedThemeTextBlock().Text(RequestedThemeToString());
+        TargetTextBlock().Text(TargetToString());
+        SetRequestedOpacityState();
         OutputVisibleState();
         OutputWindowState();
         OutputGameBarDisplayMode();
@@ -289,6 +292,13 @@ namespace winrt::WidgetAdvSample::implementation
         PinnedStateTextBlock().Text(PinnedStateToString());
     }
 
+    fire_and_forget Widget1::TargetChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
+    {
+        auto strongThis{ get_strong() };
+        co_await resume_foreground(TargetTextBlock().Dispatcher());
+        TargetTextBlock().Text(TargetToString());
+    }
+
     fire_and_forget Widget1::RequestedOpacityChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
@@ -390,6 +400,18 @@ namespace winrt::WidgetAdvSample::implementation
     {
         hstring isPinned = m_widget.Pinned() ? L"true" : L"false";
         return isPinned;
+    }
+
+    hstring Widget1::TargetToString()
+    {
+        hstring isFullscreen = m_appTargetTracker.GetTarget().IsFullscreen() ? L"true" : L"false";
+        hstring isGame = m_appTargetTracker.GetTarget().IsGame() ? L"true" : L"false";
+        hstring target = L"AumId: " + m_appTargetTracker.GetTarget().AumId() + L"\n" +
+                         L"DisplayName: " + m_appTargetTracker.GetTarget().DisplayName() + L"\n" +
+                         L"TitleId: " + m_appTargetTracker.GetTarget().TitleId() + L"\n" +
+                         L"IsFullscreen: " + isFullscreen + L"\n" +
+                         L"IsGame: " + isGame + L"\n";
+        return target;
     }
 
     void Widget1::OutputVisibleState()
