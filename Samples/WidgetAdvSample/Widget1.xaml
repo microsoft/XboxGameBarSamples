@@ -522,6 +522,25 @@
                         Stop Activity
                     </Button>
                 </Grid>
+                <Grid Padding="0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="ShowBasicNotification"
+                        Grid.Column="0"
+                        Margin="0,0,4,0"
+                        Click="ShowBasicNotification_Click">
+                        Show Basic Notification
+                    </Button>
+                    <Button
+                        x:Name="ShowAdvancedNotification"
+                        Grid.Column="1"
+                        Click="ShowAdvancedNotification_Click">
+                        Show Advanced Notification
+                    </Button>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

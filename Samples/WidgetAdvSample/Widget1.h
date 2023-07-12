@@ -31,6 +31,8 @@ namespace winrt::WidgetAdvSample::implementation
         Windows::Foundation::IAsyncAction LaunchUriAsyncButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction StartActivityButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction StopActivityButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction ShowBasicNotification_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction ShowAdvancedNotification_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void HorizontalResizeSupportedCheckBox_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void HorizontalResizeSupportedCheckBox_Unchecked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
@@ -73,6 +75,8 @@ namespace winrt::WidgetAdvSample::implementation
         Microsoft::Gaming::XboxGameBar::XboxGameBarWidgetControl m_widgetControl{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarWidgetActivity m_widgetActivity{ nullptr };
         Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetTracker m_appTargetTracker{ nullptr };
+        Microsoft::Gaming::XboxGameBar::IXboxGameBarWidgetNotificationManager m_widgetNotificationManager{ nullptr };
+
         Windows::UI::Core::CoreWindow m_widgetCoreWindow{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_widgetDarkThemeBrush{ nullptr };
         Windows::UI::Xaml::Media::SolidColorBrush m_widgetLightThemeBrush{ nullptr };

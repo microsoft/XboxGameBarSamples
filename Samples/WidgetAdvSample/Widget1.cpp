@@ -27,6 +27,7 @@ namespace winrt::WidgetAdvSample::implementation
         m_widgetControl = XboxGameBarWidgetControl(m_widget);
         m_gameBarWebAuth = XboxGameBarWebAuthenticationBroker(m_widget);
         m_appTargetTracker = XboxGameBarAppTargetTracker(m_widget);
+        m_widgetNotificationManager = XboxGameBarWidgetNotificationManager(m_widget);
 
         m_widgetDarkThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 38, 38, 38));
         m_widgetLightThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 219, 219, 219));
@@ -203,6 +204,59 @@ namespace winrt::WidgetAdvSample::implementation
             m_widgetActivity.Complete();
             m_widgetActivity = nullptr;
         }
+        co_return;
+    }
+
+    IAsyncAction Widget1::ShowBasicNotification_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        auto widgetNotification{ XboxGameBarWidgetNotificationBuilder(L"This is a toast title")
+            .PrimaryImageFromPublicFolder(L"SamplePrimaryImage.png", XboxGameBarWidgetNotificationImageCrop::Circle)
+            .BuildNotification() };
+
+        // Call async show to unwind calling thread while result is obtained
+        // Success means toast was succesfully shown or queued to be shown
+        auto result = co_await m_widgetNotificationManager.TryShowAsync(widgetNotification);
+        UNREFERENCED_PARAMETER(result);
+
+        co_return;
+    }
+
+    IAsyncAction Widget1::ShowAdvancedNotification_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        // Check if user has enabled notifications for this widget in Game Bar settings
+        // prior to attempting to show notification
+        if (true)
+        {
+            auto widgetNotification{
+                // (Required) Short toast title
+                XboxGameBarWidgetNotificationBuilder(L"This is a toast title that can wrap to two lines if necessary")
+                // (Optional) Short toast description
+                .Content(L"This is a toast description that can wrap to two lines if necessary")
+                // (Optional) Widget activation payload on toast activation
+                .ActivationPayload(L"id=testId&context=additionalContext")
+                // (Optional) Primary image - specify URI (PrimaryImageFromUri)
+                // or file name (PrimaryImageFromPublicFolder) scheme
+                .PrimaryImageFromPublicFolder(L"SamplePrimaryImage.png", XboxGameBarWidgetNotificationImageCrop::Default)
+                // (Optional) Secondary image - specify URI (SecondaryImageFromPublicFolder)
+                // or file name (SecondaryImageFromPublicFolder) sheme
+                // Note: secondary image always shown with circle image crop type
+                .SecondaryImageFromPublicFolder(L"SampleSecondaryImage.png")
+                // (Optional) Sound - specify file name
+                .SoundFromPublicFolder(L"SampleSound.mp3")
+                // (Optional) Ignore Windows quiet hours setting for important, time sensitive notifications
+                .IgnoreQuietHours(true)
+                // (Optional) Avoid brining Game Bar to the foreground for external toast activations
+                .IsBackgroundActivation(true)
+                // Call this to build the notification object to pass to the notification manager
+                .BuildNotification() };
+
+            // Call sync show and wait for result
+            // Success means toast was succesfully shown or queued to be shown
+            co_await resume_background();
+            auto result = m_widgetNotificationManager.TryShow(widgetNotification);
+            UNREFERENCED_PARAMETER(result);
+        }
+
         co_return;
     }
 
