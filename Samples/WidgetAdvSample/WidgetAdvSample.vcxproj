@@ -254,7 +254,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Widget1\Notifications\SampleSound.mp3" />
+    <Media Include="Widget1\Notifications\Sounds\SampleSound.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

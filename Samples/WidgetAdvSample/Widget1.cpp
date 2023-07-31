@@ -234,15 +234,16 @@ namespace winrt::WidgetAdvSample::implementation
                 .Content(L"This is a toast description that can wrap to two lines if necessary")
                 // (Optional) Widget activation payload on toast activation
                 .ActivationPayload(L"id=testId&context=additionalContext")
-                // (Optional) Primary image - specify URI (PrimaryImageFromUri)
-                // or file name (PrimaryImageFromPublicFolder) scheme
+                // (Optional) Primary image
+                // URI scheme: Call .PrimaryImageFromUri(...)
+                // File name or relative path scheme: .PrimaryImageFromPublicFolder(...)
+                // Note: using both schemes both will cause an exception
                 .PrimaryImageFromPublicFolder(L"SamplePrimaryImage.png", XboxGameBarWidgetNotificationImageCrop::Default)
-                // (Optional) Secondary image - specify URI (SecondaryImageFromPublicFolder)
-                // or file name (SecondaryImageFromPublicFolder) sheme
+                // (Optional) Secondary image - same as above
                 // Note: secondary image always shown with circle image crop type
                 .SecondaryImageFromPublicFolder(L"SampleSecondaryImage.png")
-                // (Optional) Sound - specify file name
-                .SoundFromPublicFolder(L"SampleSound.mp3")
+                // (Optional) Sound - specify file name or relative path
+                .SoundFromPublicFolder(L"Sounds\\SampleSound.mp3")
                 // (Optional) Ignore Windows quiet hours setting for important, time sensitive notifications
                 .IgnoreQuietHours(true)
                 // (Optional) Avoid brining Game Bar to the foreground for external toast activations
