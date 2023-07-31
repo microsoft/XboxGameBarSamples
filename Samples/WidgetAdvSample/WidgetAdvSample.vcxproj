@@ -197,6 +197,8 @@
     <Image Include="Widget1\Icons\icon.targetsize-256.png" />
     <Image Include="Widget1\Icons\icon.targetsize-32.png" />
     <Image Include="Widget1\Icons\icon.targetsize-44.png" />
+    <Image Include="Widget1\Notifications\SamplePrimaryImage.png" />
+    <Image Include="Widget1\Notifications\SampleSecondaryImage.png" />
     <Image Include="Widget2\Icons\icon.light.targetsize-16.png" />
     <Image Include="Widget2\Icons\icon.light.targetsize-20.png" />
     <Image Include="Widget2\Icons\icon.light.targetsize-24.png" />
@@ -250,6 +252,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Widget1\Notifications\SampleSound.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
