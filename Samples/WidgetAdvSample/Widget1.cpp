@@ -41,7 +41,12 @@ namespace winrt::WidgetAdvSample::implementation
         m_themeChangedToken = m_widget.RequestedThemeChanged({ this, &Widget1::RequestedThemeChanged });
         m_visibleChangedToken = m_widget.VisibleChanged({ this, &Widget1::VisibleChanged });
         m_windowStateChangedToken = m_widget.WindowStateChanged({ this, &Widget1::WindowStateChanged });
-        m_targetChangedToken = m_appTargetTracker.TargetChanged({ this, &Widget1::TargetChanged });
+        
+        // Check that target tracking is enabled for the widget before subscribing for change events
+        if (m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled)
+        {
+            m_targetChangedToken = m_appTargetTracker.TargetChanged({ this, &Widget1::TargetChanged });
+        }
 
         PinnedStateTextBlock().Text(PinnedStateToString());
         FavoritedTextBlock().Text(FavoritedStateToString());
@@ -486,14 +491,24 @@ namespace winrt::WidgetAdvSample::implementation
 
     hstring Widget1::TargetToString()
     {
-        hstring isFullscreen = m_appTargetTracker.GetTarget().IsFullscreen() ? L"true" : L"false";
-        hstring isGame = m_appTargetTracker.GetTarget().IsGame() ? L"true" : L"false";
-        hstring target = L"AumId: " + m_appTargetTracker.GetTarget().AumId() + L"\n" +
-                         L"DisplayName: " + m_appTargetTracker.GetTarget().DisplayName() + L"\n" +
-                         L"TitleId: " + m_appTargetTracker.GetTarget().TitleId() + L"\n" +
-                         L"IsFullscreen: " + isFullscreen + L"\n" +
-                         L"IsGame: " + isGame + L"\n";
-        return target;
+        // Check that target tracking is enabled for the widget before accessing target information
+        if (m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled)
+        {
+            auto target = m_appTargetTracker.GetTarget();
+
+            hstring isFullscreen = target.IsFullscreen() ? L"true" : L"false";
+            hstring isGame = target.IsGame() ? L"true" : L"false";
+            hstring targetInfo = L"AumId: " + target.AumId() + L"\n" +
+                L"DisplayName: " + target.DisplayName() + L"\n" +
+                L"TitleId: " + target.TitleId() + L"\n" +
+                L"IsFullscreen: " + isFullscreen + L"\n" +
+                L"IsGame: " + isGame + L"\n";
+            return targetInfo;
+        }
+        else
+        {
+            return L"Target disabled by user";
+        }
     }
 
     void Widget1::OutputVisibleState()
