@@ -47,6 +47,7 @@
                 <PinningSupported>true</PinningSupported>
                 <SettingsSupported AppExtensionId="WidgetSettings" />
                 <ActivateAfterInstall>true</ActivateAfterInstall>
+                <FavoriteAfterInstall>true</FavoriteAfterInstall>
                 <Window>
                   <Size>
                     <Height>550</Height>

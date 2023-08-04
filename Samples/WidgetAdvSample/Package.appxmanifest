@@ -53,6 +53,7 @@
                 <PinningSupported>true</PinningSupported>
                 <SettingsSupported AppExtensionId="Widget1Settings" />
                 <ActivateAfterInstall>true</ActivateAfterInstall>
+                <FavoriteAfterInstall>true</FavoriteAfterInstall>
                 <Window>
                   <AllowForegroundTransparency>true</AllowForegroundTransparency>
                   <Size>
