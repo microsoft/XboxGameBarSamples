@@ -230,7 +230,7 @@ namespace winrt::WidgetAdvSample::implementation
     {
         // Check if user has enabled notifications for this widget in Game Bar settings
         // prior to attempting to show notification
-        if (true)
+        if (m_widgetNotificationManager.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarWidgetNotificationSetting::Enabled)
         {
             auto widgetNotification{
                 // (Required) Short toast title
@@ -261,6 +261,10 @@ namespace winrt::WidgetAdvSample::implementation
             co_await resume_background();
             auto result = m_widgetNotificationManager.TryShow(widgetNotification);
             UNREFERENCED_PARAMETER(result);
+        }
+        else
+        {
+            OutputDebugString(L"Cannot show notificaiton due to user setting.");
         }
 
         co_return;
