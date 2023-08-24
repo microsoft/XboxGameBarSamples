@@ -29,6 +29,7 @@ namespace winrt::WidgetAdvSample::implementation
         Windows::Foundation::IAsyncAction CenterWindowAsync_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction AuthenticateAsync_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction LaunchUriAsyncButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction LaunchUriAsyncAdvancedButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction StartActivityButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction StopActivityButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction ShowBasicNotification_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);

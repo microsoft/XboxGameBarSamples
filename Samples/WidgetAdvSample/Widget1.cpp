@@ -6,8 +6,10 @@
 #include <strsafe.h>
 
 using namespace winrt;
-using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::Foundation;
+using namespace winrt::Windows::Foundation::Collections;
+using namespace winrt::Windows::System;
+using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Media;
 using namespace winrt::Windows::UI::Xaml::Navigation;
@@ -185,6 +187,25 @@ namespace winrt::WidgetAdvSample::implementation
         co_return;
     }
 
+    IAsyncAction Widget1::LaunchUriAsyncAdvancedButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        Uri uri{ this->LaunchUriAsyncAdvancedText().Text() };
+
+        LauncherOptions options;
+        options.TargetApplicationPackageFamilyName(L"testPfn");
+
+        ValueSet inputData;
+        inputData.Insert(L"testKey1", winrt::box_value<bool>(false));
+        inputData.Insert(L"testKey2", winrt::box_value<bool>(true));
+
+        bool result = co_await m_widget.LaunchUriAsync(uri, options, inputData);
+        if (!result)
+        {
+            OutputDebugStringW(L"LaunchUriAsync advanced returned false");
+        }
+        co_return;
+    }
+
     IAsyncAction Widget1::StartActivityButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         if (!m_widgetActivity)
@@ -252,7 +273,7 @@ namespace winrt::WidgetAdvSample::implementation
                 // (Optional) Ignore Windows quiet hours setting for important, time sensitive notifications
                 .IgnoreQuietHours(true)
                 // (Optional) Avoid brining Game Bar to the foreground for external toast activations
-                .IsBackgroundActivation(true)
+                .IsBackgroundActivation(false)
                 // Call this to build the notification object to pass to the notification manager
                 .BuildNotification() };
 
