@@ -6,8 +6,10 @@
 #include <strsafe.h>
 
 using namespace winrt;
-using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::Foundation;
+using namespace winrt::Windows::Foundation::Collections;
+using namespace winrt::Windows::System;
+using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Media;
 using namespace winrt::Windows::UI::Xaml::Navigation;
@@ -26,6 +28,8 @@ namespace winrt::WidgetAdvSample::implementation
         m_widget = e.Parameter().as<XboxGameBarWidget>();
         m_widgetControl = XboxGameBarWidgetControl(m_widget);
         m_gameBarWebAuth = XboxGameBarWebAuthenticationBroker(m_widget);
+        m_appTargetTracker = XboxGameBarAppTargetTracker(m_widget);
+        m_widgetNotificationManager = XboxGameBarWidgetNotificationManager(m_widget);
 
         m_widgetDarkThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 38, 38, 38));
         m_widgetLightThemeBrush = SolidColorBrush(Windows::UI::ColorHelper::FromArgb(255, 219, 219, 219));
@@ -39,11 +43,18 @@ namespace winrt::WidgetAdvSample::implementation
         m_themeChangedToken = m_widget.RequestedThemeChanged({ this, &Widget1::RequestedThemeChanged });
         m_visibleChangedToken = m_widget.VisibleChanged({ this, &Widget1::VisibleChanged });
         m_windowStateChangedToken = m_widget.WindowStateChanged({ this, &Widget1::WindowStateChanged });
+        
+        // Check that target tracking is enabled for the widget before subscribing for change events
+        if (m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled)
+        {
+            m_targetChangedToken = m_appTargetTracker.TargetChanged({ this, &Widget1::TargetChanged });
+        }
 
         PinnedStateTextBlock().Text(PinnedStateToString());
         FavoritedTextBlock().Text(FavoritedStateToString());
-        SetRequestedOpacityState();
         RequestedThemeTextBlock().Text(RequestedThemeToString());
+        TargetTextBlock().Text(TargetToString());
+        SetRequestedOpacityState();
         OutputVisibleState();
         OutputWindowState();
         OutputGameBarDisplayMode();
@@ -176,6 +187,110 @@ namespace winrt::WidgetAdvSample::implementation
         co_return;
     }
 
+    IAsyncAction Widget1::LaunchUriAsyncAdvancedButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        Uri uri{ this->LaunchUriAsyncAdvancedText().Text() };
+
+        LauncherOptions options;
+        options.TargetApplicationPackageFamilyName(L"testPfn");
+
+        ValueSet inputData;
+        inputData.Insert(L"testKey1", winrt::box_value<bool>(false));
+        inputData.Insert(L"testKey2", winrt::box_value<bool>(true));
+
+        bool result = co_await m_widget.LaunchUriAsync(uri, options, inputData);
+        if (!result)
+        {
+            OutputDebugStringW(L"LaunchUriAsync advanced returned false");
+        }
+        co_return;
+    }
+
+    IAsyncAction Widget1::StartActivityButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        if (!m_widgetActivity)
+        {
+            try
+            {
+                // Throws if given activityId already exists
+                m_widgetActivity = XboxGameBarWidgetActivity(m_widget, L"uniqueActivityId");
+            }
+            catch (hresult_error error)
+            {
+                OutputDebugStringW(L"XboxGameBarWidgetActivity init failed");
+            }
+        }
+        co_return;
+    }
+
+    IAsyncAction Widget1::StopActivityButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        if (m_widgetActivity)
+        {
+            m_widgetActivity.Complete();
+            m_widgetActivity = nullptr;
+        }
+        co_return;
+    }
+
+    IAsyncAction Widget1::ShowBasicNotification_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        auto widgetNotification{ XboxGameBarWidgetNotificationBuilder(L"This is a toast title")
+            .PrimaryImageFromPublicFolder(L"SamplePrimaryImage.png", XboxGameBarWidgetNotificationImageCrop::Circle)
+            .BuildNotification() };
+
+        // Call async show to unwind calling thread while result is obtained
+        // Success means toast was succesfully shown or queued to be shown
+        auto result = co_await m_widgetNotificationManager.TryShowAsync(widgetNotification);
+        UNREFERENCED_PARAMETER(result);
+
+        co_return;
+    }
+
+    IAsyncAction Widget1::ShowAdvancedNotification_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        // Check if user has enabled notifications for this widget in Game Bar settings
+        // prior to attempting to show notification
+        if (m_widgetNotificationManager.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarWidgetNotificationSetting::Enabled)
+        {
+            auto widgetNotification{
+                // (Required) Short toast title
+                XboxGameBarWidgetNotificationBuilder(L"This is a toast title that can wrap to two lines if necessary")
+                // (Optional) Short toast description
+                .Content(L"This is a toast description that can wrap to two lines if necessary")
+                // (Optional) Widget activation payload on toast activation
+                .ActivationPayload(L"id=testId&context=additionalContext")
+                // (Optional) Primary image
+                // URI scheme: Call .PrimaryImageFromUri(...)
+                // File name or relative path scheme: .PrimaryImageFromPublicFolder(...)
+                // Note: using both schemes both will cause an exception
+                .PrimaryImageFromPublicFolder(L"SamplePrimaryImage.png", XboxGameBarWidgetNotificationImageCrop::Default)
+                // (Optional) Secondary image - same as above
+                // Note: secondary image always shown with circle image crop type
+                .SecondaryImageFromPublicFolder(L"SampleSecondaryImage.png")
+                // (Optional) Sound - specify file name or relative path
+                .SoundFromPublicFolder(L"Sounds\\SampleSound.mp3")
+                // (Optional) Ignore Windows quiet hours setting for important, time sensitive notifications
+                .IgnoreQuietHours(true)
+                // (Optional) Avoid brining Game Bar to the foreground for external toast activations
+                .IsBackgroundActivation(false)
+                // Call this to build the notification object to pass to the notification manager
+                .BuildNotification() };
+
+            // Call sync show and wait for result
+            // Success means toast was succesfully shown or queued to be shown
+            co_await resume_background();
+            auto result = m_widgetNotificationManager.TryShow(widgetNotification);
+            UNREFERENCED_PARAMETER(result);
+        }
+        else
+        {
+            OutputDebugString(L"Cannot show notificaiton due to user setting.");
+        }
+
+        co_return;
+    }
+
     void Widget1::HorizontalResizeSupportedCheckBox_Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         m_widget.HorizontalResizeSupported(true);
@@ -289,6 +404,13 @@ namespace winrt::WidgetAdvSample::implementation
         PinnedStateTextBlock().Text(PinnedStateToString());
     }
 
+    fire_and_forget Widget1::TargetChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
+    {
+        auto strongThis{ get_strong() };
+        co_await resume_foreground(TargetTextBlock().Dispatcher());
+        TargetTextBlock().Text(TargetToString());
+    }
+
     fire_and_forget Widget1::RequestedOpacityChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
@@ -390,6 +512,28 @@ namespace winrt::WidgetAdvSample::implementation
     {
         hstring isPinned = m_widget.Pinned() ? L"true" : L"false";
         return isPinned;
+    }
+
+    hstring Widget1::TargetToString()
+    {
+        // Check that target tracking is enabled for the widget before accessing target information
+        if (m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled)
+        {
+            auto target = m_appTargetTracker.GetTarget();
+
+            hstring isFullscreen = target.IsFullscreen() ? L"true" : L"false";
+            hstring isGame = target.IsGame() ? L"true" : L"false";
+            hstring targetInfo = L"AumId: " + target.AumId() + L"\n" +
+                L"DisplayName: " + target.DisplayName() + L"\n" +
+                L"TitleId: " + target.TitleId() + L"\n" +
+                L"IsFullscreen: " + isFullscreen + L"\n" +
+                L"IsGame: " + isGame + L"\n";
+            return targetInfo;
+        }
+        else
+        {
+            return L"Target disabled by user";
+        }
     }
 
     void Widget1::OutputVisibleState()

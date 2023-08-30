@@ -273,6 +273,24 @@
                             VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
+                <StackPanel>
+                    <Grid Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Target:" />
+                        <TextBlock
+                            x:Name="TargetTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -485,6 +503,66 @@
                     Click="LaunchUriAsyncButton_Click">
                     LaunchUriAsync(uri)
                 </Button>
+                <Grid Padding="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Uri: " />
+                    <TextBox
+                        x:Name="LaunchUriAsyncAdvancedText"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="Uri"
+                        Text="ms-calculator://" />
+                </Grid>
+                <Button
+                    x:Name="LaunchUriAsyncAdvancedButton"
+                    Margin="0,2"
+                    Click="LaunchUriAsyncAdvancedButton_Click">
+                    LaunchUriAsync(uri, options, inputData)
+                </Button>
+                <Grid Padding="0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="StartActivity"
+                        Grid.Column="0"
+                        Margin="0,0,4,0"
+                        Click="StartActivityButton_Click">
+                        Start Activity
+                    </Button>
+                    <Button
+                        x:Name="StopActivity"
+                        Grid.Column="1"
+                        Click="StopActivityButton_Click">
+                        Stop Activity
+                    </Button>
+                </Grid>
+                <Grid Padding="0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="ShowBasicNotification"
+                        Grid.Column="0"
+                        Margin="0,0,4,0"
+                        Click="ShowBasicNotification_Click">
+                        Show Basic Notification
+                    </Button>
+                    <Button
+                        x:Name="ShowAdvancedNotification"
+                        Grid.Column="1"
+                        Click="ShowAdvancedNotification_Click">
+                        Show Advanced Notification
+                    </Button>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -167,6 +167,8 @@
     <Image Include="Widget2\Icons\icon.light.targetsize-256.png">
       <Filter>Widget2\Icons</Filter>
     </Image>
+    <Image Include="Widget1\Notifications\SamplePrimaryImage.png" />
+    <Image Include="Widget1\Notifications\SampleSecondaryImage.png" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -232,5 +234,8 @@
     <Filter Include="Widget2\Icons">
       <UniqueIdentifier>{e48db08b-926a-423c-b300-d420e480f17b}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Widget1\Notifications\Sounds\SampleSound.mp3" />
   </ItemGroup>
 </Project>
