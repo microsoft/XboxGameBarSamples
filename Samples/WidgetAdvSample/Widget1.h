@@ -92,6 +92,7 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::event_token m_visibleChangedToken{};
         winrt::event_token m_windowStateChangedToken{};
         winrt::event_token m_targetChangedToken{};
+        winrt::event_token m_targetSettingChangedToken{};
     };
 }
 
