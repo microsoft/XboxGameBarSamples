@@ -43,6 +43,7 @@ namespace winrt::WidgetAdvSample::implementation
         m_themeChangedToken = m_widget.RequestedThemeChanged({ this, &Widget1::RequestedThemeChanged });
         m_visibleChangedToken = m_widget.VisibleChanged({ this, &Widget1::VisibleChanged });
         m_windowStateChangedToken = m_widget.WindowStateChanged({ this, &Widget1::WindowStateChanged });
+        m_targetSettingChangedToken = m_appTargetTracker.SettingChanged({ this, &Widget1::TargetChanged });
         
         // Check that target tracking is enabled for the widget before subscribing for change events
         if (m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled)
@@ -532,7 +533,7 @@ namespace winrt::WidgetAdvSample::implementation
         }
         else
         {
-            return L"Target disabled by user";
+            return L"Target tracking disabled by user";
         }
     }
 
