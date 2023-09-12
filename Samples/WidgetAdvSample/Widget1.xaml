@@ -7,116 +7,86 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Margin" Value="0,1,0,5" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="4,2,2,2" />
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid x:Name="BackgroundGrid" />
-
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-            <StackPanel Padding="10" Orientation="Vertical">
-                <Grid Padding="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Text="AppId: " />
-                    <TextBox
-                        x:Name="ActivateAsyncAppId"
-                        Grid.Column="1"
-                        AutomationProperties.Name="AppId"
-                        Text="App" />
-                </Grid>
-                <Grid Padding="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Text="AppExtensionId: " />
-                    <TextBox
-                        x:Name="ActivateAsyncAppExtId"
-                        Grid.Column="1"
-                        AutomationProperties.Name="AppExtensionId"
-                        Text="Widget2" />
-                </Grid>
-                <StackPanel
-                    Padding="2"
-                    HorizontalAlignment="Left"
-                    Orientation="Vertical">
-                    <Button
-                        x:Name="ActivateAsyncAppExtIdButton"
-                        Margin="0,2"
-                        Click="ActivateAsyncAppExtIdButton_Click">
-                        ActivateAsync(appExtensionId)
-                    </Button>
-                    <Button
-                        x:Name="ActivateAsyncAppIdButton"
-                        Margin="0,2"
-                        Click="ActivateAsyncAppIdButton_Click">
-                        ActivateAsync(appId, appExtensionId)
-                    </Button>
-                    <Button
-                        x:Name="MinimizeAsyncAppExtIdButton"
-                        Margin="0,2"
-                        Click="MinimizeAsyncAppExtIdButton_Click">
-                        MinimizeAsync(appExtensionId)
-                    </Button>
-                    <Button
-                        x:Name="MinimizeAsyncAppIdButton"
-                        Margin="0,2"
-                        Click="MinimizeAsyncAppIdButton_Click">
-                        MinimizeAsync(appId, appExtensionId)
-                    </Button>
-                    <Button
-                        x:Name="RestoreAsyncAppExtIdButton"
-                        Margin="0,2"
-                        Click="RestoreAsyncAppExtIdButton_Click">
-                        RestoreAsync(appExtensionId)
-                    </Button>
-                    <Button
-                        x:Name="RestoreAsyncAppIdButton"
-                        Margin="0,2"
-                        Click="RestoreAsyncAppIdButton_Click">
-                        RestoreAsync(appId, appExtensionId)
-                    </Button>
-                    <Button
-                        x:Name="CloseAsyncAppExtIdButton"
-                        Margin="0,2"
-                        Click="CloseAsyncAppExtIdButton_Click">
-                        CloseAsync(appExtensionId)
-                    </Button>
-                    <Button
-                        x:Name="CloseAsyncAppIdButton"
-                        Margin="0,2"
-                        Click="CloseAsyncAppIdButton_Click">
-                        CloseAsync(appId, appExtensionId)
-                    </Button>
-                </StackPanel>
-                <Grid Padding="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Text="Uri: " />
-                    <TextBox
-                        x:Name="ActivateAsyncUri"
-                        Grid.Column="1"
-                        VerticalAlignment="Center"
-                        AutomationProperties.Name="Uri"
-                        Text="ms-gamebar:activate/WidgetAdvSample_8wekyb3d8bbwe_App_Widget2/?var=value" />
-                </Grid>
-                <Button
-                    x:Name="ActivateWithUriAsyncButton"
-                    Margin="0,2"
-                    Click="ActivateWithUriAsyncButton_Click">
-                    ActivateWithUriAsync(uri)
-                </Button>
+            <StackPanel x:Name="RootStackPanel" Orientation="Vertical">
+                <Border
+                    Margin="8"
+                    Padding="10,5,10,10"
+                    BorderBrush="Gray"
+                    BorderThickness="2"
+                    CornerRadius="3">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock VerticalAlignment="Center" Text="AppId" />
+                            <TextBox
+                                x:Name="ActivateAsyncAppId"
+                                AutomationProperties.Name="AppId"
+                                Text="App" />
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock VerticalAlignment="Center" Text="AppExtensionId" />
+                            <TextBox
+                                x:Name="ActivateAsyncAppExtId"
+                                AutomationProperties.Name="AppExtensionId"
+                                Text="Widget2" />
+                        </StackPanel>
+                        <StackPanel
+                            Padding="2"
+                            HorizontalAlignment="Left"
+                            Orientation="Vertical">
+                            <Button x:Name="ActivateAsyncAppExtIdButton" Click="ActivateAsyncAppExtIdButton_Click">
+                                ActivateAsync(appExtensionId)
+                            </Button>
+                            <Button x:Name="ActivateAsyncAppIdButton" Click="ActivateAsyncAppIdButton_Click">
+                                ActivateAsync(appId, appExtensionId)
+                            </Button>
+                            <Button x:Name="MinimizeAsyncAppExtIdButton" Click="MinimizeAsyncAppExtIdButton_Click">
+                                MinimizeAsync(appExtensionId)
+                            </Button>
+                            <Button x:Name="MinimizeAsyncAppIdButton" Click="MinimizeAsyncAppIdButton_Click">
+                                MinimizeAsync(appId, appExtensionId)
+                            </Button>
+                            <Button x:Name="RestoreAsyncAppExtIdButton" Click="RestoreAsyncAppExtIdButton_Click">
+                                RestoreAsync(appExtensionId)
+                            </Button>
+                            <Button x:Name="RestoreAsyncAppIdButton" Click="RestoreAsyncAppIdButton_Click">
+                                RestoreAsync(appId, appExtensionId)
+                            </Button>
+                            <Button x:Name="CloseAsyncAppExtIdButton" Click="CloseAsyncAppExtIdButton_Click">
+                                CloseAsync(appExtensionId)
+                            </Button>
+                            <Button x:Name="CloseAsyncAppIdButton" Click="CloseAsyncAppIdButton_Click">
+                                CloseAsync(appId, appExtensionId)
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Uri" />
+                            <TextBox
+                                x:Name="ActivateAsyncUri"
+                                AutomationProperties.Name="Uri"
+                                Text="ms-gamebar:activate/WidgetAdvSample_8wekyb3d8bbwe_App_Widget2/?var=value" />
+                        </StackPanel>
+                        <Button x:Name="ActivateWithUriAsyncButton" Click="ActivateWithUriAsyncButton_Click">
+                            ActivateWithUriAsync(uri)
+                        </Button>
+                    </StackPanel>
+                </Border>
                 <Grid Padding="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -151,16 +121,10 @@
                         AutomationProperties.Name="Window Height"
                         Text="800" />
                 </Grid>
-                <Button
-                    x:Name="TryResizeWindowAsync"
-                    Margin="0,2"
-                    Click="TryResizeWindowAsync_Click">
+                <Button x:Name="TryResizeWindowAsync" Click="TryResizeWindowAsync_Click">
                     TryResizeWindowAsync
                 </Button>
-                <Button
-                    x:Name="CenterWindowAsync"
-                    Margin="0,2"
-                    Click="CenterWindowAsync_Click">
+                <Button x:Name="CenterWindowAsync" Click="CenterWindowAsync_Click">
                     CenterWindowAsync
                 </Button>
                 <Grid Padding="2">
@@ -195,10 +159,7 @@
                         VerticalAlignment="Center"
                         AutomationProperties.Name="Callback URI" />
                 </Grid>
-                <Button
-                    x:Name="AuthenticateAsync"
-                    Margin="0,2"
-                    Click="AuthenticateAsync_Click">
+                <Button x:Name="AuthenticateAsync" Click="AuthenticateAsync_Click">
                     AuthenticateAsync
                 </Button>
                 <StackPanel>
@@ -276,8 +237,8 @@
                 <StackPanel>
                     <Grid Padding="2">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Row="0"
@@ -288,7 +249,9 @@
                             x:Name="TargetTextBlock"
                             Grid.Row="0"
                             Grid.Column="1"
-                            VerticalAlignment="Center" />
+                            MaxWidth="400"
+                            VerticalAlignment="Center"
+                            TextWrapping="WrapWholeWords" />
                     </Grid>
                 </StackPanel>
                 <Grid Padding="2">
@@ -311,10 +274,7 @@
                         VerticalAlignment="Center"
                         AutomationProperties.Name="Opacity Override" />
                 </Grid>
-                <Button
-                    x:Name="OpacityOverrideButton"
-                    Margin="0,2"
-                    Click="OpacityOverride_Click">
+                <Button x:Name="OpacityOverrideButton" Click="OpacityOverride_Click">
                     Set Opacity Override
                 </Button>
                 <StackPanel>
@@ -437,10 +397,7 @@
                         VerticalAlignment="Center"
                         AutomationProperties.Name="Min Window Height" />
                 </Grid>
-                <Button
-                    x:Name="MinWindowSizeButton"
-                    Margin="0,2"
-                    Click="MinWindowSize_Click">
+                <Button x:Name="MinWindowSizeButton" Click="MinWindowSize_Click">
                     Set MinWindowSize
                 </Button>
                 <Grid Padding="2">
@@ -475,10 +432,7 @@
                         VerticalAlignment="Center"
                         AutomationProperties.Name="Max Window Height" />
                 </Grid>
-                <Button
-                    x:Name="MaxWindowSizeButton"
-                    Margin="0,2"
-                    Click="MaxWindowSize_Click">
+                <Button x:Name="MaxWindowSizeButton" Click="MaxWindowSize_Click">
                     Set MaxWindowSize
                 </Button>
                 <Grid Padding="2">
@@ -497,10 +451,7 @@
                         AutomationProperties.Name="Uri"
                         Text="ms-calculator://" />
                 </Grid>
-                <Button
-                    x:Name="LaunchUriAsyncButton"
-                    Margin="0,2"
-                    Click="LaunchUriAsyncButton_Click">
+                <Button x:Name="LaunchUriAsyncButton" Click="LaunchUriAsyncButton_Click">
                     LaunchUriAsync(uri)
                 </Button>
                 <Grid Padding="2">
@@ -519,10 +470,7 @@
                         AutomationProperties.Name="Uri"
                         Text="ms-calculator://" />
                 </Grid>
-                <Button
-                    x:Name="LaunchUriAsyncAdvancedButton"
-                    Margin="0,2"
-                    Click="LaunchUriAsyncAdvancedButton_Click">
+                <Button x:Name="LaunchUriAsyncAdvancedButton" Click="LaunchUriAsyncAdvancedButton_Click">
                     LaunchUriAsync(uri, options, inputData)
                 </Button>
                 <Grid Padding="0,2">
