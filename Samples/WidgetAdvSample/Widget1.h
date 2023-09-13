@@ -47,7 +47,7 @@ namespace winrt::WidgetAdvSample::implementation
         void MaxWindowSize_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void OpacityOverride_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
 
-        // Settings click handler for widget settings click event
+        // Event handlers
         Windows::Foundation::IAsyncAction SettingsButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         winrt::fire_and_forget FavoritedChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void GameBarDisplayModeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
@@ -55,8 +55,10 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::fire_and_forget RequestedOpacityChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         winrt::fire_and_forget RequestedThemeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         winrt::fire_and_forget TargetChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget NotificiationSettingChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void VisibleChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         void WindowStateChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+        winrt::fire_and_forget WindowBoundsChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
         
         // Methods to handle updating of Text and UI
         void SetBackgroundColor();
@@ -65,7 +67,7 @@ namespace winrt::WidgetAdvSample::implementation
         hstring RequestedThemeToString();
         hstring FavoritedStateToString();
         hstring PinnedStateToString();
-        hstring TargetToString();
+        void OutputTargetInfo();
         void OutputVisibleState();
         void OutputWindowState();
         void OutputGameBarDisplayMode();
@@ -93,6 +95,8 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::event_token m_windowStateChangedToken{};
         winrt::event_token m_targetChangedToken{};
         winrt::event_token m_targetSettingChangedToken{};
+        winrt::event_token m_notificationSettingChangedToken{};
+        winrt::event_token m_windowBoundsChangedToken{};
     };
 }
 

@@ -44,8 +44,10 @@ namespace winrt::WidgetAdvSample::implementation
         m_visibleChangedToken = m_widget.VisibleChanged({ this, &Widget1::VisibleChanged });
         m_windowStateChangedToken = m_widget.WindowStateChanged({ this, &Widget1::WindowStateChanged });
         m_targetSettingChangedToken = m_appTargetTracker.SettingChanged({ this, &Widget1::TargetChanged });
+        m_notificationSettingChangedToken = m_widgetNotificationManager.SettingChanged({ this, &Widget1::NotificiationSettingChanged });
+        m_windowBoundsChangedToken = m_widget.WindowBoundsChanged({ this, &Widget1::WindowBoundsChanged });
         
-        // Check that target tracking is enabled for the widget before subscribing for change events
+        // Check that target tracker is enabled for the widget before subscribing for change events
         if (m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled)
         {
             m_targetChangedToken = m_appTargetTracker.TargetChanged({ this, &Widget1::TargetChanged });
@@ -54,7 +56,7 @@ namespace winrt::WidgetAdvSample::implementation
         PinnedStateTextBlock().Text(PinnedStateToString());
         FavoritedTextBlock().Text(FavoritedStateToString());
         RequestedThemeTextBlock().Text(RequestedThemeToString());
-        TargetTextBlock().Text(TargetToString());
+        OutputTargetInfo();
         SetRequestedOpacityState();
         OutputVisibleState();
         OutputWindowState();
@@ -76,6 +78,10 @@ namespace winrt::WidgetAdvSample::implementation
         MaxWindowHeightBox().Text(buffer);
         StringCchPrintfW(buffer, ARRAYSIZE(buffer), L"%g", m_widget.MaxWindowSize().Width);
         MaxWindowWidthBox().Text(buffer);
+
+        NotificiationSettingTextBlock().Text(
+            m_widgetNotificationManager.Setting() == XboxGameBarWidgetNotificationSetting::Enabled ?
+            L"Enabled" : L"DisabledByUser");
     }
 
     IAsyncAction Widget1::ActivateAsyncAppExtIdButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -190,10 +196,10 @@ namespace winrt::WidgetAdvSample::implementation
 
     IAsyncAction Widget1::LaunchUriAsyncAdvancedButton_Click(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
-        Uri uri{ this->LaunchUriAsyncAdvancedText().Text() };
+        Uri uri{ this->LaunchUriAsyncText().Text() };
 
         LauncherOptions options;
-        options.TargetApplicationPackageFamilyName(L"testPfn");
+        options.TargetApplicationPackageFamilyName(L"Microsoft.WindowsCalculator_8wekyb3d8bbwe");
 
         ValueSet inputData;
         inputData.Insert(L"testKey1", winrt::box_value<bool>(false));
@@ -408,8 +414,8 @@ namespace winrt::WidgetAdvSample::implementation
     fire_and_forget Widget1::TargetChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         auto strongThis{ get_strong() };
-        co_await resume_foreground(TargetTextBlock().Dispatcher());
-        TargetTextBlock().Text(TargetToString());
+        co_await resume_foreground(TargetTrackerSettingTextBlock().Dispatcher());
+        OutputTargetInfo();
     }
 
     fire_and_forget Widget1::RequestedOpacityChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
@@ -431,6 +437,16 @@ namespace winrt::WidgetAdvSample::implementation
         SetBackgroundColor();
     }
 
+    fire_and_forget Widget1::NotificiationSettingChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
+    {
+        auto strongThis{ get_strong() };
+        co_await resume_foreground(NotificiationSettingTextBlock().Dispatcher());
+
+        NotificiationSettingTextBlock().Text(
+            m_widgetNotificationManager.Setting() == XboxGameBarWidgetNotificationSetting::Enabled ? 
+            L"Enabled" : L"DisabledByUser");
+    }
+
     void Widget1::VisibleChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         OutputVisibleState();
@@ -439,6 +455,17 @@ namespace winrt::WidgetAdvSample::implementation
     void Widget1::WindowStateChanged(IInspectable const& /*sender*/, IInspectable const& /*e*/)
     {
         OutputWindowState();
+    }
+
+    fire_and_forget Widget1::WindowBoundsChanged(winrt::Windows::Foundation::IInspectable const& /*sender*/, IInspectable const& /*e*/)
+    {
+        auto strongThis{ get_strong() };
+        co_await resume_foreground(WindowBoundsTextBlock().Dispatcher());
+
+        auto bounds{ m_widget.WindowBounds() };
+        std::wstringstream strStream;
+        strStream << L"H(" << bounds.Height << L") W(" << bounds.Width << L") X(" << bounds.X << L") Y(" << bounds.Y << L")";
+        WindowBoundsTextBlock().Text({ strStream.str() });
     }
 
     void Widget1::SetBackgroundColor()
@@ -515,26 +542,22 @@ namespace winrt::WidgetAdvSample::implementation
         return isPinned;
     }
 
-    hstring Widget1::TargetToString()
+    void Widget1::OutputTargetInfo()
     {
-        // Check that target tracking is enabled for the widget before accessing target information
-        if (m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled)
+        auto settingEnabled{ m_appTargetTracker.Setting() == Microsoft::Gaming::XboxGameBar::XboxGameBarAppTargetSetting::Enabled };
+        
+        winrt::Microsoft::Gaming::XboxGameBar::XboxGameBarAppTarget target{ nullptr };
+        if (settingEnabled)
         {
-            auto target = m_appTargetTracker.GetTarget();
+            target = m_appTargetTracker.GetTarget();
+        }
 
-            hstring isFullscreen = target.IsFullscreen() ? L"true" : L"false";
-            hstring isGame = target.IsGame() ? L"true" : L"false";
-            hstring targetInfo = L"AumId: " + target.AumId() + L"\n" +
-                L"DisplayName: " + target.DisplayName() + L"\n" +
-                L"TitleId: " + target.TitleId() + L"\n" +
-                L"IsFullscreen: " + isFullscreen + L"\n" +
-                L"IsGame: " + isGame + L"\n";
-            return targetInfo;
-        }
-        else
-        {
-            return L"Target tracking disabled by user";
-        }
+        TargetTrackerSettingTextBlock().Text(settingEnabled ? L"Enabled" : L"DeniedByUser");
+        DisplayNameTextBlock().Text(target ? target.DisplayName() : L"");
+        AumIdTextBlock().Text(target ? target.AumId() : L"");
+        TitleIdTextBlock().Text(target ? target.TitleId() : L"");
+        IsFullscreenTextBlock().Text(target ? winrt::to_hstring(target.IsFullscreen()) : L"");
+        IsGameTextBlock().Text(target ? winrt::to_hstring(target.IsGame()) : L"");
     }
 
     void Widget1::OutputVisibleState()
