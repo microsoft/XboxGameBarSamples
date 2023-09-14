@@ -395,7 +395,7 @@
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Hotkey Set (CTRL + SHIFT + T):" />
+                                <TextBlock Text="Hotkey Set (CTRL + ALT + T):" />
                                 <TextBlock x:Name="HotkeyPressedTextBlock" Text="Watcher not running" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">

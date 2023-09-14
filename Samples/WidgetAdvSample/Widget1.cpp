@@ -92,7 +92,7 @@ namespace winrt::WidgetAdvSample::implementation
         auto keys{ winrt::single_threaded_vector<winrt::Windows::System::VirtualKey>(
         {
             winrt::WS::VirtualKey::Control,
-            winrt::WS::VirtualKey::Shift,
+            winrt::WS::VirtualKey::Menu, // ALT
             winrt::WS::VirtualKey::T
         }) };
         m_hotkeyWatcher = winrt::MGXI::XboxGameBarHotkeyWatcher::CreateWatcher(m_widget, keys.GetView());

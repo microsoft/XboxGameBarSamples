@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WidgetAdvSample", "WidgetAdvSample\WidgetAdvSample.vcxproj", "{C528C799-626F-4433-A96F-9D64C600B84A}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WidgetSettingsSample", "WidgetSettingsSample\WidgetSettingsSample.vcxproj", "{E653C0F6-71A5-42F9-8063-D4C8DB8D4887}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetAdvSampleCS", "WidgetAdvSampleCS\WidgetAdvSampleCS.csproj", "{A2181EB4-E748-433B-96C1-8223B2A9EF18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetForegroundWorkerSampleCS", "WidgetForegroundWorkerSampleCS\WidgetForegroundWorkerSampleCS.csproj", "{CF9951F6-A12F-4403-B121-22880DC917FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +135,24 @@ Global
 		{A2181EB4-E748-433B-96C1-8223B2A9EF18}.Release|x86.ActiveCfg = Release|x86
 		{A2181EB4-E748-433B-96C1-8223B2A9EF18}.Release|x86.Build.0 = Release|x86
 		{A2181EB4-E748-433B-96C1-8223B2A9EF18}.Release|x86.Deploy.0 = Release|x86
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|ARM64.Build.0 = Debug|ARM64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|x64.ActiveCfg = Debug|x64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|x64.Build.0 = Debug|x64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|x64.Deploy.0 = Debug|x64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|x86.ActiveCfg = Debug|x86
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|x86.Build.0 = Debug|x86
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Debug|x86.Deploy.0 = Debug|x86
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|ARM64.ActiveCfg = Release|ARM64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|ARM64.Build.0 = Release|ARM64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|ARM64.Deploy.0 = Release|ARM64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|x64.ActiveCfg = Release|x64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|x64.Build.0 = Release|x64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|x64.Deploy.0 = Release|x64
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|x86.ActiveCfg = Release|x86
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|x86.Build.0 = Release|x86
+		{CF9951F6-A12F-4403-B121-22880DC917FB}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

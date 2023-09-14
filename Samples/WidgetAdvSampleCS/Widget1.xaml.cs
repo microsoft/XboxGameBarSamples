@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.Gaming.XboxGameBar;
+using Microsoft.Gaming.XboxGameBar.Authentication;
+using Microsoft.Gaming.XboxGameBar.Input;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.Gaming.XboxGameBar;
-using Microsoft.Gaming.XboxGameBar.Input;
-using Microsoft.Gaming.XboxGameBar.Authentication;
-using Windows.System;
-using Windows.Foundation.Collections;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -91,7 +91,8 @@ namespace WidgetAdvSampleCS
 
             NotificiationSettingTextBlock.Text = notificationManager.Setting.ToString();
 
-            List<VirtualKey> virtualKeys = new List<VirtualKey> { VirtualKey.Control, VirtualKey.Shift, VirtualKey.T };
+            // Setup hotkey watcher for CTRL + ALT + T
+            List<VirtualKey> virtualKeys = new List<VirtualKey> { VirtualKey.Control, VirtualKey.Menu /*ALT*/, VirtualKey.T };
             hotkeyWatcher = XboxGameBarHotkeyWatcher.CreateWatcher(widget, virtualKeys);
             hotkeyWatcher.HotkeySetStateChanged += HotkeyWatcher_HotkeySetStateChanged;
         }
