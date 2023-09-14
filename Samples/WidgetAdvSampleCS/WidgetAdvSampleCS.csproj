@@ -162,6 +162,27 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Widget1\Icons\icon.targetsize-16.png" />
+    <Content Include="Widget1\Icons\icon.targetsize-20.png" />
+    <Content Include="Widget1\Icons\icon.targetsize-24.png" />
+    <Content Include="Widget1\Icons\icon.targetsize-256.png" />
+    <Content Include="Widget1\Icons\icon.targetsize-32.png" />
+    <Content Include="Widget1\Icons\icon.targetsize-44.png" />
+    <Content Include="Widget1\Notifications\SamplePrimaryImage.png" />
+    <Content Include="Widget1\Notifications\SampleSecondaryImage.png" />
+    <Content Include="Widget1\Notifications\Sounds\SampleSound.mp3" />
+    <Content Include="Widget2\Icons\icon.light.targetsize-16.png" />
+    <Content Include="Widget2\Icons\icon.light.targetsize-20.png" />
+    <Content Include="Widget2\Icons\icon.light.targetsize-24.png" />
+    <Content Include="Widget2\Icons\icon.light.targetsize-256.png" />
+    <Content Include="Widget2\Icons\icon.light.targetsize-32.png" />
+    <Content Include="Widget2\Icons\icon.light.targetsize-44.png" />
+    <Content Include="Widget2\Icons\icon.targetsize-16.png" />
+    <Content Include="Widget2\Icons\icon.targetsize-20.png" />
+    <Content Include="Widget2\Icons\icon.targetsize-24.png" />
+    <Content Include="Widget2\Icons\icon.targetsize-256.png" />
+    <Content Include="Widget2\Icons\icon.targetsize-32.png" />
+    <Content Include="Widget2\Icons\icon.targetsize-44.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
