@@ -45,7 +45,7 @@
   </ItemGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '16.0'">v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -197,6 +197,8 @@
     <Image Include="Widget1\Icons\icon.targetsize-256.png" />
     <Image Include="Widget1\Icons\icon.targetsize-32.png" />
     <Image Include="Widget1\Icons\icon.targetsize-44.png" />
+    <Image Include="Widget1\Notifications\SamplePrimaryImage.png" />
+    <Image Include="Widget1\Notifications\SampleSecondaryImage.png" />
     <Image Include="Widget2\Icons\icon.light.targetsize-16.png" />
     <Image Include="Widget2\Icons\icon.light.targetsize-20.png" />
     <Image Include="Widget2\Icons\icon.light.targetsize-24.png" />
@@ -251,10 +253,13 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Widget1\Notifications\Sounds\SampleSound.mp3" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets')" />
-    <Import Project="..\packages\Microsoft.Gaming.XboxGameBar.5.8.220627001\build\native\Microsoft.Gaming.XboxGameBar.targets" Condition="Exists('..\packages\Microsoft.Gaming.XboxGameBar.5.8.220627001\build\native\Microsoft.Gaming.XboxGameBar.targets')" />
+    <Import Project="..\packages\Microsoft.Gaming.XboxGameBar.6.1.240122001\build\native\Microsoft.Gaming.XboxGameBar.targets" Condition="Exists('..\packages\Microsoft.Gaming.XboxGameBar.6.1.240122001\build\native\Microsoft.Gaming.XboxGameBar.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -262,6 +267,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.200203.5\build\native\Microsoft.Windows.CppWinRT.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Gaming.XboxGameBar.5.8.220627001\build\native\Microsoft.Gaming.XboxGameBar.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Gaming.XboxGameBar.5.8.220627001\build\native\Microsoft.Gaming.XboxGameBar.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Gaming.XboxGameBar.6.1.240122001\build\native\Microsoft.Gaming.XboxGameBar.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Gaming.XboxGameBar.6.1.240122001\build\native\Microsoft.Gaming.XboxGameBar.targets'))" />
   </Target>
 </Project>

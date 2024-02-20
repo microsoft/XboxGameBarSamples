@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Microsoft.Gaming.XboxGameBar;
+using Microsoft.Gaming.XboxGameBar.Authentication;
+using Microsoft.Gaming.XboxGameBar.Input;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.Gaming.XboxGameBar;
-using System.Diagnostics;
-using Microsoft.Gaming.XboxGameBar.Authentication;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -20,6 +24,11 @@ namespace WidgetAdvSampleCS
         private XboxGameBarWidget widget = null;
         private XboxGameBarWidgetControl widgetControl = null;
         private XboxGameBarWebAuthenticationBroker gameBarWebAuth = null;
+        private XboxGameBarAppTargetTracker appTargetTracker = null;
+        private XboxGameBarWidgetNotificationManager notificationManager = null;
+        private XboxGameBarHotkeyWatcher hotkeyWatcher = null;
+        private XboxGameBarWidgetActivity widgetActivity = null;
+
         private SolidColorBrush widgetDarkThemeBrush =  null;
         private SolidColorBrush widgetLightThemeBrush = null;
         private double? opacityOverride = null;
@@ -34,29 +43,41 @@ namespace WidgetAdvSampleCS
             widget = e.Parameter as XboxGameBarWidget;
             widgetControl = new XboxGameBarWidgetControl(widget);
             gameBarWebAuth = new XboxGameBarWebAuthenticationBroker(widget);
+            appTargetTracker = new XboxGameBarAppTargetTracker(widget);
+            notificationManager = new XboxGameBarWidgetNotificationManager(widget);
 
             widgetDarkThemeBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 38, 38, 38));
             widgetLightThemeBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 219, 219, 219));
 
             // Hook up events for when the ui is updated.
-            widget.SettingsClicked += Widget_SettingsClicked;
-            widget.PinnedChanged += Widget_PinnedChanged;
             widget.FavoritedChanged += Widget_FavoritedChanged;
+            widget.GameBarDisplayModeChanged += Widget_GameBarDisplayModeChanged;
+            widget.PinnedChanged += Widget_PinnedChanged;
+            widget.SettingsClicked += Widget_SettingsClicked;
             widget.RequestedOpacityChanged += Widget_RequestedOpacityChanged;
             widget.RequestedThemeChanged += Widget_RequestedThemeChanged;
             widget.VisibleChanged += Widget_VisibleChanged;
+            widget.WindowBoundsChanged += Widget_WindowBoundsChanged;
             widget.WindowStateChanged += Widget_WindowStateChanged;
-            widget.GameBarDisplayModeChanged += Widget_GameBarDisplayModeChanged;
 
-            SetPinnedStateTextBox();
+            appTargetTracker.SettingChanged += AppTargetTracker_TargetChanged;
+            notificationManager.SettingChanged += NotificationManager_SettingChanged;
+
+            if (appTargetTracker.Setting == XboxGameBarAppTargetSetting.Enabled)
+            {
+                appTargetTracker.TargetChanged += AppTargetTracker_TargetChanged;
+            }
+
             SetFavoritedState();
+            SetGameBarDisplayMode();
+            SetPinnedState();
             SetRequestedOpacityState();
+            SetBackgroundOpacity();
+            SetBackgroundColor();
             SetRequestedThemeState();
             OutputVisibleState();
             OutputWindowState();
-            OutputGameBarDisplayMode();
-            SetBackgroundColor();
-            SetBackgroundOpacity();
+            SetTargetInfo();
 
             HorizontalResizeSupportedCheckBox.IsChecked = widget.HorizontalResizeSupported;
             VerticalResizeSupportedCheckBox.IsChecked = widget.VerticalResizeSupported;
@@ -67,6 +88,64 @@ namespace WidgetAdvSampleCS
             MinWindowWidthBox.Text = widget.MinWindowSize.Width.ToString();
             MaxWindowHeightBox.Text = widget.MaxWindowSize.Height.ToString();
             MaxWindowWidthBox.Text = widget.MaxWindowSize.Width.ToString();
+
+            NotificiationSettingTextBlock.Text = notificationManager.Setting.ToString();
+
+            // Setup hotkey watcher for CTRL + ALT + T
+            List<VirtualKey> virtualKeys = new List<VirtualKey> { VirtualKey.Control, VirtualKey.Menu /*ALT*/, VirtualKey.T };
+            hotkeyWatcher = XboxGameBarHotkeyWatcher.CreateWatcher(widget, virtualKeys);
+            hotkeyWatcher.HotkeySetStateChanged += HotkeyWatcher_HotkeySetStateChanged;
+        }
+
+        private async void AppTargetTracker_TargetChanged(XboxGameBarAppTargetTracker sender, object args)
+        {
+            await TargetTrackerSettingTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                SetTargetInfo();
+            });
+        }
+
+        private async void HotkeyWatcher_HotkeySetStateChanged(XboxGameBarHotkeyWatcher sender, HotkeySetStateChangedArgs args)
+        {
+            await HotkeyPressedTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                HotkeyPressedTextBlock.Text = args.HotkeySetDown ? "Pressed" : "Not Pressed";
+            });
+        }
+
+        private void SetTargetInfo()
+        {
+            var settingEnabled = appTargetTracker.Setting == XboxGameBarAppTargetSetting.Enabled;
+
+            XboxGameBarAppTarget target = null;
+            if (settingEnabled)
+            {
+                target = appTargetTracker.GetTarget();
+            }
+
+            TargetTrackerSettingTextBlock.Text = settingEnabled.ToString();
+            DisplayNameTextBlock.Text = target.DisplayName;
+            AumIdTextBlock.Text = target.AumId;
+            TitleIdTextBlock.Text = target.TitleId;
+            IsFullscreenTextBlock.Text = target.IsFullscreen.ToString();
+            IsGameTextBlock.Text = target.IsGame.ToString();
+        }
+
+        private async void NotificationManager_SettingChanged(XboxGameBarWidgetNotificationManager sender, object args)
+        {
+            await NotificiationSettingTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                NotificiationSettingTextBlock.Text = notificationManager.Setting.ToString();
+            });
+        }
+
+        private async void Widget_WindowBoundsChanged(XboxGameBarWidget sender, object args)
+        {
+            await WindowBoundsTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                var bounds = widget.WindowBounds;
+                WindowBoundsTextBlock.Text = "H(" + bounds.Height + ") W(" + bounds.Width + ") X(" + bounds.X + ") Y(" + bounds.Y + ")";
+            });
         }
 
         private async void ActivateAsyncAppExtIdButton_Click(object sender, RoutedEventArgs e)
@@ -152,6 +231,24 @@ namespace WidgetAdvSampleCS
         {
             Uri uri = new Uri(LaunchUriAsyncText.Text);
             bool result = await widget.LaunchUriAsync(uri);
+            if (!result)
+            {
+                Debug.WriteLine("LaunchUriAsync returned false");
+            }
+        }
+
+        private async void LaunchUriAsyncAdvancedButton_Click(object sender, RoutedEventArgs e)
+        {
+            Uri uri = new Uri(LaunchUriAsyncText.Text);
+            
+            LauncherOptions options = new LauncherOptions();
+            options.TargetApplicationPackageFamilyName = "Microsoft.WindowsCalculator_8wekyb3d8bbwe";
+
+            ValueSet valueSet = new ValueSet();
+            valueSet.Add("testKey1", false);
+            valueSet.Add("testKey2", true);
+
+            bool result = await widget.LaunchUriAsync(uri, options, valueSet);
             if (!result)
             {
                 Debug.WriteLine("LaunchUriAsync returned false");
@@ -264,7 +361,7 @@ namespace WidgetAdvSampleCS
         {
             await PinnedStateTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                SetPinnedStateTextBox();
+                SetPinnedState();
             });
         }
 
@@ -309,10 +406,10 @@ namespace WidgetAdvSampleCS
 
         private void Widget_GameBarDisplayModeChanged(XboxGameBarWidget sender, object args)
         {
-            OutputGameBarDisplayMode();
+            SetGameBarDisplayMode();
         }
 
-        private void SetPinnedStateTextBox()
+        private void SetPinnedState()
         {
             PinnedStateTextBlock.Text = widget.Pinned.ToString();
         }
@@ -367,9 +464,78 @@ namespace WidgetAdvSampleCS
             Debug.WriteLine("Window State: " + widget.WindowState.ToString());
         }
 
-        private void OutputGameBarDisplayMode()
+        private void SetGameBarDisplayMode()
         {
             Debug.WriteLine("Game Bar View Mode: " + widget.GameBarDisplayMode.ToString());
+        }
+
+        private void StartActivityButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (widgetActivity == null)
+            {
+                widgetActivity = new XboxGameBarWidgetActivity(widget, "uniqueActivityId");
+            }
+        }
+
+        private void StopActivityButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (widgetActivity != null)
+            {
+                widgetActivity.Complete();
+                widgetActivity = null;
+            }
+        }
+
+        private void StartHotkeyWatcher_Click(object sender, RoutedEventArgs e)
+        {
+            HotkeyPressedTextBlock.Text = "Not Pressed";
+            hotkeyWatcher.Start();
+        }
+
+        private void StopHotkeyWatcher_Click(object sender, RoutedEventArgs e)
+        {
+            hotkeyWatcher.Stop();
+            HotkeyPressedTextBlock.Text = "Watcher not running";
+        }
+
+        private async void ShowBasicNotification_Click(object sender, RoutedEventArgs e)
+        {
+            var widgetNotification = new XboxGameBarWidgetNotificationBuilder("This is a toast title")
+                .PrimaryImageFromPublicFolder("SamplePrimaryImage.png", XboxGameBarWidgetNotificationImageCrop.Circle)
+                .BuildNotification();
+
+            // Call async show to unwind calling thread while result is obtained
+            // Success means toast was succesfully shown or queued to be shown
+            var result = await notificationManager.TryShowAsync(widgetNotification);
+        }
+
+        private async void ShowAdvancedNotification_Click(object sender, RoutedEventArgs e)
+        {
+            var widgetNotification =
+                // (Required) Short toast title
+                new XboxGameBarWidgetNotificationBuilder("This is a toast title that can wrap to two lines if necessary")
+                // (Optional) Short toast description
+                .Content("This is a toast description that can wrap to two lines if necessary")
+                // (Optional) Widget activation payload on toast activation
+                .ActivationPayload("id=testId&context=additionalContext")
+                // (Optional) Primary image
+                // URI scheme: Call .PrimaryImageFromUri(...)
+                // File name or relative path scheme: .PrimaryImageFromPublicFolder(...)
+                // Note: using both schemes both will cause an exception
+                .PrimaryImageFromPublicFolder("SamplePrimaryImage.png", XboxGameBarWidgetNotificationImageCrop.Default)
+                // (Optional) Secondary image - same as above
+                // Note: secondary image always shown with circle image crop type
+                .SecondaryImageFromPublicFolder("SampleSecondaryImage.png")
+                // (Optional) Sound - specify file name or relative path
+                .SoundFromPublicFolder("Sounds\\SampleSound.mp3")
+                // (Optional) Ignore Windows quiet hours setting for important, time sensitive notifications
+                .IgnoreQuietHours(true)
+                // (Optional) Avoid bringing Game Bar to the foreground for external toast activations
+                .IsBackgroundActivation(false)
+                // Call this to build the notification object to pass to the notification manager
+                .BuildNotification();
+
+            var result = await notificationManager.TryShowAsync(widgetNotification);
         }
     }
 }
