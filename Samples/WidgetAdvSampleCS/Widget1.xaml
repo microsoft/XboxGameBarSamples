@@ -49,8 +49,8 @@
         </Style>
     </Page.Resources>
 
-    <Grid x:Name="RootGrid">
-        <Grid x:Name="BackgroundGrid" />
+    <Grid x:Name="RootGrid" Padding="0">
+        <Grid x:Name="BackgroundGrid" Padding="0" />
         <ScrollViewer
             x:Name="RootScrollViewer"
             HorizontalScrollBarVisibility="Auto"
