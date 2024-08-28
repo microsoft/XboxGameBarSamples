@@ -104,12 +104,8 @@
       <!-- <DisableSpecificWarnings>4453;28204;%(DisableSpecificWarnings)</DisableSpecificWarnings> -->
       <!-- collections.h is broken under c++latest if we don't restore the removed machinery -->
       <PreprocessorDefinitions>WIN32;_HAS_AUTO_PTR_ETC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <!-- Feature flags are defined in GameBar.Cpp.Default.props and can be passed on command line -->
-      <PreprocessorDefinitions Condition="'$(FeatureFlags)'!=''">%(PreprocessorDefinitions);$(FeatureFlags)</PreprocessorDefinitions>
       <!-- Disable warning about use of std::result_of in C++17 -->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING</PreprocessorDefinitions>
-      <!-- Additional Includes -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(GbSourceDirectory)GameBarCommon\Inc</AdditionalIncludeDirectories>
       <!-- Version information -->
       <PreprocessorDefinitions>
         %(PreprocessorDefinitions);
@@ -159,7 +155,7 @@
     </Link>
     <!-- COMMON Resource -->
     <ResourceCompile>
-      <AdditionalIncludeDirectories>$(GbSourceDirectory)GameBarCommon\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <!-- Version information -->
       <PreprocessorDefinitions>
         %(PreprocessorDefinitions);
