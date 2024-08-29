@@ -9,6 +9,7 @@ const duration c_debounceTimer = 5s;
 // 0x11 = (COM_RIGHTS_EXECUTE | COM_RIGHTS_EXECUTE_LOCAL | COM_RIGHTS_ACTIVATE_LOCAL)
 // O:PSG:BU   Owner : principal self, Group : Built - in users
 // (A;;0x11;;;WD)  Allow SDDL_EVERYONE
+// (A;;0x11;;;AC)  Allow ALL APPLICATION PACKAGES (Note: You probably want to change this to your Package SID)
 constexpr wchar_t* c_ComSecurityDescriptor = L"O:PSG:BUD:(A;;11;;;WD)(A;;11;;;AC)S:(ML;;NX;;;LW)";
 
 HRESULT InitializeComSecurity()
