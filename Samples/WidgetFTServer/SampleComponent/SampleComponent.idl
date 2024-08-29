@@ -1,0 +1,14 @@
+namespace WidgetFT
+{
+    delegate void DemoBoolPropertyChangedDelegate(Boolean newValue); // delegate type, for event
+
+    // See https://learn.microsoft.com/en-us/uwp/midl-3/ for how to define runtimeclasses in MIDL3.
+    runtimeclass SampleComponent
+    {
+        Windows.Foundation.IAsyncAction DemoAsync();
+        void DemoSync();
+
+        Boolean DemoBoolProperty; // Set/Get. To only do Get, use { get; }.
+        event DemoBoolPropertyChangedDelegate DemoBoolPropertyChanged;
+    }
+}

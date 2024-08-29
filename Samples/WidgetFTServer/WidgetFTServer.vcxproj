@@ -72,18 +72,10 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <!-- LIB, COMPILE, LINK, AND RESOURCE -->
   <ItemDefinitionGroup>
-    <Lib>
-      <!-- It seems like the librarian has different syntax for disabling warnings from the linker, so just adding these as command link additional options -->
-      <!-- Turn off: warning LNK4264: archiving object file compiled with /ZW into a static library; note that when authoring Windows Runtime types it is not recommended to link with a static library that contains Windows Runtime metadata.-->
-      <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
-      <!-- This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library (W4221) -->
-      <!-- <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions> -->
-    </Lib>
     <!-- COMMON Compiler options -->
     <ClCompile>
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <!-- Turn conformance back on after removing all CX code -->
       <!-- <ConformanceMode>true</ConformanceMode> -->
       <!-- /await - enable coawait support -->
       <!-- /bigobj - supports obj file sizes up to 2^32 -->
@@ -96,16 +88,7 @@
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <!-- Disable warning C4345: behavior change: an object of POD type constructed with an initializer of the form () will be default-initialized -->
-      <!-- <DisableSpecificWarnings>4345;%(DisableSpecificWarnings)</DisableSpecificWarnings> -->
-      <!-- From the UWP project template -->
-      <!-- 4453: '%$S': A '[WebHostHidden]' type should not be used on the published surface of a public type that is not '[WebHostHidden]' -->
-      <!-- 28204: <function> : Only one of this overload and the one at <filename>(<line>) are annotated for <paramname>: both or neither must be annotated. -->
-      <!-- <DisableSpecificWarnings>4453;28204;%(DisableSpecificWarnings)</DisableSpecificWarnings> -->
-      <!-- collections.h is broken under c++latest if we don't restore the removed machinery -->
-      <PreprocessorDefinitions>WIN32;_HAS_AUTO_PTR_ETC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <!-- Disable warning about use of std::result_of in C++17 -->
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <!-- Version information -->
       <PreprocessorDefinitions>
         %(PreprocessorDefinitions);
@@ -115,6 +98,7 @@
         VERSION_MMDDR=$(builddate_mmddr);
         VERSION_YYMMDDRRR=$(builddate_yymmddrrr);
       </PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory);$(WindowsSdkDir_10)Windows Performance Toolkit;$(GeneratedFilesDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <!-- DEBUG Compiler options -->
     <ClCompile Condition="'$(Configuration)' == 'Debug'">
@@ -136,9 +120,11 @@
     </ClCompile>
     <!-- COMMON Linker options -->
     <Link>
+      <SubSystem>Windows</SubSystem>
       <AdditionalOptions>/DYNAMICBASE %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='x64' OR '$(Platform)'=='Win32'">/CETCOMPAT %(AdditionalOptions)</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>onecoreuap_apiset.lib;%(AdditionalDependencies);</AdditionalDependencies>
     </Link>
     <!-- DEBUG Linker options -->
     <Link Condition="'$(Configuration)' == 'Debug'">
@@ -167,34 +153,36 @@
       </PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup>
-    <ClCompile>
-      <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory);$(WindowsSdkDir_10)Windows Performance Toolkit;$(GeneratedFilesDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <!-- <AdditionalDependencies>ntdll.lib;onecoreuap_apiset.lib;gdi32.lib;Shlwapi.lib;Shell32.lib;%(AdditionalDependencies);</AdditionalDependencies> -->
-      <AdditionalDependencies>%(AdditionalDependencies);</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cppwinrt_wrl_priv.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
+    <ClCompile Include="SampleComponent\SampleComponent.cpp" />
     <ClCompile Include="UI\Window.cpp" />
     <ClCompile Include="UI\WmQuitMonitor.cpp" />
+    <ClCompile Include="WidgetFTFactory.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClInclude Include="SampleComponent\SampleComponent.h" />
+    <ClInclude Include="singleton_base.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UI\Window.h" />
     <ClInclude Include="UI\WmQuitMonitor.h" />
+    <ClInclude Include="WidgetFTFactory.h" />
     <ResourceCompile Include="WidgetFTServer.rc" />
   </ItemGroup>
   <ItemGroup>
     <!-- <Midl Include="AppTarget\AppTargetManagerFT.idl" /> -->
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="WidgetFTServer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="SampleComponent\SampleComponent.idl" />
+    <Midl Include="WidgetFTFactory.idl" />
   </ItemGroup>
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Windows.ImplementationLibrary.1.0.240803.1\build\native\Microsoft.Windows.ImplementationLibrary.targets" Condition="Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.240803.1\build\native\Microsoft.Windows.ImplementationLibrary.targets')" />

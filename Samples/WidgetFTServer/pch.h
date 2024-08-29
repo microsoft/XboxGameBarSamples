@@ -30,6 +30,7 @@
 #include <thread>
 #include <unordered_map>
 #include <functional>
+#include <chrono>
 
 // WIL
 // wil/cppwinrt.h enabled mixing of C++/WinRT and WIL exception types in a compatible way
@@ -62,3 +63,7 @@
 #include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Hosting.h>
 #include <winrt/Windows.UI.Xaml.Media.h>
+
+// Local utils
+#include <cppwinrt_wrl_priv.h>
+#include <singleton_base.h>

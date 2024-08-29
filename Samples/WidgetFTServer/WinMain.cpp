@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "UI\WmQuitMonitor.h"
 
-#include <chrono>
-
 using namespace Microsoft::WRL;
 using namespace std::chrono;
 
@@ -11,8 +9,7 @@ const duration c_debounceTimer = 5s;
 // 0x11 = (COM_RIGHTS_EXECUTE | COM_RIGHTS_EXECUTE_LOCAL | COM_RIGHTS_ACTIVATE_LOCAL)
 // O:PSG:BU   Owner : principal self, Group : Built - in users
 // (A;;0x11;;;WD)  Allow SDDL_EVERYONE
-// S-1-15-2-1714399563-1326177402-2048222277-143663168-2151391019-765408921-4098702777 is this package (Microsoft.XboxGamingOverlay) SID
-constexpr wchar_t* c_ComSecurityDescriptor = L"O:PSG:BUD:(A;;11;;;WD)(A;;11;;;S-1-15-2-1714399563-1326177402-2048222277-143663168-2151391019-765408921-4098702777)S:(ML;;NX;;;LW)";
+constexpr wchar_t* c_ComSecurityDescriptor = L"O:PSG:BUD:(A;;11;;;WD)(A;;11;;;AC)S:(ML;;NX;;;LW)";
 
 HRESULT InitializeComSecurity()
 {
