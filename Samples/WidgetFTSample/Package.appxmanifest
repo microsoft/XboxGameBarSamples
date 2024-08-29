@@ -4,7 +4,9 @@
          xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
          xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-         IgnorableNamespaces="uap uap3 mp">
+         xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+         IgnorableNamespaces="uap uap3 mp com rescap">
   
   <Identity
     Name="WidgetFTSample"
@@ -36,6 +38,17 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
+        <com:Extension Category="windows.comServer">
+          <com:ComServer>
+            <!-- 0x11 = (COM_RIGHTS_EXECUTE | COM_RIGHTS_EXECUTE_LOCAL | COM_RIGHTS_ACTIVATE_LOCAL) -->
+            <!-- O:PSG:BU   Owner: principal self, Group: Built-in users -->
+            <!-- (A;;0x11;;;WD)  Allow SDDL_EVERYONE -->
+            <!-- (A;;0x11;;;AC)  ALL APPLICATION PACKAGES: You probably should update to your package SID. -->
+            <com:ExeServer Executable="WidgetFTServer.exe" LaunchAndActivationPermission="O:PSG:BUD:(A;;11;;;WD)(A;;11;;;AC)S:(ML;;NX;;;LW)">
+              <com:Class Id="C8B22328-C713-431C-A29C-D81C46D3C34C" DisplayName="WidgetFTFactory"/>
+            </com:ExeServer>
+          </com:ComServer>
+        </com:Extension>
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="microsoft.gameBarUIExtension"
                              Id="Widget1"
@@ -49,11 +62,11 @@
                 <Window>
                   <Size>
                     <Height>300</Height>
-                    <Width>400</Width>
+                    <Width>500</Width>
                     <MinHeight>150</MinHeight>
                     <MinWidth>200</MinWidth>
-                    <MaxHeight>350</MaxHeight>
-                    <MaxWidth>450</MaxWidth>
+                    <MaxHeight>800</MaxHeight>
+                    <MaxWidth>800</MaxWidth>
                   </Size>
                   <ResizeSupported>
                     <Horizontal>true</Horizontal>
@@ -103,5 +116,6 @@
   
   <Capabilities>
     <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>

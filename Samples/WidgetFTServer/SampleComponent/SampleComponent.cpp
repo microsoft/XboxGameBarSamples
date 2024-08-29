@@ -9,20 +9,22 @@ namespace winrt::WidgetFT::implementation
         // Best practice to grab strong ref to self before you co_await
         auto strongThis{ get_strong() };
 
-        OutputDebugStringW(L"DemoAsync\n");
+        OutputDebugStringW(L"[WidgetFTServer] DemoAsync\n");
 
         // Get off callers thread (COM Neutral Apartment thread in the case of cross-proc)
         co_await winrt::resume_background();
 
         // Do some async work
-        co_await winrt::resume_after(std::chrono::seconds(1));
+        co_await winrt::resume_after(std::chrono::milliseconds(500));
 
-        OutputDebugStringW(L"DemoAsync completed\n");
+        OutputDebugStringW(L"[WidgetFTServer] DemoAsync completed\n");
     }
 
     void SampleComponent::DemoSync()
     {
-        OutputDebugStringW(L"DemoSync\n");
+        OutputDebugStringW(L"[WidgetFTServer] DemoSync\n");
+        Sleep(500); // 500ms
+        OutputDebugStringW(L"[WidgetFTServer] DemoSync completed\n");
     }
 
     bool SampleComponent::DemoBoolProperty()

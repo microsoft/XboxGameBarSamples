@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cppwinrt_wrl_priv.h" />
+    <ClInclude Include="inc\WidgetFTFactoryClsid.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
     <ClCompile Include="SampleComponent\SampleComponent.cpp" />

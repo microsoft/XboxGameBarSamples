@@ -65,4 +65,10 @@ namespace winrt::WidgetFT::implementation
             return (DWORD)uint64val;
         }
     }
+
+
+    // Register this factory with COM. It uses the CLSID defined in WidgetFTFactoryClsid.h
+    // This line of code then ensures when module.Register is called in WinMain.cpp that WidgetFTFactory
+    // is registered with COM.
+    CoCreatableSingletonCppWinRtClass(WidgetFTFactory);
 }

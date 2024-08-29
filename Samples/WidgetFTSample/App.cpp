@@ -4,16 +4,15 @@
 #include "MainPage.h"
 #include "Widget1.h"
 
-using namespace winrt;
-using namespace Windows::ApplicationModel;
-using namespace Windows::ApplicationModel::Activation;
-using namespace Windows::Foundation;
-using namespace Windows::UI::Xaml;
-using namespace Windows::UI::Xaml::Controls;
-using namespace Windows::UI::Xaml::Navigation;
-using namespace WidgetFTSample;
-using namespace WidgetFTSample::implementation;
-using namespace Microsoft::Gaming::XboxGameBar;
+using namespace winrt::Windows::ApplicationModel;
+using namespace winrt::Windows::ApplicationModel::Activation;
+using namespace winrt::Windows::Foundation;
+using namespace winrt::Windows::UI::Xaml;
+using namespace winrt::Windows::UI::Xaml::Controls;
+using namespace winrt::Windows::UI::Xaml::Navigation;
+using namespace winrt::WidgetFTSample;
+using namespace winrt::WidgetFTSample::implementation;
+using namespace winrt::Microsoft::Gaming::XboxGameBar;
 
 /// <summary>
 /// Initializes the singleton application object.  This is the first line of authored code
@@ -92,7 +91,7 @@ void App::OnActivated(IActivatedEventArgs const& e)
             m_widget1WindowClosedHandlerToken = Window::Current().Closed(
                 { get_weak(), &App::Widget1WindowClosedHandler });
 
-            //Window::Current().Activate();
+            Window::Current().Activate();
         }
         else
         {
