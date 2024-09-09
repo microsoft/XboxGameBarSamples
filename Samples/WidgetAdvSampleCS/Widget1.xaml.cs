@@ -485,9 +485,8 @@ namespace WidgetAdvSampleCS
 
         private void SetCompactModeEnabled()
         {
-            var isCompactModeEnabled = widget.CompactModeEnabled.ToString();
-            GameBarCompactModeEnabledTextBlock.Text = isCompactModeEnabled;
-            Debug.WriteLine("Game Bar Compact Mode Enabled: " + isCompactModeEnabled);
+            GameBarCompactModeEnabledTextBlock.Text = widget.CompactModeEnabled.ToString();
+            Debug.WriteLine("Game Bar Compact Mode Enabled: " + widget.CompactModeEnabled.ToString());
         }
 
         private void StartActivityButton_Click(object sender, RoutedEventArgs e)
