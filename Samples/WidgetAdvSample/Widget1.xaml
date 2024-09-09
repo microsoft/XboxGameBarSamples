@@ -176,6 +176,10 @@
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Game Bar Compact Mode Enabled:" />
+                                <TextBlock x:Name="GameBarCompactModeEnabledTextBlock" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Game Bar Display Mode:" />
                                 <TextBlock x:Name="GameBarDisplayModeTextBlock" />
                             </StackPanel>
