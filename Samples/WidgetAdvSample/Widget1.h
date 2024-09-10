@@ -69,7 +69,7 @@ namespace winrt::WidgetAdvSample::implementation
         void OutputVisibleState();
         void OutputWindowState();
         void SetGameBarDisplayMode();
-        void SetCompactModeEnabled(bool enabled);
+        void SetCompactModeEnabled();
 
     private:
         winrt::Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget{ nullptr };

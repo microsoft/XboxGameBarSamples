@@ -73,7 +73,7 @@ namespace winrt::WidgetAdvSample::implementation
         OutputVisibleState();
         OutputWindowState();
         SetTargetInfo();
-        SetCompactModeEnabled(m_widget.CompactModeEnabled());
+        SetCompactModeEnabled();
 
         HorizontalResizeSupportedCheckBox().IsChecked(m_widget.HorizontalResizeSupported());
         VerticalResizeSupportedCheckBox().IsChecked(m_widget.VerticalResizeSupported());
@@ -513,15 +513,12 @@ namespace winrt::WidgetAdvSample::implementation
         WindowBoundsTextBlock().Text({ strStream.str() });
     }
 
-    winrt::fire_and_forget Widget1::GameBarCompactModeEnabledChanged(winrt::Windows::Foundation::IInspectable /*sender*/, winrt::Windows::Foundation::IInspectable /*e*/)
+    winrt::fire_and_forget Widget1::GameBarCompactModeEnabledChanged(winrt::WF::IInspectable /*sender*/, winrt::WF::IInspectable /*e*/)
     {
         auto strongThis{ get_strong() };
-
-        co_await winrt::resume_background();
-        auto enabled{ m_widget.CompactModeEnabled() };
-
         co_await resume_foreground(GameBarCompactModeEnabledTextBlock().Dispatcher());
-        SetCompactModeEnabled(enabled);
+
+        SetCompactModeEnabled();
     }
 
     void Widget1::SetBackgroundColor()
@@ -639,9 +636,9 @@ namespace winrt::WidgetAdvSample::implementation
         GameBarDisplayModeTextBlock().Text(mode);
     }
 
-    void Widget1::SetCompactModeEnabled(bool enabled)
+    void Widget1::SetCompactModeEnabled()
     {
-        hstring isEnabled = /*m_widget.CompactModeEnabled()*/ enabled ? L"True" : L"False";
+        hstring isEnabled = m_widget.CompactModeEnabled() ? L"True" : L"False";
         hstring modeOutput = L"Game Bar Compact Mode Enabled: " + isEnabled + L"\r\n";
         OutputDebugString(modeOutput.c_str());
 
