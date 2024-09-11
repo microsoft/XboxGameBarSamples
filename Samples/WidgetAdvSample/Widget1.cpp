@@ -53,7 +53,7 @@ namespace winrt::WidgetAdvSample::implementation
         m_visibleChangedToken = m_widget.VisibleChanged({ this, &Widget1::VisibleChanged });
         m_windowBoundsChangedToken = m_widget.WindowBoundsChanged({ this, &Widget1::WindowBoundsChanged });
         m_windowStateChangedToken = m_widget.WindowStateChanged({ this, &Widget1::WindowStateChanged });
-
+        m_compactModeEnabledChangedToken = m_widget.CompactModeEnabledChanged({ this, &Widget1::GameBarCompactModeEnabledChanged });
         m_targetSettingChangedToken = m_appTargetTracker.SettingChanged({ this, &Widget1::TargetChanged });
         m_notificationSettingChangedToken = m_widgetNotificationManager.SettingChanged({ this, &Widget1::NotificiationSettingChanged });
 
@@ -73,6 +73,7 @@ namespace winrt::WidgetAdvSample::implementation
         OutputVisibleState();
         OutputWindowState();
         SetTargetInfo();
+        SetCompactModeEnabled();
 
         HorizontalResizeSupportedCheckBox().IsChecked(m_widget.HorizontalResizeSupported());
         VerticalResizeSupportedCheckBox().IsChecked(m_widget.VerticalResizeSupported());
@@ -512,6 +513,14 @@ namespace winrt::WidgetAdvSample::implementation
         WindowBoundsTextBlock().Text({ strStream.str() });
     }
 
+    winrt::fire_and_forget Widget1::GameBarCompactModeEnabledChanged(winrt::WF::IInspectable /*sender*/, winrt::WF::IInspectable /*e*/)
+    {
+        auto strongThis{ get_strong() };
+        co_await resume_foreground(GameBarCompactModeEnabledTextBlock().Dispatcher());
+
+        SetCompactModeEnabled();
+    }
+
     void Widget1::SetBackgroundColor()
     {
         auto requestedTheme = m_widget.RequestedTheme();
@@ -625,5 +634,14 @@ namespace winrt::WidgetAdvSample::implementation
         OutputDebugString(modeOutput.c_str());
 
         GameBarDisplayModeTextBlock().Text(mode);
+    }
+
+    void Widget1::SetCompactModeEnabled()
+    {
+        hstring isEnabled = m_widget.CompactModeEnabled() ? L"True" : L"False";
+        hstring modeOutput = L"Game Bar Compact Mode Enabled: " + isEnabled + L"\r\n";
+        OutputDebugString(modeOutput.c_str());
+
+        GameBarCompactModeEnabledTextBlock().Text(isEnabled);
     }
 }

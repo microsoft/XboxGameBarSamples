@@ -59,6 +59,7 @@ namespace WidgetAdvSampleCS
             widget.VisibleChanged += Widget_VisibleChanged;
             widget.WindowBoundsChanged += Widget_WindowBoundsChanged;
             widget.WindowStateChanged += Widget_WindowStateChanged;
+            widget.CompactModeEnabledChanged += Widget_GameBarCompactModeEnabledChanged;
 
             appTargetTracker.SettingChanged += AppTargetTracker_TargetChanged;
             notificationManager.SettingChanged += NotificationManager_SettingChanged;
@@ -78,6 +79,7 @@ namespace WidgetAdvSampleCS
             OutputVisibleState();
             OutputWindowState();
             SetTargetInfo();
+            SetCompactModeEnabled();
 
             HorizontalResizeSupportedCheckBox.IsChecked = widget.HorizontalResizeSupported;
             VerticalResizeSupportedCheckBox.IsChecked = widget.VerticalResizeSupported;
@@ -145,6 +147,14 @@ namespace WidgetAdvSampleCS
             {
                 var bounds = widget.WindowBounds;
                 WindowBoundsTextBlock.Text = "H(" + bounds.Height + ") W(" + bounds.Width + ") X(" + bounds.X + ") Y(" + bounds.Y + ")";
+            });
+        }
+
+        private async void Widget_GameBarCompactModeEnabledChanged(XboxGameBarWidget sender, object args)
+        {
+            await GameBarCompactModeEnabledTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                SetCompactModeEnabled();
             });
         }
 
@@ -404,9 +414,12 @@ namespace WidgetAdvSampleCS
             OutputWindowState();
         }
 
-        private void Widget_GameBarDisplayModeChanged(XboxGameBarWidget sender, object args)
+        private async void Widget_GameBarDisplayModeChanged(XboxGameBarWidget sender, object args)
         {
-            SetGameBarDisplayMode();
+            await GameBarDisplayModeTextBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                SetGameBarDisplayMode();
+            });
         }
 
         private void SetPinnedState()
@@ -466,7 +479,14 @@ namespace WidgetAdvSampleCS
 
         private void SetGameBarDisplayMode()
         {
+            GameBarDisplayModeTextBlock.Text = widget.GameBarDisplayMode.ToString();
             Debug.WriteLine("Game Bar View Mode: " + widget.GameBarDisplayMode.ToString());
+        }
+
+        private void SetCompactModeEnabled()
+        {
+            GameBarCompactModeEnabledTextBlock.Text = widget.CompactModeEnabled.ToString();
+            Debug.WriteLine("Game Bar Compact Mode Enabled: " + widget.CompactModeEnabled.ToString());
         }
 
         private void StartActivityButton_Click(object sender, RoutedEventArgs e)

@@ -47,6 +47,7 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::Windows::Foundation::IAsyncAction SettingsButton_Click(winrt::Windows::Foundation::IInspectable sender, winrt::Windows::Foundation::IInspectable e);
         winrt::fire_and_forget FavoritedChanged(winrt::Windows::Foundation::IInspectable sender, winrt::Windows::Foundation::IInspectable e);
         winrt::fire_and_forget GameBarDisplayModeChanged(winrt::Windows::Foundation::IInspectable sender, winrt::Windows::Foundation::IInspectable e);
+        winrt::fire_and_forget GameBarCompactModeEnabledChanged(winrt::Windows::Foundation::IInspectable sender, winrt::Windows::Foundation::IInspectable e);
         winrt::fire_and_forget PinnedChanged(winrt::Windows::Foundation::IInspectable sender, winrt::Windows::Foundation::IInspectable e);
         winrt::fire_and_forget RequestedOpacityChanged(winrt::Windows::Foundation::IInspectable sender, winrt::Windows::Foundation::IInspectable e);
         winrt::fire_and_forget RequestedThemeChanged(winrt::Windows::Foundation::IInspectable sender, winrt::Windows::Foundation::IInspectable e);
@@ -68,6 +69,7 @@ namespace winrt::WidgetAdvSample::implementation
         void OutputVisibleState();
         void OutputWindowState();
         void SetGameBarDisplayMode();
+        void SetCompactModeEnabled();
 
     private:
         winrt::Microsoft::Gaming::XboxGameBar::XboxGameBarWidget m_widget{ nullptr };
@@ -96,6 +98,7 @@ namespace winrt::WidgetAdvSample::implementation
         winrt::event_token m_notificationSettingChangedToken{};
         winrt::event_token m_windowBoundsChangedToken{};
         winrt::event_token m_hotkeySetChangedToken{};
+        winrt::event_token m_compactModeEnabledChangedToken{};
     };
 }
 
