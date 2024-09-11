@@ -133,6 +133,18 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Icons\icon.light.targetsize-16.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-20.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-24.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-256.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-32.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-44.png" />
+    <Image Include="Assets\Icons\icon.targetsize-16.png" />
+    <Image Include="Assets\Icons\icon.targetsize-20.png" />
+    <Image Include="Assets\Icons\icon.targetsize-24.png" />
+    <Image Include="Assets\Icons\icon.targetsize-256.png" />
+    <Image Include="Assets\Icons\icon.targetsize-32.png" />
+    <Image Include="Assets\Icons\icon.targetsize-44.png" />
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />

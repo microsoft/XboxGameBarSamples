@@ -47,6 +47,18 @@
     <Image Include="Assets\LockScreenLogo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\Icons\icon.light.targetsize-16.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-20.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-24.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-32.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-44.png" />
+    <Image Include="Assets\Icons\icon.light.targetsize-256.png" />
+    <Image Include="Assets\Icons\icon.targetsize-16.png" />
+    <Image Include="Assets\Icons\icon.targetsize-20.png" />
+    <Image Include="Assets\Icons\icon.targetsize-24.png" />
+    <Image Include="Assets\Icons\icon.targetsize-32.png" />
+    <Image Include="Assets\Icons\icon.targetsize-44.png" />
+    <Image Include="Assets\Icons\icon.targetsize-256.png" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />

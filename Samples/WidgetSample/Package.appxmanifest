@@ -41,7 +41,7 @@
                              Id="Widget1"
                              DisplayName="Widget Sample"
                              Description="Widget Sample Description"
-                             PublicFolder="GameBar">
+                             PublicFolder="Assets">
             <uap3:Properties>
               <GameBarWidget Type="Standard">
                 <HomeMenuVisible>true</HomeMenuVisible>
