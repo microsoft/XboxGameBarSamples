@@ -77,6 +77,11 @@ namespace WidgetAdvSampleCS
                 if (widgetArgs.IsLaunchActivation)
                 {
                     var rootFrame = new Frame();
+
+                    // Set FlowDirection for RTL/LTR languages.
+                    var flowDirectionSetting = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().QualifierValues["LayoutDirection"];
+                    rootFrame.FlowDirection = (flowDirectionSetting == "RTL") ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
                     rootFrame.NavigationFailed += OnNavigationFailed;
                     Window.Current.Content = rootFrame;
 
