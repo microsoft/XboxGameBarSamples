@@ -62,7 +62,7 @@ namespace winrt::WidgetFT::implementation
         else
         {
             auto uint64val = reinterpret_cast<uint64_t>(callAttributes.ClientPID);
-            return (DWORD)uint64val;
+            return static_cast<DWORD>(uint64val);
         }
     }
 
