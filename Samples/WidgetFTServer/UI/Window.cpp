@@ -5,7 +5,7 @@
 
 namespace XboxGameBarFT::UI
 {
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK GlobalWindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     using namespace XboxGameBarFT::UI;
 
@@ -46,7 +46,7 @@ WindowClass::WindowClass(HINSTANCE instance, std::wstring_view name) : m_hinstan
 {
     WNDCLASSEX wcex {};
     wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.lpfnWndProc = (WNDPROC)XboxGameBarFT::UI::WindowProc;
+    wcex.lpfnWndProc = (WNDPROC)XboxGameBarFT::UI::GlobalWindowProc;
     wcex.lpszClassName = m_name.data();
     wcex.hInstance = instance;
 

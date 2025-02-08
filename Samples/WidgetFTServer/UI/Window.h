@@ -67,7 +67,7 @@ private:
     std::function<LRESULT(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)> m_messageDelegate;
 
     LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-    friend LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+    friend LRESULT CALLBACK GlobalWindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 }

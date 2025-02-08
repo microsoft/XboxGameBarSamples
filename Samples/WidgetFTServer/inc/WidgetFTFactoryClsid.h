@@ -12,6 +12,7 @@
 
 namespace winrt::WidgetFT::implementation
 {
+    // Be sure to update this GUID via VS -> Tools -> Create GUID or similar tool
     struct __declspec(uuid("C8B22328-C713-431C-A29C-D81C46D3C34C")) WidgetFTFactory;
 }
 

@@ -38,8 +38,13 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
+        <!-- Add COM Server entry that causes the COM server to be registered during app install with the specified launch and activate permissions -->
         <com:Extension Category="windows.comServer">
           <com:ComServer>
+            <!-- Executable name matches the COM server binary built by WidgetFTServer project.
+                 GUID listed for Id is the GUID specified for the COM server when registered inside WidgetFTServer. 
+                 DisplayName is superfluous. -->
+            <!-- Security Descriptor -->
             <!-- 0x11 = (COM_RIGHTS_EXECUTE | COM_RIGHTS_EXECUTE_LOCAL | COM_RIGHTS_ACTIVATE_LOCAL) -->
             <!-- O:PSG:BU   Owner: principal self, Group: Built-in users -->
             <!-- (A;;0x11;;;WD)  Allow SDDL_EVERYONE -->

@@ -6,10 +6,7 @@ namespace XboxGameBarFT::UI
 
 std::shared_ptr<WmQuitMonitor> WmQuitMonitor::Create(HINSTANCE hInstance, std::function<void()> onWmQuitCallback)
 {
-    if (!onWmQuitCallback)
-    {
-        throw winrt::hresult_invalid_argument();
-    }
+    THROW_HR_IF(E_INVALIDARG, !onWmQuitCallback);
 
     auto self{ std::make_shared<WmQuitMonitor>(hInstance, onWmQuitCallback) };
     self->Initialize();

@@ -92,11 +92,13 @@ int _stdcall wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int)
     wil::unique_event shutdownEvent(wil::EventOptions::ManualReset);
     // Create WRL OOP module manager. Callback will be called when
     // all objects have disconnected. 
+#pragma warning(push)
 #pragma warning( disable : 4324 )
     auto& module = Module<OutOfProc>::Create([&]()
         {
             shutdownEvent.SetEvent();
         });
+#pragma warning(pop)
 
     // Run debounce task to ensure the server stays up a minimum amount of time
     ServerDebounceTask();
