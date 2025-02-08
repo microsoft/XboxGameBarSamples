@@ -83,6 +83,11 @@ void App::OnActivated(IActivatedEventArgs const& e)
         if (widgetArgs.IsLaunchActivation())
         {
             auto rootFrame = Frame();
+
+            // Set FlowDirection for RTL/LTR languages.
+            auto flowDirectionSetting = Resources::Core::ResourceContext::GetForCurrentView().QualifierValues().Lookup(L"LayoutDirection");
+            rootFrame.FlowDirection((flowDirectionSetting == L"RTL") ? FlowDirection::RightToLeft : FlowDirection::LeftToRight);
+
             rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
             Window::Current().Content(rootFrame);
           
