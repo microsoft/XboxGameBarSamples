@@ -1,0 +1,13 @@
+import "SampleComponent/SampleComponent.idl";
+// Add more #import directives as needed
+
+namespace WidgetFT
+{
+    [default_interface]
+    runtimeclass WidgetFTFactory
+    {
+        UInt64 ProcessHandle{ get; };
+
+        SampleComponent CreateSampleComponent();
+    }
+}

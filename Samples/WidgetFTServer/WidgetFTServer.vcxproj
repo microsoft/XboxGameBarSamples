@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Version">
+    <VersionMajor>1</VersionMajor>
+    <VersionMinor>1</VersionMinor>
+    <!-- These should be set by your build process -->
+    <builddate_yy Condition="$(builddate_yy) == ''">24</builddate_yy>
+    <builddate_mm Condition="$(builddate_mm) == ''">08</builddate_mm>
+    <builddate_dd Condition="$(builddate_dd) == ''">27</builddate_dd>
+    <builddate_rrr Condition="$(builddate_rrr) == ''">001</builddate_rrr>
+    <!-- Composite version variants -->
+    <builddate_r>$(builddate_rrr.Substring(2,1))</builddate_r>
+    <VersionMinor_yy>$(VersionMinor)$(builddate_yy)</VersionMinor_yy>
+    <builddate_mmddr>$(builddate_mm)$(builddate_dd)$(builddate_r)</builddate_mmddr>
+    <builddate_yymmddrrr>$(builddate_yy)$(builddate_mm)$(builddate_dd)$(builddate_rrr)</builddate_yymmddrrr>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0DE6D340-193C-4896-80D1-67815A10D3AB}</ProjectGuid>
+    <ProjectName>WidgetFTServer</ProjectName>
+    <RootNamespace>WidgetFTServer</RootNamespace>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <ConfigurationType>Application</ConfigurationType>
+    <SpectreMitigation>Spectre</SpectreMitigation>
+    <MinimalCoreWin>true</MinimalCoreWin>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+    <CppWinRTOptimized>true</CppWinRTOptimized>
+    <CppWinRTLibs>true</CppWinRTLibs>
+    <WindowsTargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.18362.0</WindowsTargetPlatformMinVersion>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '16.0'">v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="BeforeMicrosoftCppProps">
+    <CppWinRTOptimized>true</CppWinRTOptimized>
+    <CppWinRTLibs>true</CppWinRTLibs>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="BeforeMicrosoftCppProps">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="BeforeMicrosoftCppProps">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <!-- Include this file where you would have included Microsoft.Cpp.Props -->
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <!-- LIB, COMPILE, LINK, AND RESOURCE -->
+  <ItemDefinitionGroup>
+    <!-- COMMON Compiler options -->
+    <ClCompile>
+      <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <!-- <ConformanceMode>true</ConformanceMode> -->
+      <!-- /await - enable coawait support -->
+      <!-- /bigobj - supports obj file sizes up to 2^32 -->
+      <!-- /ZH:SHA_256 - use SHA256 algorithm for calculation of file checksums -->
+      <AdditionalOptions>/await /bigobj /ZH:SHA_256 %(AdditionalOptions)</AdditionalOptions>
+      <!--Temporarily disable cppwinrt heap enforcement to work around xaml compiler generated std::shared_ptr use -->
+      <AdditionalOptions>/DWINRT_NO_MAKE_DETECTION %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <!-- Version information -->
+      <PreprocessorDefinitions>
+        %(PreprocessorDefinitions);
+        VERSION_MAJOR=$(VersionMajor);
+        VERSION_MINOR=$(VersionMinor);
+        VERSION_MINOR_YY=$(VersionMinor_yy);
+        VERSION_MMDDR=$(builddate_mmddr);
+        VERSION_YYMMDDRRR=$(builddate_yymmddrrr);
+      </PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory);$(WindowsSdkDir_10)Windows Performance Toolkit;$(GeneratedFilesDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <!-- DEBUG Compiler options -->
+    <ClCompile Condition="'$(Configuration)' == 'Debug'">
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <!-- RELEASE Compiler options -->
+    <ClCompile Condition="'$(Configuration)' == 'Release'">
+      <Optimization>MaxSpeed</Optimization>
+      <ControlFlowGuard>Guard</ControlFlowGuard>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <!-- PREFAST Compiler options -->
+    <ClCompile Condition="'$(Configuration)' == 'Prefast'">
+      <!-- If prefast is enabled, add the flags prefast/analyze needs -->
+      <AdditionalOptions>/analyze /analyze:stacksize32767 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <!-- COMMON Linker options -->
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>/DYNAMICBASE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Platform)'=='x64' OR '$(Platform)'=='Win32'">/CETCOMPAT %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>onecoreuap_apiset.lib;%(AdditionalDependencies);</AdditionalDependencies>
+    </Link>
+    <!-- DEBUG Linker options -->
+    <Link Condition="'$(Configuration)' == 'Debug'">
+    </Link>
+    <!-- RELEASE Linker options -->
+    <Link Condition="'$(Configuration)' == 'Release'">
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalOptions>/GUARD:CF %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <!-- PREFAST Linker options -->
+    <Link Condition="'$(Configuration)' == 'Prefast'">
+      <DetectOneDefinitionRule>true</DetectOneDefinitionRule>
+    </Link>
+    <!-- COMMON Resource -->
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- Version information -->
+      <PreprocessorDefinitions>
+        %(PreprocessorDefinitions);
+        VERSION_MAJOR=$(VersionMajor);
+        VERSION_MINOR=$(VersionMinor);
+        VERSION_MINOR_YY=$(VersionMinor_yy);
+        VERSION_MMDDR=$(builddate_mmddr);
+        VERSION_YYMMDDRRR=$(builddate_yymmddrrr);
+      </PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="cppwinrt_wrl_priv.h" />
+    <ClInclude Include="inc\WidgetFTFactoryClsid.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="resource.h" />
+    <ClCompile Include="SampleComponent\SampleComponent.cpp" />
+    <ClCompile Include="UI\Window.cpp" />
+    <ClCompile Include="UI\WmQuitMonitor.cpp" />
+    <ClCompile Include="WidgetFTFactory.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClInclude Include="SampleComponent\SampleComponent.h" />
+    <ClInclude Include="singleton_base.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="UI\Window.h" />
+    <ClInclude Include="UI\WmQuitMonitor.h" />
+    <ClInclude Include="WidgetFTFactory.h" />
+    <ResourceCompile Include="WidgetFTServer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- <Midl Include="AppTarget\AppTargetManagerFT.idl" /> -->
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="WidgetFTServer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="SampleComponent\SampleComponent.idl" />
+    <Midl Include="WidgetFTFactory.idl" />
+  </ItemGroup>
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.Windows.ImplementationLibrary.1.0.240803.1\build\native\Microsoft.Windows.ImplementationLibrary.targets" Condition="Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.240803.1\build\native\Microsoft.Windows.ImplementationLibrary.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.targets')" />
+  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.240803.1\build\native\Microsoft.Windows.ImplementationLibrary.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.ImplementationLibrary.1.0.240803.1\build\native\Microsoft.Windows.ImplementationLibrary.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+  </Target>
+</Project>

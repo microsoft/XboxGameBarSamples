@@ -1,0 +1,17 @@
+namespace WidgetFTSample
+{
+    [default_interface]
+    runtimeclass Widget1 : Windows.UI.Xaml.Controls.Page, Windows.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        Widget1();
+
+        Boolean CreateFTFactoryButtonEnabled{ get; };
+        Boolean ReleaseFTFactoryButtonEnabled{ get; };
+        Boolean CreateSampleComponentButtonEnabled{ get; };
+        Boolean ReleaseSampleComponentButtonEnabled{ get; };
+        Boolean CallDemoSyncButtonEnabled{ get; };
+        Boolean CallDemoAsyncButtonEnabled{ get; };
+        Boolean DemoBoolPropertyCheckBoxEnabled{ get; };
+        Boolean IsDemoBoolPropertyChecked{ get; };
+    }
+}
